@@ -1,0 +1,23 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<div class="inside">
+    <?php if($this->addEstateForm): ?>
+        <?=$this->estateForm?>
+    <?php endif; ?>
+
+    <?php if($this->addCunter): ?>
+        <div class="counter"><?=$this->cntAbsolute?></div>
+    <?php endif; ?>
+
+    <?php if($this->addList): ?>
+        Ergebnisliste
+    <?php endif; ?>
+
+    <?php if($this->addContactForm): ?>
+        <?=$this->contactForm?>
+    <?php endif; ?>
+</div>
+
+<?php $this->endblock(); ?>

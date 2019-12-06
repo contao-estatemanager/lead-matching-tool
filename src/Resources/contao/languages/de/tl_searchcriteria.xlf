@@ -1,0 +1,64 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_searchcriteria.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_searchcriteria.title_legend">
+        <source>Title / Marketing type</source>
+        <target>Titel / Vermarktung</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.config_legend">
+        <source>Config</source>
+        <target>Konfiguration</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.published_legend">
+        <source>Publish</source>
+        <target>Veröffentlichen</target>
+      </trans-unit>
+
+      <trans-unit id="tl_searchcriteria.title.0">
+        <source>Title / Headline</source>
+        <target>Titel / Überschrift</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.title.1">
+        <source>Here you can enter a title / headline.</source>
+        <target>Geben Sie hie einn Titel / eine Überschrift an.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.tstamp.0">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.marketing.0">
+        <source>Marketng type</source>
+        <target>Vermarktungsart</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.marketing.1">
+        <source>Indicate which marketing you are looking for.</source>
+        <target>Geben Sie an für welche Vermarktung gesucht wird.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.room_from.0">
+        <source>Room from</source>
+        <target>Zimmer ab</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.room_from.1">
+        <source>Specify how many rooms you are looking for (from).</source>
+        <target>Geben Sie an ab wie viel Zimmer gesucht wird.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.room_to.0">
+        <source>Room to</source>
+        <target>Zimmer bis</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.room_to.1">
+        <source>Specify how many rooms you are looking for (to).</source>
+        <target>Geben Sie an bis wie viel Zimmer gesucht wird.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_searchcriteria.published.0">
+        <source>Publish search inquiry</source>
+        <target>Suchanfrage veröffentlichen</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.published.1">
+        <source>Make the search query publicly visible on the website.</source>
+        <target>Diese Suchanfrage auf der Webseite anzeigen.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

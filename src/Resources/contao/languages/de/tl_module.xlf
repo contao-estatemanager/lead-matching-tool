@@ -1,0 +1,96 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_module.form_legend">
+        <source>Forms</source>
+        <target>Formulare</target>
+      </trans-unit>
+      <trans-unit id="tl_module.list_config">
+        <source>List-Config</source>
+        <target>Listen-Konfiguration</target>
+      </trans-unit>
+
+      <trans-unit id="tl_module.addEstateForm.0">
+        <source>Add real estate form</source>
+        <target>Immobilien-Formular hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addEstateForm.1">
+        <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
+        <target>Wird benötigt um die Liste anhand von Immobilien-Eckdaten zu filtern. Ohne Formular wird die komplette Liste gefundener Suchanfragen ausgegeben.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_module.forceList.0">
+        <source>Always display list</source>
+        <target>Liste immer anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.forceList.1">
+        <source>Outputs the list of search inquiries already without filtering.</source>
+        <target>Gibt die Liste mit Suchanfragen bereits ohne Filterung aus.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.forceContact.0">
+        <source>Always display contact form</source>
+        <target>Kontaktformular immer anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.forceContact.1">
+        <source>Outputs the contact form already without filtering.</source>
+        <target>Gibt die Kontaktmöglichkeit bereits ohne Filterung aus.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addContactForm.0">
+        <source>Add contact form</source>
+        <target>Kontaktformular hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.addContactForm.1">
+        <source>Allows you to contact specific search inquiries.</source>
+        <target>Ermöglicht die Kontaktaufnahme bestimmter Suchanfragen.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtCountResults.0">
+        <source>Display quantity</source>
+        <target>Anzahl anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtCountResults.1">
+        <source>Returns the number of found entries.</source>
+        <target>Gibt die Anzahl gefundener Einträge aus.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.estateForm.0">
+        <source>Estatedata Form</source>
+        <target>Immobiliendaten Formular</target>
+      </trans-unit>
+      <trans-unit id="tl_module.estateForm.1">
+        <source>Please select a form.</source>
+        <target>Bitte wählen Sie ein Formular.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.contactForm.0">
+        <source>Contact Form</source>
+        <target>Kontaktformular</target>
+      </trans-unit>
+      <trans-unit id="tl_module.contactForm.1">
+        <source>Please select a form.</source>
+        <target>Bitte wählen Sie ein Formular.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtMode.0">
+        <source>Data reference</source>
+        <target>Datenbestand</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtMode.1">
+        <source>Define where the data is to be obtained from</source>
+        <target>Definieren Sie woher die Daten bezogen werden sollen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtMarketing.0">
+        <source>Marketing type</source>
+        <target>Vermarktungsart</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtMarketing.1">
+        <source>Specify the marketing type. If the field is left empty, all marketing types are taken into account.</source>
+        <target>Geben Sie die Vermarktungsart an. Sollte das Feld leer gelassen werden, werden alle Vermarktungsarten berücksichtigt.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtMetaFields.0">
+        <source>Field metadata</source>
+        <target>Feld Meta-Daten</target>
+      </trans-unit>
+      <trans-unit id="tl_module.lmtMetaFields.1">
+        <source>Define the fields to display.</source>
+        <target>Definieren Sie die anzuzeigenden Felder.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
