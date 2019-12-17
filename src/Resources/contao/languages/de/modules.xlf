@@ -18,6 +18,15 @@
         <source>Manage search inquiries</source>
         <target>Suchanfragen verwalten</target>
       </trans-unit>
+
+      <trans-unit id="MOD.leadmatching.0">
+        <source>Lead-Matching</source>
+        <target>Käufer- / Mieterfinder</target>
+      </trans-unit>
+      <trans-unit id="MOD.leadmatching.1">
+        <source>Manage lead matching configurations</source>
+        <target>Käufer- / Miterfinderkonfigurationen verwalten</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

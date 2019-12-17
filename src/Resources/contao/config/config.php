@@ -16,11 +16,15 @@ if(ContaoEstateManager\LeadMatchingTool\AddonManager::valid()) {
     // Back end modules
     array_insert($GLOBALS['BE_MOD'], -1, array
     (
-        'tools' => array
+        'real_estate' => array
         (
             'searchcriteria' => array
             (
                 'tables'                => array('tl_searchcriteria'),
+            ),
+            'leadmatching' => array
+            (
+                'tables'                => array('tl_lead_matching'),
             )
         )
     ));
@@ -29,11 +33,6 @@ if(ContaoEstateManager\LeadMatchingTool\AddonManager::valid()) {
     $GLOBALS['FE_MOD']['miscellaneous']['leadMatching'] = '\\ContaoEstateManager\\LeadMatchingTool\\ModuleLeadMatching';
 
     // Models
-    $GLOBALS['TL_MODELS']['tl_searchcriteria'] = '\\ContaoEstateManager\\LeadMatchingTool\\LeadMatchingModel';
-
-    // Style sheet
-    if (TL_MODE == 'BE')
-    {
-        $GLOBALS['TL_CSS'][] = 'bundles/estatemanagerleadmatchingtool/tools.css|static';
-    }
+    $GLOBALS['TL_MODELS']['tl_searchcriteria'] = '\\ContaoEstateManager\\LeadMatchingTool\\SearchcriteriaModel';
+    $GLOBALS['TL_MODELS']['tl_lead_matching']  = '\\ContaoEstateManager\\LeadMatchingTool\\LeadMatchingModel';
 }

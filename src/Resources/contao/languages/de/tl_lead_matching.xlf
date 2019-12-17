@@ -1,0 +1,204 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_lead_matching.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_lead_matching.title_legend">
+        <source>Titel</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.config_legend">
+        <source>Base-Configuration</source>
+        <target>Basis-Konfiguration</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.searchcriteria_legend">
+        <source>Searchcriteria</source>
+        <target>Suchanfragen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estate_form_legend">
+        <source>Estate form</source>
+        <target>Immobilienformular</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contact_form_legend">
+        <source>Contact form</source>
+        <target>Kontaktformular</target>
+      </trans-unit>
+
+      <trans-unit id="tl_lead_matching.addEstateForm.0">
+        <source>Add real estate form</source>
+        <target>Immobilien-Formular hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addEstateForm.1">
+        <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
+        <target>Wird benötigt um die Liste anhand von Immobilien-Eckdaten zu filtern. Ohne Formular wird die komplette Liste gefundener Suchanfragen ausgegeben.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_lead_matching.title.0">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.title.1">
+        <source>Define here a title for the configuration.</source>
+        <target>Geben Sie hier einen Titel für die Konfiguration an.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.forceList.0">
+        <source>Always display list</source>
+        <target>Liste immer anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.forceList.1">
+        <source>Outputs the list of search inquiries already without filtering.</source>
+        <target>Gibt die Liste mit Suchanfragen bereits ohne Filterung aus.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.forceContact.0">
+        <source>Always display contact form</source>
+        <target>Kontaktformular immer anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.forceContact.1">
+        <source>Outputs the contact form already without filtering.</source>
+        <target>Gibt die Kontaktmöglichkeit bereits ohne Filterung aus.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addContactForm.0">
+        <source>Add contact form</source>
+        <target>Kontaktformular hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addContactForm.1">
+        <source>Allows you to contact specific search inquiries.</source>
+        <target>Ermöglicht die Kontaktaufnahme bestimmter Suchanfragen.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addBlankObjectType.0">
+        <source>Include blank option for object types</source>
+        <target>Leerauswahl für Objektarten hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addBlankObjectType.1">
+        <source>Includes a blank option to the object types in the frontend.</source>
+        <target>Fügt den Objektarten eine Leerauswahl im Frontend hinzu.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addBlankRegion.0">
+        <source>Include blank option for regions</source>
+        <target>Leerauswahl für Regionen hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addBlankRegion.1">
+        <source>Includes a blank option to the object types in the frontend.</source>
+        <target>Fügt den Regionen eine Leerauswahl im Frontend hinzu.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addBlankSalutation.0">
+        <source>Include blank option for salutation</source>
+        <target>Leerauswahl für die Anrede hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.addBlankSalutation.1">
+        <source>Includes a blank option to the salutation field in the frontend.</source>
+        <target>Fügt der Anrede eine Leerauswahl im Frontend hinzu.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.countResults.0">
+        <source>Display quantity</source>
+        <target>Anzahl anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.countResults.1">
+        <source>Returns the number of found entries.</source>
+        <target>Gibt die Anzahl gefundener Einträge aus.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormTemplate.0">
+        <source>Estatedata Form Template</source>
+        <target>Immobiliendaten Formular-Template</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormTemplate.1">
+        <source>Please select a template.</source>
+        <target>Bitte wählen Sie ein Template.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormTemplate.0">
+        <source>Contact Form Template</source>
+        <target>Kontaktformular-Template</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormTemplate.1">
+        <source>Please select a template.</source>
+        <target>Bitte wählen Sie ein Formular-Template.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.listItemTemplate.0">
+        <source>List Item Template</source>
+        <target>Listen Element Template</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.listItemTemplate.1">
+        <source>Please select a template.</source>
+        <target>Bitte wählen Sie ein Template.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.type.0">
+        <source>Source data</source>
+        <target>Quelldaten</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.type.1">
+        <source>Define where the data is to be obtained from</source>
+        <target>Definieren Sie woher die Daten bezogen werden sollen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.marketingType.0">
+        <source>Marketing type</source>
+        <target>Vermarktungsart</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.marketingType.1">
+        <source>Specify the marketing type. If the field is left empty, all marketing types are taken into account.</source>
+        <target>Geben Sie die Vermarktungsart an. Sollte das Feld leer gelassen werden, werden alle Vermarktungsarten berücksichtigt.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.listMetaFields.0">
+        <source>Field metadata</source>
+        <target>Feld Meta-Daten</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.listMetaFields.1">
+        <source>Define the fields to display.</source>
+        <target>Definieren Sie die anzuzeigenden Felder.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
+        <source>Estate form fields</source>
+        <target>Immobilien-Formularfelder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
+        <source>Define the fields to display.</source>
+        <target>Definieren Sie die anzuzeigenden Felder.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormMetaFields.0">
+        <source>Contact form fields</source>
+        <target>Kontakt-Formularfelder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormMetaFields.1">
+        <source>Define the fields to display.</source>
+        <target>Definieren Sie die anzuzeigenden Felder.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.0">
+        <source>Estate form mandatory fields</source>
+        <target>Immobilien-Formular Pflichtfelder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.1">
+        <source>Define the fields to display as mandatory.</source>
+        <target>Definieren Sie die Pflichtfelder.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.0">
+        <source>Contact form mandatory fields</source>
+        <target>Kontakt-Formular Pflichtfelder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.1">
+        <source>Define the fields to display as mandatory.</source>
+        <target>Definieren Sie die Pflichtfelder.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.objectTypes.0">
+        <source>Objecttypes</source>
+        <target>Objektarten</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.objectTypes.1">
+        <source>Define the Object types.</source>
+        <target>Definieren Sie die anzuzeigenden Objektarten.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.regions.0">
+        <source>Regions</source>
+        <target>Regionen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.regions.1">
+        <source>Define the regions to display.</source>
+        <target>Definieren Sie die anzuzeigenden Regionen.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.salutationFields.0">
+        <source>Salutation fields</source>
+        <target>Anrede-Felder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.salutationFields.1">
+        <source>Define here the possible salutation fields.</source>
+        <target>Definieren Sie hier die möglichen Anrede-Felder.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

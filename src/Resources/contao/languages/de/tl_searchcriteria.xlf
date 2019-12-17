@@ -34,6 +34,14 @@
         <source>Indicate which marketing you are looking for.</source>
         <target>Geben Sie an für welche Vermarktung gesucht wird.</target>
       </trans-unit>
+      <trans-unit id="tl_searchcriteria.regions.0">
+        <source>Regions</source>
+        <target>Regionen</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.regions.1">
+        <source>Define the regions.</source>
+        <target>Definieren Sie die Regionen.</target>
+      </trans-unit>
       <trans-unit id="tl_searchcriteria.room_from.0">
         <source>Room from</source>
         <target>Zimmer ab</target>

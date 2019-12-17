@@ -62,33 +62,33 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
         (
             'edit' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_provider']['edit'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_searchcriteria']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'edit.svg'
             ),
             'copy' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_provider']['copy'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_searchcriteria']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.svg',
             ),
             'delete' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_provider']['delete'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_searchcriteria']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.svg',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
             ),
             'toggle' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_provider']['toggle'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_searchcriteria']['toggle'],
                 'icon'                => 'visible.svg',
-                'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s,\'tl_provider\')"',
+                'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s,\'tl_searchcriteria\')"',
                 'button_callback'     => array('tl_searchcriteria', 'toggleIcon')
             ),
             'show' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_provider']['show'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_searchcriteria']['show'],
                 'href'                => 'act=show',
                 'icon'                => 'show.svg'
             )
@@ -98,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{title_legend},title,marketing;{config_legend},room_from,room_to;{published_legend},published'
+        'default'                     => '{title_legend},title,marketing;{config_legend},regions,room_from,room_to;{published_legend},published'
     ),
 
     // Fields
@@ -131,11 +131,18 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
             'eval'                      => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(16) NOT NULL default ''"
         ),
+        'regions' => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_searchcriteria']['regions'],
+            'inputType'                 => 'regionTree',
+            'eval'                      => array('multiple'=>true, 'fieldType'=>'checkbox', 'tl_class'=>'w50 clr'),
+            'sql'                       => "blob NULL",
+        ),
         'room_from' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['room_from'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'room_to' => array
@@ -176,7 +183,7 @@ class tl_searchcriteria extends Backend
     }
 
     /**
-     * Check permissions to edit table tl_provider
+     * Check permissions to edit table tl_searchcriteria
      *
      * @throws Contao\CoreBundle\Exception\AccessDeniedException
      */

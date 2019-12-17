@@ -1,0 +1,12 @@
+<div class="ce_form block">
+    <form action="<?=$this->action?>" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="formbody">
+            <input type="hidden" name="FORM_SUBMIT" value="<?=$this->formId?>">
+            <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+            <?=$this->fields?>
+            <div class="widget widget-submit">
+                <button type="submit" class="submit"><?=$this->submit?></button>
+            </div>
+        </div>
+    </form>
+</div>

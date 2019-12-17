@@ -4,19 +4,23 @@
 
 <div class="inside">
     <?php if($this->addEstateForm): ?>
-        <?=$this->estateForm?>
+        <section id="estate-form">
+            <?=$this->estateForm?>
+        </section>
     <?php endif; ?>
-
     <?php if($this->addCunter): ?>
-        <div class="counter"><?=$this->cntAbsolute?></div>
+        <div class="counter"><?=$this->cntTotal?></div>
     <?php endif; ?>
-
     <?php if($this->addList): ?>
-        Ergebnisliste
+        <section id="result-list">
+            <?= implode('', $this->items) ?>
+            <?=$this->pagination?>
+        </section>
     <?php endif; ?>
-
     <?php if($this->addContactForm): ?>
-        <?=$this->contactForm?>
+        <section id="contact-form">
+            <?=$this->contactForm?>
+        </section>
     <?php endif; ?>
 </div>
 
