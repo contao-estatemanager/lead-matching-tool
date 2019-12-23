@@ -13,14 +13,6 @@
         <source>Marketing Type</source>
         <target>Vermarktungsart</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.room_from">
-        <source>Rooms from</source>
-        <target>Zimmer ab</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.room_to">
-        <source>Rooms to</source>
-        <target>Zimmer bis</target>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.tstamp">
         <source>Date</source>
         <target>Datum</target>
@@ -37,17 +29,29 @@
         <source>Regions</source>
         <target>Regionen</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.rooms">
-        <source>Rooms</source>
-        <target>Zimmer</target>
+      <trans-unit id="tl_lead_matching_meta.room_from">
+        <source>Rooms from</source>
+        <target>Zimmer ab</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.area">
-        <source>Area</source>
-        <target>Fläche</target>
+      <trans-unit id="tl_lead_matching_meta.room_to">
+        <source>Rooms to</source>
+        <target>Zimmer bis</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.price">
-        <source>Price</source>
-        <target>Preis</target>
+      <trans-unit id="tl_lead_matching_meta.area_from">
+        <source>Area from</source>
+        <target>Fläche ab</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.area_to">
+        <source>Area to</source>
+        <target>Fläche bis</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.price_from">
+        <source>Price from</source>
+        <target>Preis ab</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.price_to">
+        <source>Price to</source>
+        <target>Preis bis</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.salutation">
         <source>Salutation</source>

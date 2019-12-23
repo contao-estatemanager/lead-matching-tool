@@ -98,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{title_legend},title,marketing;{config_legend},regions,room_from,room_to;{published_legend},published'
+        'default'                     => '{title_legend},title,marketing;{config_legend},regions,room_from,room_to,area_from,area_to,price_from,price_to;{published_legend},published'
     ),
 
     // Fields
@@ -137,6 +137,9 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
             'inputType'                 => 'regionTree',
             'eval'                      => array('multiple'=>true, 'fieldType'=>'checkbox', 'tl_class'=>'w50 clr'),
             'sql'                       => "blob NULL",
+            'save_callback'             => array(
+                array("ContaoEstateManager\\RegionEntity\\Region", "regionConnectionSaveCallback")
+            )
         ),
         'room_from' => array
         (
@@ -148,6 +151,34 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
         'room_to' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['room_to'],
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'area_from' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['area_from'],
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'area_to' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['area_to'],
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'price_from' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_from'],
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'price_to' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"

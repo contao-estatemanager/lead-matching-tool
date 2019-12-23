@@ -468,11 +468,7 @@ class ModuleLeadMatching extends \Module
         $arrValues  = array();
         $arrOptions = array();
 
-        if($this->config->marketingType)
-        {
-            $arrColumns[] = 'marketing=?';
-            $arrValues[]  = $this->config->marketingType;
-        }
+        $this->setFilterAttributes($arrColumns, $arrValues);
 
         return SearchcriteriaModel::countBy($arrColumns, $arrValues, $arrOptions);
     }
@@ -501,12 +497,6 @@ class ModuleLeadMatching extends \Module
         $arrValues  = array();
         $arrOptions = array();
 
-        if($this->config->marketingType)
-        {
-            $arrColumns[] = 'marketing=?';
-            $arrValues[]  = $this->config->marketingType;
-        }
-
         if($limit)
         {
             $arrOptions['limit'] = $limit;
@@ -530,6 +520,12 @@ class ModuleLeadMatching extends \Module
      */
     public function setFilterAttributes(&$arrColumns, &$arrValues)
     {
+        if($this->config->marketingType)
+        {
+            $arrColumns[] = 'marketing=?';
+            $arrValues[]  = $this->config->marketingType;
+        }
+
         // ToDo: Filter
 
         if(is_array($_SESSION['LEAD_MATCHING']['estate']))

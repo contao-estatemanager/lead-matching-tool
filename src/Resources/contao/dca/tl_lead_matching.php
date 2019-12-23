@@ -175,7 +175,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
             'inputType'                 => 'checkboxWizard',
-            'options'                   => array('objecttypes', 'regions', 'rooms', 'area', 'price'),
+            'options'                   => array('objecttypes', 'regions', 'room_from', 'area_from', 'price_from'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
             'sql'                       => "text NULL"
@@ -184,7 +184,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
             'inputType'                 => 'checkbox',
-            'options'                   => array('objecttypes', 'regions', 'rooms', 'area', 'price'),
+            'options'                   => array('objecttypes', 'regions', 'room_from', 'area_from', 'price_from'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
             'sql'                       => "text NULL"
