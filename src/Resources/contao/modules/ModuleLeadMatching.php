@@ -11,7 +11,8 @@
 namespace ContaoEstateManager\LeadMatchingTool;
 
 use Contao\CoreBundle\Exception\PageNotFoundException;
-use ContaoEstateManager\RegionEntity\RegionsModel;
+use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
+use ContaoEstateManager\RegionEntity\RegionModel;
 use Patchwork\Utf8;
 
 /**
@@ -26,6 +27,12 @@ class ModuleLeadMatching extends \Module
      * @var string
      */
     protected $strTemplate = 'mod_lead_matching';
+
+    /**
+     * Table
+     * @var string
+     */
+    protected $strTable = 'tl_searchcriteria';
 
     /**
      * Configuration
@@ -338,7 +345,7 @@ class ModuleLeadMatching extends \Module
 
                     break;
 
-                case 'objecttypes':
+                case 'objectTypes':
                     $arrData['inputType'] = 'select';
                     $arrData['options'] = array();
 
@@ -347,13 +354,19 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions = \StringUtil::deserialize($this->config->objectTypes, true);
+                    $arrOptions = \StringUtil::deserialize($this->config->objectTypes);
 
-                    if(!empty($arrOptions))
+                    if($arrOptions !== null)
                     {
-                        foreach ($arrOptions as $opt)
+                        /** @var $objObjectTypes */
+                        $objObjectTypes = ObjectTypeModel::findMultipleByIds($arrOptions);
+
+                        if($objObjectTypes !== null)
                         {
-                            $arrData['options'][ $opt['key'] ] = $opt['value'];
+                            while ($objObjectTypes->next())
+                            {
+                                $arrData['options'][ $objObjectTypes->id ] = $objObjectTypes->title;
+                            }
                         }
                     }
                     break;
@@ -372,7 +385,7 @@ class ModuleLeadMatching extends \Module
                     if($arrRegions !== null)
                     {
                         /** @var $objRegions */
-                        $objRegions = RegionsModel::findMultipleByIds($arrRegions);
+                        $objRegions = RegionModel::findMultipleByIds($arrRegions);
 
                         if($objRegions !== null)
                         {
@@ -464,13 +477,7 @@ class ModuleLeadMatching extends \Module
             }
         }
 
-        $arrColumns = array('published=1');
-        $arrValues  = array();
-        $arrOptions = array();
-
-        $this->setFilterAttributes($arrColumns, $arrValues);
-
-        return SearchcriteriaModel::countBy($arrColumns, $arrValues, $arrOptions);
+        return SearchcriteriaModel::countPublishedByFilteredAttributes($this->config);
     }
 
     /**
@@ -479,7 +486,7 @@ class ModuleLeadMatching extends \Module
      * @param $limit
      * @param $offset
      *
-     * @return SearchcriteriaModel|null
+     * @return \Contao\Model\Collection|null
      */
     public function fetch($limit, $offset)
     {
@@ -493,8 +500,6 @@ class ModuleLeadMatching extends \Module
             }
         }
 
-        $arrColumns = array('published=1');
-        $arrValues  = array();
         $arrOptions = array();
 
         if($limit)
@@ -507,38 +512,6 @@ class ModuleLeadMatching extends \Module
             $arrOptions['offset'] = $offset;
         }
 
-        $this->setFilterAttributes($arrColumns, $arrValues);
-
-        return SearchcriteriaModel::findBy($arrColumns, $arrValues, $arrOptions);
-    }
-
-    /**
-     * Set data from estate form to filter the database results
-     *
-     * @param $arrColumns
-     * @param $arrValues
-     */
-    public function setFilterAttributes(&$arrColumns, &$arrValues)
-    {
-        if($this->config->marketingType)
-        {
-            $arrColumns[] = 'marketing=?';
-            $arrValues[]  = $this->config->marketingType;
-        }
-
-        // ToDo: Filter
-
-        if(is_array($_SESSION['LEAD_MATCHING']['estate']))
-        {
-            foreach ($_SESSION['LEAD_MATCHING']['estate'] as $field => $value)
-            {
-                #$arrColumns[]
-            }
-        }
-
-        if(isset($_SESSION['LEAD_MATCHING']['estate']['objecttypes']))
-        {
-            $arrColumns[] = 'objetTypes=?';
-        }
+        return SearchcriteriaModel::findPublishedByFilteredAttributes($this->config, $arrOptions);
     }
 }

@@ -144,8 +144,9 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'objectTypes' => array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['objectTypes'],
-            'inputType'                 => 'keyValueWizard',
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
+            'inputType'                 => 'checkboxWizard',
+            'options_callback'          => array('tl_lead_matching', 'getObjectTypes'),
+            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
             'sql'                       => "blob NULL",
         ),
         'regions' => array
@@ -175,7 +176,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
             'inputType'                 => 'checkboxWizard',
-            'options'                   => array('objecttypes', 'regions', 'room_from', 'area_from', 'price_from'),
+            'options'                   => array('objectTypes', 'regions', 'room', 'area', 'price'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
             'sql'                       => "text NULL"
@@ -184,7 +185,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
             'inputType'                 => 'checkbox',
-            'options'                   => array('objecttypes', 'regions', 'room_from', 'area_from', 'price_from'),
+            'options'                   => array('objectTypes', 'regions', 'room', 'area', 'price'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
             'sql'                       => "text NULL"
@@ -295,6 +296,9 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
+
+use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
+
 class tl_lead_matching extends Backend
 {
 
@@ -315,6 +319,28 @@ class tl_lead_matching extends Backend
     public function checkPermission()
     {
         return;
+    }
+
+    /**
+     * Returns an array of object types
+     *
+     * @return array
+     */
+    public function getObjectTypes()
+    {
+        $arrOptions = array();
+
+        $objObjectTypes = ObjectTypeModel::findAll();
+
+        if($objObjectTypes !== null)
+        {
+           while($objObjectTypes->next())
+           {
+               $arrOptions[ $objObjectTypes->id ] = $objObjectTypes->title;
+           }
+        }
+
+        return $arrOptions;
     }
 
     /**

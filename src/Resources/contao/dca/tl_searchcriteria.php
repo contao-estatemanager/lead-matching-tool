@@ -98,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{title_legend},title,marketing;{config_legend},regions,room_from,room_to,area_from,area_to,price_from,price_to;{published_legend},published'
+        'default'                     => '{title_legend},title,marketing;{config_legend},objectTypes,regions,room_from,room_to,area_from,area_to,price_from,price_to;{published_legend},published'
     ),
 
     // Fields
@@ -130,6 +130,17 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
             'options'                   => array('kauf', 'miete'),
             'eval'                      => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(16) NOT NULL default ''"
+        ),
+        'objectTypes' => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_searchcriteria']['objectTypes'],
+            'inputType'                 => 'checkboxWizard',
+            'options_callback'          => array('tl_searchcriteria', 'getObjectTypes'),
+            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
+            'sql'                       => "blob NULL",
+            'save_callback'             => array(
+                array("ContaoEstateManager\\ObjectTypeEntity\\ObjectType", "objectTypeConnectionSaveCallback")
+            )
         ),
         'regions' => array
         (
@@ -201,6 +212,9 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
+
+use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
+
 class tl_searchcriteria extends Backend
 {
 
@@ -221,6 +235,28 @@ class tl_searchcriteria extends Backend
     public function checkPermission()
     {
         return;
+    }
+
+    /**
+     * Returns an array of object types
+     *
+     * @return array
+     */
+    public function getObjectTypes()
+    {
+        $arrOptions = array();
+
+        $objObjectTypes = ObjectTypeModel::findAll();
+
+        if($objObjectTypes !== null)
+        {
+            while($objObjectTypes->next())
+            {
+                $arrOptions[ $objObjectTypes->id ] = $objObjectTypes->title;
+            }
+        }
+
+        return $arrOptions;
     }
 
     /**

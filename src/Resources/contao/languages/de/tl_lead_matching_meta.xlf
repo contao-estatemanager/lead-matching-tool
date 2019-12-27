@@ -21,13 +21,17 @@
         <source>Date</source>
         <target>Datum</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.objecttypes">
+      <trans-unit id="tl_lead_matching_meta.objectTypes">
         <source>Object types</source>
         <target>Objektarten</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.regions">
         <source>Regions</source>
         <target>Regionen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.room">
+        <source>Rooms</source>
+        <target>Zimmer</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.room_from">
         <source>Rooms from</source>
@@ -37,6 +41,10 @@
         <source>Rooms to</source>
         <target>Zimmer bis</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.area">
+        <source>Area</source>
+        <target>Fläche</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.area_from">
         <source>Area from</source>
         <target>Fläche ab</target>
@@ -44,6 +52,10 @@
       <trans-unit id="tl_lead_matching_meta.area_to">
         <source>Area to</source>
         <target>Fläche bis</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.price">
+        <source>Price</source>
+        <target>Preis</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.price_from">
         <source>Price from</source>

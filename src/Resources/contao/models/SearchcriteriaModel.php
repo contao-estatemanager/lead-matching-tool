@@ -50,4 +50,107 @@ class SearchcriteriaModel extends \Model
      * @var string
      */
     protected static $strTable = 'tl_searchcriteria';
+
+    /**
+     * Return filtered search criteria
+     *
+     * @param $config
+     * @param $arrOptions
+     *
+     * @return \Contao\Model\Collection|null
+     */
+    public static function findPublishedByFilteredAttributes($config, $arrOptions)
+    {
+        $strTable = static::$strTable;
+        $strQuery = static::buildFilterQuery($config);
+
+        $objResult = \Database::getInstance()->prepare('SELECT ' . $strTable . '.* FROM ' . $strTable . $strQuery);
+
+        if ($arrOptions['limit'] && $arrOptions['offset'])
+        {
+            $objResult->limit($arrOptions['limit'], $arrOptions['offset']);
+        }
+        elseif ($arrOptions['limit'])
+        {
+            $objResult->limit($arrOptions['limit']);
+        }
+
+        $dbResult = $objResult->execute();
+
+        if ($dbResult->numRows < 1)
+        {
+            return null;
+        }
+
+        return static::createCollectionFromDbResult($dbResult, $strTable);
+    }
+
+    /**
+     * Return the number of filtered results
+     *
+     * @param $config
+     *
+     * @return int
+     */
+    public static function countPublishedByFilteredAttributes($config)
+    {
+        $strTable = static::$strTable;
+        $strQuery = static::buildFilterQuery($config);
+
+        $objCount = \Database::getInstance()->execute('SELECT COUNT(' . $strTable . '.id) FROM ' . $strTable . $strQuery);
+
+        return $objCount->numRows;
+    }
+
+    /**
+     * Build query string
+     *
+     * @param $config
+     *
+     * @return string
+     */
+    private static function buildFilterQuery($config)
+    {
+        $strTable = static::$strTable;
+        $arrQuery = array($strTable . '.published=1');
+        $strQuery = '';
+
+        if($config->marketingType)
+        {
+            $arrQuery[] = 'AND ' . $strTable . '.marketing=' . $config->marketingType;
+        }
+
+        if(is_array($_SESSION['LEAD_MATCHING']['estate']))
+        {
+            foreach ($_SESSION['LEAD_MATCHING']['estate'] as $field => $value)
+            {
+                if($value)
+                {
+                    switch($field)
+                    {
+                        case 'objectTypes':
+                            $strConnectTable = 'tl_object_type_connection';
+                            $strQuery .= ' LEFT JOIN ' . $strConnectTable .' ON ' . $strConnectTable . '.pid=' . $strTable . '.id';
+                            $arrQuery[] = 'AND ((' . $strConnectTable . '.oid=' . $value . ' AND ' . $strConnectTable . '.ptable="' . $strTable . '") OR ' . $strTable . '.objectTypes IS NULL)';
+                            break;
+
+                        case 'regions':
+                            $strConnectTable = 'tl_region_connection';
+                            $strQuery .= ' LEFT JOIN ' . $strConnectTable .' ON ' . $strConnectTable . '.pid=' . $strTable . '.id';
+                            $arrQuery[] = 'AND ((' . $strConnectTable . '.rid=' . $value . ' AND ' . $strConnectTable . '.ptable="' . $strTable . '") OR ' . $strTable . '.regions IS NULL)';
+                            break;
+
+                        case 'room':
+                        case 'price':
+                        case 'area':
+                            $arrQuery[] = 'AND ' . $strTable . '.' . $field . '_from' . '<=' . $value . ' AND ' . $strTable . '.' . $field . '_to' . '>=' . $value;
+                            break;
+                    }
+                }
+            }
+        }
+
+        // return query string
+        return $strQuery . ' WHERE ' . implode(' ', $arrQuery) . ' GROUP BY ' . $strTable . '.id';
+    }
 }

@@ -180,8 +180,8 @@
         <target>Objektarten</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.objectTypes.1">
-        <source>Define the Object types.</source>
-        <target>Definieren Sie die anzuzeigenden Objektarten.</target>
+        <source>Choose the Object types.</source>
+        <target>Wählen Sie die anzuzeigenden Objektarten.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.regions.0">
         <source>Regions</source>
