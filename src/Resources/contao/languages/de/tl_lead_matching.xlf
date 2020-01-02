@@ -199,6 +199,14 @@
         <source>Define here the possible salutation fields.</source>
         <target>Definieren Sie hier die möglichen Anrede-Felder.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.mailSubject.0">
+        <source>Mail subject</source>
+        <target>E-Mail Betreff</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.mailSubject.1">
+        <source>Define here the mail sibject.</source>
+        <target>Definieren Sie hier einen E-Mailbetreff.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -100,7 +100,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     'subpalettes' => array
     (
         'addEstateForm'               => 'estateFormTemplate,forceList,estateFormMetaFields,estateFormMetaFieldsMandatory',
-        'addContactForm'              => 'contactFormTemplate,forceContact,contactFormMetaFields,contactFormMetaFieldsMandatory,salutationFields,addBlankSalutation'
+        'addContactForm'              => 'contactFormTemplate,forceContact,contactFormMetaFields,contactFormMetaFieldsMandatory,salutationFields,addBlankSalutation,mailSubject'
     ),
 
     // Fields
@@ -138,6 +138,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'inputType'                 => 'select',
             'sorting'                   => true,
             'options'                   => array('kauf', 'miete'),
+            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(16) NOT NULL default ''"
         ),
@@ -176,7 +177,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
             'inputType'                 => 'checkboxWizard',
-            'options'                   => array('objectTypes', 'regions', 'room', 'area', 'price'),
+            'options'                   => array('marketingType', 'objectTypes', 'regions', 'room', 'area', 'price'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
             'sql'                       => "text NULL"
@@ -185,7 +186,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
             'inputType'                 => 'checkbox',
-            'options'                   => array('objectTypes', 'regions', 'room', 'area', 'price'),
+            'options'                   => array('marketingType', 'objectTypes', 'regions', 'room', 'area', 'price'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
             'sql'                       => "text NULL"
@@ -287,7 +288,14 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'options_callback'        => array('tl_lead_matching', 'getListItemTemplates'),
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
-        )
+        ),
+        'mailSubject' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailSubject'],
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
     )
 );
 

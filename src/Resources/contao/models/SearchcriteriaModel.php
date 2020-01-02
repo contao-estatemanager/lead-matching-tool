@@ -56,13 +56,14 @@ class SearchcriteriaModel extends \Model
      *
      * @param $config
      * @param $arrOptions
+     * @param null $data
      *
      * @return \Contao\Model\Collection|null
      */
-    public static function findPublishedByFilteredAttributes($config, $arrOptions)
+    public static function findPublishedByFilteredAttributes($config, $arrOptions, $data=null)
     {
         $strTable = static::$strTable;
-        $strQuery = static::buildFilterQuery($config);
+        $strQuery = static::buildFilterQuery($config, $data);
 
         $objResult = \Database::getInstance()->prepare('SELECT ' . $strTable . '.* FROM ' . $strTable . $strQuery);
 
@@ -89,13 +90,14 @@ class SearchcriteriaModel extends \Model
      * Return the number of filtered results
      *
      * @param $config
+     * @param null $data
      *
      * @return int
      */
-    public static function countPublishedByFilteredAttributes($config)
+    public static function countPublishedByFilteredAttributes($config, $data=null)
     {
         $strTable = static::$strTable;
-        $strQuery = static::buildFilterQuery($config);
+        $strQuery = static::buildFilterQuery($config, $data);
 
         $objCount = \Database::getInstance()->execute('SELECT COUNT(' . $strTable . '.id) FROM ' . $strTable . $strQuery);
 
@@ -106,28 +108,39 @@ class SearchcriteriaModel extends \Model
      * Build query string
      *
      * @param $config
+     * @param null $data
      *
      * @return string
      */
-    private static function buildFilterQuery($config)
+    private static function buildFilterQuery($config, $data=null)
     {
         $strTable = static::$strTable;
         $arrQuery = array($strTable . '.published=1');
         $strQuery = '';
 
-        if($config->marketingType)
+        if($data === null)
         {
-            $arrQuery[] = 'AND ' . $strTable . '.marketing=' . $config->marketingType;
+            $data = $_SESSION['LEAD_MATCHING']['estate'];
         }
 
-        if(is_array($_SESSION['LEAD_MATCHING']['estate']))
+        // set marketing type if is not possible to choose manually
+        if($config->marketingType)
         {
-            foreach ($_SESSION['LEAD_MATCHING']['estate'] as $field => $value)
+            $arrQuery[] = 'AND ' . $strTable . '.marketing="' . $config->marketingType . '"';
+        }
+
+        if(is_array($data))
+        {
+            foreach ($data as $field => $value)
             {
                 if($value)
                 {
                     switch($field)
                     {
+                        case 'marketingType':
+                            $arrQuery[] = 'AND marketing="' . $value . '"';
+                            break;
+
                         case 'objectTypes':
                             $strConnectTable = 'tl_object_type_connection';
                             $strQuery .= ' LEFT JOIN ' . $strConnectTable .' ON ' . $strConnectTable . '.pid=' . $strTable . '.id';

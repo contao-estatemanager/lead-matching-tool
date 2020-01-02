@@ -3,7 +3,6 @@
         <div class="formbody">
             <input type="hidden" name="FORM_SUBMIT" value="<?=$this->formId?>">
             <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
-            <?=$this->hidden?>
             <?=$this->fields?>
             <div class="widget widget-submit">
                 <button type="submit" class="submit"><?=$this->submit?></button>

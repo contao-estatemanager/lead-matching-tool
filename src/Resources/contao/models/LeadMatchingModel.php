@@ -37,6 +37,7 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @property string  $estateFormTemplate
  * @property string  $contactFormTemplate
  * @property string  $listItemTemplate
+ * @property string  $mailSubject
  *
  * @method static LeadMatchingModel|null findById($id, array $opt=array())
  * @method static LeadMatchingModel|null findOneBy($col, $val, $opt=array())

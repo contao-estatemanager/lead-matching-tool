@@ -1,0 +1,10 @@
+leadmatching_read:
+  path: /leadmatching/{module}/{id}
+  defaults:
+    _controller: "EstateManagerLeadMatchingTool:LeadMatching:read"
+    _scope: frontend
+    _token_check: false
+    id: null
+  requirements:
+    version: '\d+'
+  methods: [GET]

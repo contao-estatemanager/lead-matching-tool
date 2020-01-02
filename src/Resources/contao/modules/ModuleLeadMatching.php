@@ -110,6 +110,19 @@ class ModuleLeadMatching extends \Module
         {
             $this->generateList($cntTotal);
         }
+
+        $moduleId = 'lmt_' . $this->id;
+
+        if(empty($this->cssID[0]))
+        {
+            $this->cssID = array(
+                $moduleId,
+                $this->cssID[1]
+            );
+        }
+
+        $this->Template->configId = $this->lmtConfig;
+        $this->Template->moduleId = $this->cssID[0];
     }
 
     /**
@@ -232,7 +245,57 @@ class ModuleLeadMatching extends \Module
             foreach ($listFields as $field)
             {
                 $varLabel = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][ $field ];
-                $varValue = $objItem->{$field} ? $objItem->{$field} : $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
+                $varValue = $objItem->{$field} ?: $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
+
+                switch($field)
+                {
+                    case 'objectTypes':
+                        $objectTypeIds = \StringUtil::deserialize($varValue);
+                        $objectTypes   = $this->getObjectTypeTitlesByIds($objectTypeIds);
+
+                        if($objectTypes !== null)
+                        {
+                            $varValue = implode(", ", $objectTypes);
+                        }
+                        else
+                        {
+                            $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
+                        }
+
+                        break;
+
+                    case 'regions':
+                        $regionIds = \StringUtil::deserialize($varValue);
+                        $regions   = $this->getRegionTitlesByIds($regionIds);
+
+                        if($regions !== null)
+                        {
+                            $varValue = implode(", ", $regions);
+                        }
+                        else
+                        {
+                            $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
+                        }
+                        break;
+
+                    case 'price_from':
+                    case 'price_to':
+                        $varValue = number_format($varValue, 0 , ',', '.') . ' €';
+                        break;
+
+                    case 'area_from':
+                    case 'area_to':
+                        $varValue = number_format($varValue, 2 , ',', '.') . ' m²';
+                        break;
+
+                    case 'tstamp':
+                        $varValue = date(\Config::get('dateFormat'), $varValue);
+                        break;
+
+                    case 'marketing':
+                        $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][ $varValue ];
+                        break;
+                }
 
                 $arrFields[] = array(
                     'class' => $field,
@@ -250,7 +313,7 @@ class ModuleLeadMatching extends \Module
             foreach ($GLOBALS['TL_HOOKS']['parseLeadMatchingItem'] as $callback)
             {
                 $this->import($callback[0]);
-                $this->{$callback[0]}->{$callback[1]}($objTemplate, $this->config, $this);
+                $this->{$callback[0]}->{$callback[1]}($objTemplate, $this->config, $intCount, $this);
             }
         }
 
@@ -266,8 +329,8 @@ class ModuleLeadMatching extends \Module
      */
     public function generateForm($strMode)
     {
-        $strHidden = '';
         $doNotSubmit = false;
+        $arrSubmitted = array();
 
         switch ($strMode)
         {
@@ -278,19 +341,6 @@ class ModuleLeadMatching extends \Module
                 $strTemplate  = $this->config->contactFormTemplate;
                 $arrEditable  = \StringUtil::deserialize($this->config->contactFormMetaFields, true);
                 $arrMandatory = \StringUtil::deserialize($this->config->contactFormMetaFieldsMandatory, true);
-
-                // Add estate fields as hidden fields
-                if($this->Template->addEstateForm)
-                {
-                    if($arrHidden = \StringUtil::deserialize($this->config->estateFormMetaFields))
-                    {
-                        foreach ($arrHidden as $hField)
-                        {
-                            $objWidget = new \FormHidden(\FormHidden::getAttributesFromDca(['inputType'=>'hidden'], $hField, $_SESSION['LEAD_MATCHING']['estate'][ $hField ], '', '', $this));
-                            $strHidden .= $objWidget->parse();
-                        }
-                    }
-                }
                 break;
 
             case 'estate':
@@ -310,7 +360,6 @@ class ModuleLeadMatching extends \Module
 
         $objTemplate->action = \Environment::get('requestUri');
         $objTemplate->formId = $strFormId;
-        $objTemplate->hidden = $strHidden;
         $objTemplate->submit = $strSubmit;
 
         foreach ($arrEditable as $field)
@@ -324,6 +373,22 @@ class ModuleLeadMatching extends \Module
 
             switch($field)
             {
+                case 'marketingType':
+                    if($this->config->marketingType)
+                    {
+                        // skip if the marketing type was set in the config
+                        continue;
+                    }
+
+                    $arrData['inputType'] = 'select';
+                    $arrData['options'] = array(
+                        ''      => '-',
+                        'kauf'  => $GLOBALS['TL_LANG']['tl_lead_matching_meta']['kauf'],
+                        'miete' => $GLOBALS['TL_LANG']['tl_lead_matching_meta']['miete']
+                    );
+
+                    break;
+
                 case 'salutation':
                     $arrData['inputType'] = 'select';
                     $arrData['options'] = array();
@@ -354,21 +419,17 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions = \StringUtil::deserialize($this->config->objectTypes);
+                    $arrOptions  = \StringUtil::deserialize($this->config->objectTypes);
+                    $objectTypes = $this->getObjectTypeTitlesByIds($arrOptions);
 
-                    if($arrOptions !== null)
+                    if($objectTypes !== null)
                     {
-                        /** @var $objObjectTypes */
-                        $objObjectTypes = ObjectTypeModel::findMultipleByIds($arrOptions);
-
-                        if($objObjectTypes !== null)
+                        foreach ($objectTypes as $key => $value)
                         {
-                            while ($objObjectTypes->next())
-                            {
-                                $arrData['options'][ $objObjectTypes->id ] = $objObjectTypes->title;
-                            }
+                            $arrData['options'][ $key ] = $value;
                         }
                     }
+
                     break;
 
                 case 'regions':
@@ -380,19 +441,14 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrRegions = \StringUtil::deserialize($this->config->regions);
+                    $arrOptions = \StringUtil::deserialize($this->config->regions);
+                    $regions = $this->getRegionTitlesByIds($arrOptions);
 
-                    if($arrRegions !== null)
+                    if($regions !== null)
                     {
-                        /** @var $objRegions */
-                        $objRegions = RegionModel::findMultipleByIds($arrRegions);
-
-                        if($objRegions !== null)
+                        foreach ($regions as $key => $value)
                         {
-                            while ($objRegions->next())
-                            {
-                                $arrData['options'][ $objRegions->id ] = $objRegions->title;
-                            }
+                            $arrData['options'][ $key ] = $value;
                         }
                     }
                     break;
@@ -430,6 +486,8 @@ class ModuleLeadMatching extends \Module
                     // Store the form data
                     $_SESSION['FORM_DATA'][$field] = $varValue;
                     $_SESSION['LEAD_MATCHING'][ $strMode ][$field] = $varValue;
+
+                    $arrSubmitted[$field] = $varValue;
                 }
             }
 
@@ -442,9 +500,29 @@ class ModuleLeadMatching extends \Module
             switch($strMode)
             {
                 case 'contact':
+                    // ToDo: Testing
+                    $objEmail = new \Email();
+                    $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
+                    $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
+                    $objEmail->subject = $this->config->mailSubject;
 
-                    // Todo: send mail
+                    $message = "";
 
+                    foreach ($arrSubmitted as $k=>$v)
+                    {
+                        $message .= ($GLOBALS['TL_LANG']['tl_lead_matching_meta'][$k] ?? ucfirst($k)) . ': ' . (\is_array($v) ? implode(', ', $v) : $v) . "\n";
+                    }
+
+                    $message .= "\n\n";
+
+                    foreach ($_SESSION['LEAD_MATCHING']['estate'] as $kk=>$vv)
+                    {
+                        // ToDo: Get readable names of regions and object types
+                        $message .= ($GLOBALS['TL_LANG']['tl_lead_matching_meta'][$kk] ?? ucfirst($kk)) . ': ' . (\is_array($vv) ? implode(', ', $vv) : $vv) . "\n";
+                    }
+
+                    $objEmail->text = $message . "\n";
+                    $objEmail->sendTo($GLOBALS['TL_ADMIN_EMAIL']);
                     break;
 
                 case 'estate':
@@ -513,5 +591,69 @@ class ModuleLeadMatching extends \Module
         }
 
         return SearchcriteriaModel::findPublishedByFilteredAttributes($this->config, $arrOptions);
+    }
+
+    /**
+     * Return a key-value list of object types
+     *
+     * @param $arrIds
+     *
+     * @return array|null
+     */
+    private function getObjectTypeTitlesByIds($arrIds)
+    {
+        if($arrIds === null)
+        {
+            return null;
+        }
+
+        $values = array();
+
+        /** @var $objObjectTypes */
+        $objObjectTypes = ObjectTypeModel::findMultipleByIds($arrIds);
+
+        if($objObjectTypes === null)
+        {
+            return null;
+        }
+
+        while ($objObjectTypes->next())
+        {
+            $values[ $objObjectTypes->id ] = $objObjectTypes->title;
+        }
+
+        return $values;
+    }
+
+    /**
+     * Return a key-value list of regions
+     *
+     * @param $arrIds
+     *
+     * @return array|null
+     */
+    private function getRegionTitlesByIds($arrIds)
+    {
+        if($arrIds === null)
+        {
+            return null;
+        }
+
+        $values = array();
+
+        /** @var $objRegions */
+        $objRegions = RegionModel::findMultipleByIds($arrIds);
+
+        if($objRegions === null)
+        {
+            return null;
+        }
+
+        while ($objRegions->next())
+        {
+            $values[ $objRegions->id ] = $objRegions->title;
+        }
+
+        return $values;
     }
 }

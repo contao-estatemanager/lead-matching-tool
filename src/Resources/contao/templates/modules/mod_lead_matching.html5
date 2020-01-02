@@ -1,3 +1,8 @@
+<?php
+    $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/estatemanagerleadmatchingtool/lead-matching-tool/lead-matching-tool.js|static';
+    $GLOBALS['TL_CSS'][]        = 'bundles/estatemanagerleadmatchingtool/lead-matching-tool/lead-matching-tool.css|static';
+?>
+
 <?php $this->extend('block_unsearchable'); ?>
 
 <?php $this->block('content'); ?>
@@ -9,7 +14,7 @@
         </section>
     <?php endif; ?>
     <?php if($this->addCunter): ?>
-        <div class="counter"><?=$this->cntTotal?></div>
+        <div id="counter"><?=$this->cntTotal?></div>
     <?php endif; ?>
     <?php if($this->addList): ?>
         <section id="result-list">
@@ -23,5 +28,13 @@
         </section>
     <?php endif; ?>
 </div>
+
+<script type="text/javascript">
+    var lmt = new LeadMatchingTool(<?=$this->configId?>, {
+        container: '#<?=$this->moduleId?>',
+        counter: '#counter',
+        form: '#estate-form form',
+    });
+</script>
 
 <?php $this->endblock(); ?>

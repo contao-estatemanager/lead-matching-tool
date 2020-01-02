@@ -9,7 +9,19 @@
         <source>Title / Headline</source>
         <target>Titel / Überschrift</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.kauf">
+        <source>Buy</source>
+        <target>Kauf</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.miete">
+        <source>Rent</source>
+        <target>Miete</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.marketing">
+        <source>Marketing Type</source>
+        <target>Vermarktungsart</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.marketingType">
         <source>Marketing Type</source>
         <target>Vermarktungsart</target>
       </trans-unit>
