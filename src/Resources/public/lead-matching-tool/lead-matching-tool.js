@@ -27,6 +27,7 @@ var LeadMatchingTool = (function () {
             tool.counter = tool.container.querySelector(tool.settings.counter);
             tool.form = tool.container.querySelector(tool.settings.form);
             tool.formSubmit = tool.form.querySelector('[type="submit"]');
+            tool.request = null;
 
             // bind form events
             var inputs = tool.form.querySelectorAll('input, select');
@@ -40,12 +41,29 @@ var LeadMatchingTool = (function () {
 
                 inputs[i].addEventListener(ev, handleFormEvents);
             }
+
+            var marketingInput = tool.form.querySelector('[name="marketingType"]');
+
+            if(!!marketingInput) {
+                tool.marketingInput = marketingInput;
+                disable('[name="price"]', !marketingInput.value);
+            }
         };
 
         var handleFormEvents = function(e) {
+            // disable price field if no marketing type set
+            if(!!tool.marketingInput) {
+                disable('[name="price"]', !tool.marketingInput.value);
+            }
+
+            if(tool.request !== null) {
+                tool.request.abort();
+            }
+
             var formData = new FormData(tool.form);
             var params = new URLSearchParams(formData);
-            var request = new XMLHttpRequest();
+
+            tool.request = new XMLHttpRequest();
 
             // disable form submit
             tool.formSubmit.disabled = true;
@@ -53,7 +71,7 @@ var LeadMatchingTool = (function () {
             // set loader class
             tool.counter.classList.add(tool.settings.loadingClass);
 
-            request.addEventListener("load", function(e){
+            tool.request.addEventListener("load", function(e){
                 var res = JSON.parse(this.responseText);
 
                 if(!!res.error){
@@ -66,10 +84,16 @@ var LeadMatchingTool = (function () {
 
                 // remove loader class
                 tool.counter.classList.remove(tool.settings.loadingClass);
+
+                tool.request = null;
             });
 
-            request.open("GET", "/leadmatching/count/" + configId + "?" + params.toString());
-            request.send();
+            tool.request.open("GET", "/leadmatching/count/" + configId + "?" + params.toString());
+            tool.request.send();
+        };
+
+        var disable = function(selector, condition){
+            tool.form.querySelector(selector).disabled = condition;
         };
 
         var extend = function () {

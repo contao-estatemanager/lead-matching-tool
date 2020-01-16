@@ -136,9 +136,9 @@ class ModuleLeadMatching extends \Module
         $offset = 0;
 
         // Maximum number of items
-        if ($this->numberOfItems > 0)
+        if ($this->config->numberOfItems > 0)
         {
-            $limit = $this->numberOfItems;
+            $limit = $this->config->numberOfItems;
         }
 
         $this->Template->items = array();
@@ -152,7 +152,7 @@ class ModuleLeadMatching extends \Module
         $total = $intTotal - $offset;
 
         // Split the results
-        if ($this->perPage > 0 && (!isset($limit) || $this->numberOfItems > $this->perPage))
+        if ($this->config->perPage > 0 && (!isset($limit) || $this->config->numberOfItems > $this->config->perPage))
         {
             // Adjust the overall limit
             if (isset($limit))
@@ -165,14 +165,14 @@ class ModuleLeadMatching extends \Module
             $page = \Input::get($id) ?? 1;
 
             // Do not index or cache the page if the page number is outside the range
-            if ($page < 1 || $page > max(ceil($total/$this->perPage), 1))
+            if ($page < 1 || $page > max(ceil($total/$this->config->perPage), 1))
             {
                 throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
             }
 
             // Set limit and offset
-            $limit = $this->perPage;
-            $offset += (max($page, 1) - 1) * $this->perPage;
+            $limit = $this->config->perPage;
+            $offset += (max($page, 1) - 1) * $this->config->perPage;
 
             // Overall limit
             if ($offset + $limit > $total)
@@ -181,16 +181,30 @@ class ModuleLeadMatching extends \Module
             }
 
             // Add the pagination menu
-            $objPagination = new \Pagination($total, $this->perPage, \Config::get('maxPaginationLinks'), $id);
+            $objPagination = new \Pagination($total, $this->config->perPage, \Config::get('maxPaginationLinks'), $id);
             $this->Template->pagination = $objPagination->generate("\n  ");
         }
 
         $objItems = $this->fetch(($limit ?: 0), $offset);
 
-        // Add the articles
-        if ($objItems !== null)
+        if($this->config->type === 'system')
         {
-            $this->Template->items = $this->parseItems($objItems);
+            if ($objItems !== null)
+            {
+                $this->Template->items = $this->parseItems($objItems);
+            }
+        }
+        else
+        {
+            // HOOK: add custom logic
+            if (isset($GLOBALS['TL_HOOKS']['parseLeadMatchingItems']) && \is_array($GLOBALS['TL_HOOKS']['parseLeadMatchingItems']))
+            {
+                foreach ($GLOBALS['TL_HOOKS']['parseLeadMatchingItems'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    $this->Template->items = $this->{$callback[0]}->{$callback[1]}($this->config, $objItems, $this);
+                }
+            }
         }
     }
 
@@ -307,16 +321,6 @@ class ModuleLeadMatching extends \Module
 
         $objTemplate->fields = $arrFields;
 
-        // HOOK: add custom logic
-        if (isset($GLOBALS['TL_HOOKS']['parseLeadMatchingItem']) && \is_array($GLOBALS['TL_HOOKS']['parseLeadMatchingItem']))
-        {
-            foreach ($GLOBALS['TL_HOOKS']['parseLeadMatchingItem'] as $callback)
-            {
-                $this->import($callback[0]);
-                $this->{$callback[0]}->{$callback[1]}($objTemplate, $this->config, $intCount, $this);
-            }
-        }
-
         return $objTemplate->parse();
     }
 
@@ -381,11 +385,19 @@ class ModuleLeadMatching extends \Module
                     }
 
                     $arrData['inputType'] = 'select';
-                    $arrData['options'] = array(
-                        ''      => '-',
-                        'kauf'  => $GLOBALS['TL_LANG']['tl_lead_matching_meta']['kauf'],
-                        'miete' => $GLOBALS['TL_LANG']['tl_lead_matching_meta']['miete']
-                    );
+                    $arrData['options'] = array();
+
+                    if($this->config->addBlankMarketingType)
+                    {
+                        $arrData['options'] = array('' => '-');
+                    }
+
+                    $arrOptions  = \StringUtil::deserialize($this->config->marketingTypesData, true);
+
+                    foreach ($arrOptions as $key => $value)
+                    {
+                        $arrData['options'][ $key ] = $value;
+                    }
 
                     break;
 
@@ -419,15 +431,11 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions  = \StringUtil::deserialize($this->config->objectTypes);
-                    $objectTypes = $this->getObjectTypeTitlesByIds($arrOptions);
+                    $arrOptions  = \StringUtil::deserialize($this->config->objectTypesData, true);
 
-                    if($objectTypes !== null)
+                    foreach ($arrOptions as $key => $value)
                     {
-                        foreach ($objectTypes as $key => $value)
-                        {
-                            $arrData['options'][ $key ] = $value;
-                        }
+                        $arrData['options'][ $key ] = $value;
                     }
 
                     break;
@@ -441,20 +449,27 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions = \StringUtil::deserialize($this->config->regions);
-                    $regions = $this->getRegionTitlesByIds($arrOptions);
+                    $arrOptions = \StringUtil::deserialize($this->config->regionsData);
 
-                    if($regions !== null)
+                    foreach ($arrOptions as $key => $value)
                     {
-                        foreach ($regions as $key => $value)
-                        {
-                            $arrData['options'][ $key ] = $value;
-                        }
+                        $arrData['options'][ $key ] = $value;
                     }
+
                     break;
 
                 default:
                     $arrData['inputType'] = 'text';
+            }
+
+            // HOOK: add custom logic
+            if (isset($GLOBALS['TL_HOOKS']['parseLeadMatchingFormField']) && \is_array($GLOBALS['TL_HOOKS']['parseLeadMatchingFormField']))
+            {
+                foreach ($GLOBALS['TL_HOOKS']['parseLeadMatchingFormField'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    $this->{$callback[0]}->{$callback[1]}($field, $arrData, $strMode, $this->config, $this);
+                }
             }
 
             /** @var \Widget $strClass */
@@ -545,17 +560,24 @@ class ModuleLeadMatching extends \Module
      */
     public function count()
     {
-        // HOOK: add custom logic
-        if (isset($GLOBALS['TL_HOOKS']['countLeadMatching']) && \is_array($GLOBALS['TL_HOOKS']['countLeadMatching']))
+        if($this->config->type === 'system')
         {
-            foreach ($GLOBALS['TL_HOOKS']['countLeadMatching'] as $callback)
+            return SearchcriteriaModel::countPublishedByFilteredAttributes($this->config);
+        }
+        else
+        {
+            // HOOK: add custom logic
+            if (isset($GLOBALS['TL_HOOKS']['countLeadMatching']) && \is_array($GLOBALS['TL_HOOKS']['countLeadMatching']))
             {
-                $this->import($callback[0]);
-                return $this->{$callback[0]}->{$callback[1]}($this->config, $this);
+                foreach ($GLOBALS['TL_HOOKS']['countLeadMatching'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    return $this->{$callback[0]}->{$callback[1]}($this->config, $this);
+                }
             }
         }
 
-        return SearchcriteriaModel::countPublishedByFilteredAttributes($this->config);
+        return 0;
     }
 
     /**
@@ -564,33 +586,40 @@ class ModuleLeadMatching extends \Module
      * @param $limit
      * @param $offset
      *
-     * @return \Contao\Model\Collection|null
+     * @return mixed|null
      */
     public function fetch($limit, $offset)
     {
-        // HOOK: add custom logic
-        if (isset($GLOBALS['TL_HOOKS']['fetchLeadMatching']) && \is_array($GLOBALS['TL_HOOKS']['fetchLeadMatching']))
+        if($this->config->type === 'system')
         {
-            foreach ($GLOBALS['TL_HOOKS']['fetchLeadMatching'] as $callback)
+            $arrOptions = array();
+
+            if($limit)
             {
-                $this->import($callback[0]);
-                return $this->{$callback[0]}->{$callback[1]}($limit, $offset, $this->config, $this);
+                $arrOptions['limit'] = $limit;
+            }
+
+            if($offset)
+            {
+                $arrOptions['offset'] = $offset;
+            }
+
+            return SearchcriteriaModel::findPublishedByFilteredAttributes($this->config, $arrOptions);
+        }
+        else
+        {
+            // HOOK: add custom logic
+            if (isset($GLOBALS['TL_HOOKS']['fetchLeadMatching']) && \is_array($GLOBALS['TL_HOOKS']['fetchLeadMatching']))
+            {
+                foreach ($GLOBALS['TL_HOOKS']['fetchLeadMatching'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    return $this->{$callback[0]}->{$callback[1]}($this->config, $limit, $offset, $this);
+                }
             }
         }
 
-        $arrOptions = array();
-
-        if($limit)
-        {
-            $arrOptions['limit'] = $limit;
-        }
-
-        if($offset)
-        {
-            $arrOptions['offset'] = $offset;
-        }
-
-        return SearchcriteriaModel::findPublishedByFilteredAttributes($this->config, $arrOptions);
+        return null;
     }
 
     /**

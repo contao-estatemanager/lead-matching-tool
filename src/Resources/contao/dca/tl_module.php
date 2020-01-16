@@ -8,7 +8,7 @@
  * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['leadMatching'] = '{title_legend},name,headline,type;{config_legend},lmtConfig;{list_config},numberOfItems,perPage;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['leadMatching'] = '{title_legend},name,headline,type;{config_legend},lmtConfig;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 // Add fields
 $GLOBALS['TL_DCA']['tl_module']['fields']['lmtConfig'] = array

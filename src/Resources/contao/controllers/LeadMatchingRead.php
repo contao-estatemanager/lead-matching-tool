@@ -45,10 +45,27 @@ class LeadMatchingRead extends \Frontend
                     break;
                 }
 
-                $validParam = array('marketingType', 'regions', 'objectTypes', 'room', 'area', 'price');
-                $currParam = $this->getParameters(self::METHOD_GET, $validParam);
+                $count = 0;
 
-                $count = SearchcriteriaModel::countPublishedByFilteredAttributes($config, $currParam);
+                $validParam = array('marketingType', 'regions', 'objectTypes', 'room', 'area', 'price');
+                $currParam  = $this->getParameters(self::METHOD_GET, $validParam);
+
+                if($config->type === 'system')
+                {
+                    $count = SearchcriteriaModel::countPublishedByFilteredAttributes($config, $currParam);
+                }
+                else
+                {
+                    // HOOK: add custom logic
+                    if (isset($GLOBALS['TL_HOOKS']['readCountLeadMatching']) && \is_array($GLOBALS['TL_HOOKS']['readCountLeadMatching']))
+                    {
+                        foreach ($GLOBALS['TL_HOOKS']['readCountLeadMatching'] as $callback)
+                        {
+                            $this->import($callback[0]);
+                            $count = $this->{$callback[0]}->{$callback[1]}($config, $currParam , $this);
+                        }
+                    }
+                }
 
                 $data = array(
                     'error' => 0,

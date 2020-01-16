@@ -19,14 +19,21 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @property string  $type
  * @property string  $title
  * @property string  $marketingType
+ * @property string  $marketingTypes
+ * @property string  $marketingTypesData
  * @property string  $objectTypes
+ * @property string  $objectTypesData
  * @property string  $regions
+ * @property string  $regionsData
+ * @property string  $numberOfItems
+ * @property string  $perPage
  * @property string  $listMetaFields
  * @property string  $estateFormMetaFields
  * @property string  $estateFormMetaFieldsMandatory
  * @property string  $contactFormMetaFields
  * @property string  $contactFormMetaFieldsMandatory
  * @property string  $countResults
+ * @property string  $addBlankMarketingType
  * @property string  $addBlankObjectType
  * @property string  $addBlankSalutation
  * @property string  $addBlankRegion
