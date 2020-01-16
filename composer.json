@@ -1,6 +1,5 @@
 {
   "name":"contao-estatemanager/lead-matching-tool",
-  "type":"contao-bundle",
   "description":"Lead-Matching-Tool Extension for Contao EstateManager",
   "keywords":["contao","estatemanager","real estate","estate","property","lead"],
   "homepage":"https://www.contao-estatemanager.com/",
