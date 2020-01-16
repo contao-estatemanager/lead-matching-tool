@@ -1,0 +1,24 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en">
+    <body>
+      <trans-unit id="FMD.leadMatching.0">
+        <source>Lead Matching Tool</source>
+      </trans-unit>
+      <trans-unit id="FMD.leadMatching.1">
+        <source></source>
+      </trans-unit>
+      <trans-unit id="MOD.searchcriteria.0">
+        <source>Search inquiry</source>
+      </trans-unit>
+      <trans-unit id="MOD.searchcriteria.1">
+        <source>Manage search inquiries</source>
+      </trans-unit>
+      <trans-unit id="MOD.leadmatching.0">
+        <source>Lead-Matching</source>
+      </trans-unit>
+      <trans-unit id="MOD.leadmatching.1">
+        <source>Manage lead matching configurations</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

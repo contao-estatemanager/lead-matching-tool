@@ -1,0 +1,93 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_lead_matching_meta.php" source-language="en">
+    <body>
+      <trans-unit id="tl_lead_matching_meta.id">
+        <source>ID</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.title">
+        <source>Title / Headline</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.kauf">
+        <source>Buy</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.miete">
+        <source>Rent</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.marketing">
+        <source>Marketing Type</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.marketingType">
+        <source>Marketing Type</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.tstamp">
+        <source>Date</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.tstamp">
+        <source>Date</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.objectTypes">
+        <source>Object types</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.regions">
+        <source>Regions</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.room">
+        <source>Rooms</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.room_from">
+        <source>Rooms from</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.room_to">
+        <source>Rooms to</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.area">
+        <source>Area</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.area_from">
+        <source>Area from</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.area_to">
+        <source>Area to</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.price">
+        <source>Price</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.price_from">
+        <source>Price from</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.price_to">
+        <source>Price to</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.salutation">
+        <source>Salutation</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.firstname">
+        <source>First name</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.name">
+        <source>Name</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.email">
+        <source>E-mail</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.phone">
+        <source>Phone</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.submitContact">
+        <source>Send</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.submitEstate">
+        <source>Search</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.emptyList">
+        <source>Empty</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.emptyList">
+        <source>Empty</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.emptyField">
+        <source>no data</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
