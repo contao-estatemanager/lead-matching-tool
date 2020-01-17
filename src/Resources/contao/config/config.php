@@ -20,14 +20,15 @@ if(ContaoEstateManager\LeadMatchingTool\AddonManager::valid()) {
         (
             'searchcriteria' => array
             (
-                'tables'                => array('tl_searchcriteria'),
-            ),
-            'leadmatching' => array
-            (
-                'tables'                => array('tl_lead_matching'),
+                'tables' => array('tl_searchcriteria'),
             )
         )
     ));
+
+    $GLOBALS['BE_MOD']['system']['leadmatching'] = array
+    (
+        'tables' => array('tl_lead_matching')
+    );
 
     // Front end modules
     $GLOBALS['FE_MOD']['miscellaneous']['leadMatching'] = '\\ContaoEstateManager\\LeadMatchingTool\\ModuleLeadMatching';

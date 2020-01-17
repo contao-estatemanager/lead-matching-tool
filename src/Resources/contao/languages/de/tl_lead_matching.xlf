@@ -241,6 +241,14 @@
         <source>Define here the mail sibject.</source>
         <target>Definieren Sie hier einen E-Mailbetreff.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.jumpTo.0">
+        <source>Redirect page</source>
+        <target>Weiterleitungsseite</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.jumpTo.1">
+        <source>Please choose the page to which visitors will be redirected when clicking a link or submitting a form.</source>
+        <target>Bitte wählen Sie die Seite aus, zu der Besucher beim Anklicken eines Links oder Abschicken eines Formulars weitergeleitet werden.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

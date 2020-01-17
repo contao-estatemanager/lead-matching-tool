@@ -100,7 +100,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     'subpalettes' => array
     (
         'addEstateForm'               => 'estateFormTemplate,forceList,estateFormMetaFields,estateFormMetaFieldsMandatory',
-        'addContactForm'              => 'contactFormTemplate,forceContact,contactFormMetaFields,contactFormMetaFieldsMandatory,salutationFields,addBlankSalutation,mailSubject'
+        'addContactForm'              => 'contactFormTemplate,forceContact,contactFormMetaFields,contactFormMetaFieldsMandatory,salutationFields,addBlankSalutation,mailSubject,jumpTo'
     ),
 
     // Fields
@@ -348,6 +348,16 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'jumpTo' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['jumpTo'],
+            'exclude'                 => true,
+            'inputType'               => 'pageTree',
+            'foreignKey'              => 'tl_page.title',
+            'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
+            'sql'                     => "int(10) unsigned NOT NULL default 0",
+            'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
         ),
     )
 );

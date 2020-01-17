@@ -515,7 +515,6 @@ class ModuleLeadMatching extends \Module
             switch($strMode)
             {
                 case 'contact':
-                    // ToDo: Testing
                     $objEmail = new \Email();
                     $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
                     $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
@@ -528,7 +527,7 @@ class ModuleLeadMatching extends \Module
                         $message .= ($GLOBALS['TL_LANG']['tl_lead_matching_meta'][$k] ?? ucfirst($k)) . ': ' . (\is_array($v) ? implode(', ', $v) : $v) . "\n";
                     }
 
-                    $message .= "\n\n";
+                    $message .= "\n";
 
                     foreach ($_SESSION['LEAD_MATCHING']['estate'] as $kk=>$vv)
                     {
@@ -538,6 +537,12 @@ class ModuleLeadMatching extends \Module
 
                     $objEmail->text = $message . "\n";
                     $objEmail->sendTo($GLOBALS['TL_ADMIN_EMAIL']);
+
+                    // Redirect
+                    if ($this->config->jumpTo)
+                    {
+                        $this->jumpToOrReload($this->config->jumpTo);
+                    }
                     break;
 
                 case 'estate':
