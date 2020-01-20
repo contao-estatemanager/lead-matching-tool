@@ -10,20 +10,30 @@
 <div class="inside">
     <?php if($this->addEstateForm): ?>
         <section id="estate-form">
+            <?=$this->headlineEstateForm ? '<h2>'.$this->headlineEstateForm.'</h2>' : ''?>
+            <?=$this->labelEstateForm ? '<p>'.$this->labelEstateForm.'</p>' : ''?>
             <?=$this->estateForm?>
         </section>
     <?php endif; ?>
     <?php if($this->addCunter): ?>
-        <div id="counter"><?=$this->cntTotal?></div>
+        <div id="counter">
+            <?=$this->cntTotal?>
+        </div>
+        <?=$this->labelCount ? '<span>'.$this->labelCount.'</span>' : ''?>
     <?php endif; ?>
     <?php if($this->addList): ?>
         <section id="result-list">
+            <?=$this->headlineList ? '<h3>'.$this->headlineList.'</h3>' : ''?>
+            <?=$this->labelList ? '<h4>'.$this->labelList.'</h4>' : ''?>
+
             <?= implode('', $this->items) ?>
             <?=$this->pagination?>
         </section>
     <?php endif; ?>
     <?php if($this->addContactForm): ?>
         <section id="contact-form">
+            <?=$this->headlineContactForm ? '<h3>'.$this->headlineContactForm.'</h3>' : ''?>
+            <?=$this->labelContactForm ? '<p>'.$this->labelContactForm.'</p>' : ''?>
             <?=$this->contactForm?>
         </section>
     <?php endif; ?>

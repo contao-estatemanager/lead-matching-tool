@@ -121,6 +121,14 @@ class ModuleLeadMatching extends \Module
             );
         }
 
+        $this->Template->headlineEstateForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['headlineEstateForm'];
+        $this->Template->labelEstateForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelEstateForm'];
+        $this->Template->headlineContactForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['headlineContactForm'];
+        $this->Template->labelContactForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelContactForm'];
+        $this->Template->headlineList = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['headlineList'];
+        $this->Template->labelList = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelList'];
+        $this->Template->labelCount = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelCount'];
+
         $this->Template->configId = $this->lmtConfig;
         $this->Template->moduleId = $this->cssID[0];
     }
