@@ -107,7 +107,7 @@
         <source>Search our database for suitable interested parties using your basic property data.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.labelCount">
-        <source>Interessenten gefunden</source>
+        <source>Results found</source>
       </trans-unit>
     </body>
   </file>

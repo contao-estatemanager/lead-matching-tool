@@ -142,8 +142,8 @@
         <target>Durchsuchen Sie unseren Datenbestand, nach geeigneten Interessenten anhand Ihrer Immobilien-Eckdaten.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.labelCount">
-        <source>Interessenten gefunden</source>
-        <target>Results found</target>
+        <source>Results found</source>
+        <target>Interessenten gefunden</target>
       </trans-unit>
     </body>
   </file>
