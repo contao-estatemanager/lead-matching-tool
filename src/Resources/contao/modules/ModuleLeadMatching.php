@@ -515,7 +515,7 @@ class ModuleLeadMatching extends \Module
 
             $objWidget->id .= '_' . $this->id;
             $objWidget->storeValues = true;
-            $objWidget->required = isset($arrData['eval']['mandatory']);
+            $objWidget->required = in_array($field, $arrMandatory);
 
             // Validate input
             if (\Input::post('FORM_SUBMIT') == $strFormId)
