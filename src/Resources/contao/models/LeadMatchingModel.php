@@ -46,6 +46,7 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @property string  $contactFormTemplate
  * @property string  $listItemTemplate
  * @property string  $mailSubject
+ * @property string  $mailTo
  * @property string  $txtEstateHeadline
  * @property string  $txtEstateDescription
  * @property string  $txtListHeadline

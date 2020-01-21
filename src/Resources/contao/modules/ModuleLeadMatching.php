@@ -547,7 +547,7 @@ class ModuleLeadMatching extends \Module
             {
                 case 'contact':
                     $objEmail = new \Email();
-                    $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
+                    $objEmail->from = $this->config->mailTo;
                     $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
                     $objEmail->subject = $this->config->mailSubject;
 
@@ -567,7 +567,7 @@ class ModuleLeadMatching extends \Module
                     }
 
                     $objEmail->text = $message . "\n";
-                    $objEmail->sendTo($GLOBALS['TL_ADMIN_EMAIL']);
+                    $objEmail->sendTo($this->config->mailTo);
 
                     // Redirect
                     if ($this->config->jumpTo)

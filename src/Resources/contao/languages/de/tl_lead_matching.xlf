@@ -249,6 +249,14 @@
         <source>Define here the mail sibject.</source>
         <target>Definieren Sie hier einen E-Mailbetreff.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.mailTo.0">
+        <source>Mail reciver</source>
+        <target>E-Mail Empfänger</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.mailTo.1">
+        <source>Define here the mail reciver.</source>
+        <target>Definieren Sie hier einen E-Mail Empfänger.</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.jumpTo.0">
         <source>Redirect page</source>
         <target>Weiterleitungsseite</target>

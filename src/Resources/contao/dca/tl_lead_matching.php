@@ -100,7 +100,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     'subpalettes' => array
     (
         'addEstateForm'               => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields,estateFormMetaFieldsMandatory,estateFormTemplate',
-        'addContactForm'              => 'txtContactHeadline,forceContact,txtContactDescription,contactFormMetaFields,contactFormMetaFieldsMandatory,contactFormCheckboxes,salutationFields,addBlankSalutation,contactFormTemplate,mailSubject,jumpTo'
+        'addContactForm'              => 'txtContactHeadline,forceContact,txtContactDescription,contactFormMetaFields,contactFormMetaFieldsMandatory,contactFormCheckboxes,salutationFields,addBlankSalutation,contactFormTemplate,mailSubject,mailTo,jumpTo'
     ),
 
     // Fields
@@ -354,6 +354,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailSubject'],
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'mailTo' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailTo'],
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50', 'rgxp'=>'email'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'jumpTo' => array
