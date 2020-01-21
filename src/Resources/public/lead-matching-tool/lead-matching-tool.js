@@ -51,6 +51,11 @@ var LeadMatchingTool = (function () {
                 tool.marketingInput = marketingInput;
                 disable('[name="price"]', !marketingInput.value);
             }
+
+            // set loading on submit
+            tool.form.addEventListener('submit', function(){
+                loader(true);
+            });
         };
 
         var handleFormEvents = function(e) {
@@ -72,11 +77,7 @@ var LeadMatchingTool = (function () {
             tool.formSubmit.disabled = true;
 
             // set loader class
-            if(!!tool.loadingContainer){
-                tool.loadingContainer.classList.add(tool.settings.loadingClass);
-            }else{
-                tool.counter.classList.add(tool.settings.loadingClass);
-            }
+            loader(true);
 
             tool.request.addEventListener("load", function(e){
                 var res = JSON.parse(this.responseText);
@@ -95,17 +96,23 @@ var LeadMatchingTool = (function () {
                 }
 
                 // remove loader class
-                if(!!tool.loadingContainer){
-                    tool.loadingContainer.classList.remove(tool.settings.loadingClass);
-                }else{
-                    tool.counter.classList.remove(tool.settings.loadingClass);
-                }
+                loader();
 
                 tool.request = null;
             });
 
             tool.request.open("GET", "/leadmatching/count/" + configId + "?" + params.toString());
             tool.request.send();
+        };
+
+        var loader = function(state){
+            var loader = !!tool.loadingContainer ? tool.loadingContainer : tool.counter;
+
+            if(state === true){
+                loader.classList.add(tool.settings.loadingClass);
+            }else{
+                loader.classList.remove(tool.settings.loadingClass);
+            }
         };
 
         var disable = function(selector, condition){
