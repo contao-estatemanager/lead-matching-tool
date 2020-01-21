@@ -233,6 +233,14 @@
         <source>Define here the possible salutation fields.</source>
         <target>Definieren Sie hier die möglichen Anrede-Felder.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormCheckboxes.0">
+        <source>Checkbox fields</source>
+        <target>Checkbox-Felder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactFormCheckboxes.1">
+        <source>Define the possible checkbox fields here. Please save this configuration to select the checkbox fields to be displayed via contact form fields.</source>
+        <target>Definieren Sie hier die möglichen Checkbox-Felder. Bitte speichern Sie diese Konfiguration um anschlöießend die anzuzeigenden Checkbox-Felder über Kontakt-Formularfelder auszuwählen.</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.mailSubject.0">
         <source>Mail subject</source>
         <target>E-Mail Betreff</target>
@@ -248,6 +256,54 @@
       <trans-unit id="tl_lead_matching.jumpTo.1">
         <source>Please choose the page to which visitors will be redirected when clicking a link or submitting a form.</source>
         <target>Bitte wählen Sie die Seite aus, zu der Besucher beim Anklicken eines Links oder Abschicken eines Formulars weitergeleitet werden.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtListHeadline.0">
+        <source>Headline</source>
+        <target>Überschrift</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtListHeadline.1">
+        <source>Define a headline here.</source>
+        <target>Definieren Sie hier eine Überschrift.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtEstateHeadline.0">
+        <source>Headline</source>
+        <target>Überschrift</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtEstateHeadline.1">
+        <source>Define a headline here.</source>
+        <target>Definieren Sie hier eine Überschrift.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtContactHeadline.0">
+        <source>Headline</source>
+        <target>Überschrift</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtContactHeadline.1">
+        <source>Define a headline here.</source>
+        <target>Definieren Sie hier eine Überschrift.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtListDescription.0">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtListDescription.1">
+        <source>Define a description here.</source>
+        <target>Definieren Sie hier einen Beschreibungstext.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtEstateDescription.0">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtEstateDescription.1">
+        <source>Define a description here.</source>
+        <target>Definieren Sie hier einen Beschreibungstext.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtContactDescription.0">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.txtContactDescription.1">
+        <source>Define a description here.</source>
+        <target>Definieren Sie hier einen Beschreibungstext.</target>
       </trans-unit>
     </body>
   </file>

@@ -32,6 +32,7 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @property string  $estateFormMetaFieldsMandatory
  * @property string  $contactFormMetaFields
  * @property string  $contactFormMetaFieldsMandatory
+ * @property string  $contactFormCheckboxes
  * @property string  $countResults
  * @property string  $addBlankMarketingType
  * @property string  $addBlankObjectType
@@ -45,6 +46,12 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @property string  $contactFormTemplate
  * @property string  $listItemTemplate
  * @property string  $mailSubject
+ * @property string  $txtEstateHeadline
+ * @property string  $txtEstateDescription
+ * @property string  $txtListHeadline
+ * @property string  $txtListDescription
+ * @property string  $txtContactHeadline
+ * @property string  $txtContactDescription
  *
  * @method static LeadMatchingModel|null findById($id, array $opt=array())
  * @method static LeadMatchingModel|null findOneBy($col, $val, $opt=array())

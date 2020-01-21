@@ -117,30 +117,6 @@
         <source>no data</source>
         <target>keine Angabe</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.headlineEstateForm">
-        <source>Find the right prospective customer for your property now.</source>
-        <target>Finden Sie jetzt den passenden Interessenten für Ihre Immobilie.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelEstateForm">
-        <source>Your real estate data:</source>
-        <target>Ihre Immobilien-Eckdaten:</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.headlineContactForm">
-        <source>Contact</source>
-        <target>Kontaktanfrage</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelContactForm">
-        <source>Enter your contact details where we can reach you:</source>
-        <target>Geben Sie Ihre Kontaktdaten ein, unter denen wir Sie erreichen können:</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.headlineList">
-        <source>Suitable interested parties for your property</source>
-        <target>Passende Interessenten für Ihre Immobilie</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelList">
-        <source>Search our database for suitable interested parties using your basic property data.</source>
-        <target>Durchsuchen Sie unseren Datenbestand, nach geeigneten Interessenten anhand Ihrer Immobilien-Eckdaten.</target>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.labelCount">
         <source>Results found</source>
         <target>Interessenten gefunden</target>

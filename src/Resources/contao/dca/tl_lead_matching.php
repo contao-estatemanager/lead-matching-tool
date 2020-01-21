@@ -93,14 +93,14 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     (
         '__selector__'                => array('type', 'addEstateForm', 'addContactForm'),
         'default'                     => '{title_legend},title,type;',
-        'system'                      => '{title_legend},title,type;{config_legend},marketingType;{field_legend},marketingTypes,addBlankMarketingType,objectTypes,addBlankObjectType,regions,addBlankRegion;{searchcriteria_legend},listMetaFields,countResults,numberOfItems,perPage,listItemTemplate;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;'
+        'system'                      => '{title_legend},title,type;{config_legend},marketingType;{field_legend},marketingTypes,addBlankMarketingType,objectTypes,addBlankObjectType,regions,addBlankRegion;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;'
     ),
 
     // Subpalettes
     'subpalettes' => array
     (
-        'addEstateForm'               => 'estateFormTemplate,forceList,estateFormMetaFields,estateFormMetaFieldsMandatory',
-        'addContactForm'              => 'contactFormTemplate,forceContact,contactFormMetaFields,contactFormMetaFieldsMandatory,salutationFields,addBlankSalutation,mailSubject,jumpTo'
+        'addEstateForm'               => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields,estateFormMetaFieldsMandatory,estateFormTemplate',
+        'addContactForm'              => 'txtContactHeadline,forceContact,txtContactDescription,contactFormMetaFields,contactFormMetaFieldsMandatory,contactFormCheckboxes,salutationFields,addBlankSalutation,contactFormTemplate,mailSubject,jumpTo'
     ),
 
     // Fields
@@ -241,7 +241,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFields'],
             'inputType'                 => 'checkboxWizard',
-            'options'                   => array('salutation', 'firstname', 'name', 'email', 'phone'),
+            'options_callback'          => array('tl_lead_matching', 'getContactFormFields'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
             'sql'                       => "text NULL"
@@ -250,16 +250,23 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFieldsMandatory'],
             'inputType'                 => 'checkbox',
-            'options'                   => array('salutation', 'firstname', 'name', 'email', 'phone'),
+            'options_callback'          => array('tl_lead_matching', 'getContactFormFields'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
             'sql'                       => "text NULL"
+        ),
+        'contactFormCheckboxes' => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormCheckboxes'],
+            'inputType'                 => 'keyValueWizard',
+            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                       => "blob NULL",
         ),
         'countResults' => array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['countResults'],
             'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50'),
+            'eval'                      => array('tl_class'=>'w50 m12'),
             'sql'                       => "char(1) NOT NULL default ''"
         ),
         'addBlankMarketingType' => array
@@ -323,7 +330,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormTemplate'],
             'inputType'               => 'select',
             'options_callback'        => array('tl_lead_matching', 'getEstateFormTemplates'),
-            'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50'),
+            'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'contactFormTemplate' => array
@@ -331,7 +338,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['contactFormTemplate'],
             'inputType'               => 'select',
             'options_callback'        => array('tl_lead_matching', 'getContactFormTemplates'),
-            'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50'),
+            'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'listItemTemplate' => array
@@ -358,6 +365,48 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
             'sql'                     => "int(10) unsigned NOT NULL default 0",
             'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
+        ),
+        'txtEstateHeadline' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtEstateHeadline'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'txtEstateDescription' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtEstateDescription'],
+            'inputType'               => 'textarea',
+            'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+            'sql'                     => "mediumtext NULL"
+        ),
+        'txtListHeadline' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtListHeadline'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'txtListDescription' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtListDescription'],
+            'inputType'               => 'textarea',
+            'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+            'sql'                     => "mediumtext NULL"
+        ),
+        'txtContactHeadline' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtContactHeadline'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'txtContactDescription' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtContactDescription'],
+            'inputType'               => 'textarea',
+            'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
+            'sql'                     => "mediumtext NULL"
         ),
     )
 );
@@ -410,6 +459,30 @@ class tl_lead_matching extends Backend
            {
                $arrOptions[ $objObjectTypes->id ] = $objObjectTypes->title;
            }
+        }
+
+        return $arrOptions;
+    }
+
+    /**
+     * Returns an array of object types
+     *
+     * @param $dc
+     *
+     * @return array
+     */
+    public function getContactFormFields($dc)
+    {
+        $arrOptions = array('salutation', 'firstname', 'name', 'email', 'phone');
+
+        $arrCheckboxes = \StringUtil::deserialize($dc->activeRecord->contactFormCheckboxes);
+
+        if($arrCheckboxes !== null)
+        {
+            foreach ($arrCheckboxes as $arrCheckbox)
+            {
+                $arrOptions[] = $arrCheckbox['key'];
+            }
         }
 
         return $arrOptions;

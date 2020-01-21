@@ -88,24 +88,6 @@
       <trans-unit id="tl_lead_matching_meta.emptyField">
         <source>no data</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.headlineEstateForm">
-        <source>Find the right prospective customer for your property now.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelEstateForm">
-        <source>Your real estate data:</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.headlineContactForm">
-        <source>Contact</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelContactForm">
-        <source>Enter your contact details where we can reach you:</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.headlineList">
-        <source>Suitable interested parties for your property</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelList">
-        <source>Search our database for suitable interested parties using your basic property data.</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.labelCount">
         <source>Results found</source>
       </trans-unit>

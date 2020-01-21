@@ -121,12 +121,12 @@ class ModuleLeadMatching extends \Module
             );
         }
 
-        $this->Template->headlineEstateForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['headlineEstateForm'];
-        $this->Template->labelEstateForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelEstateForm'];
-        $this->Template->headlineContactForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['headlineContactForm'];
-        $this->Template->labelContactForm = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelContactForm'];
-        $this->Template->headlineList = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['headlineList'];
-        $this->Template->labelList = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelList'];
+        $this->Template->headlineEstateForm = $this->config->txtEstateHeadline;
+        $this->Template->labelEstateForm = $this->config->txtEstateDescription;
+        $this->Template->headlineContactForm = $this->config->txtContactHeadline;
+        $this->Template->labelContactForm = $this->config->txtContactDescription;
+        $this->Template->headlineList = $this->config->txtListHeadline;
+        $this->Template->labelList = $this->config->txtListDescription;
         $this->Template->labelCount = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['labelCount'];
 
         $this->Template->configId = $this->lmtConfig;
@@ -470,6 +470,28 @@ class ModuleLeadMatching extends \Module
                     $arrData['inputType'] = 'text';
             }
 
+            // Prepare checkboxes
+            $arrCheckboxes = \StringUtil::deserialize($this->config->contactFormCheckboxes);
+
+            if($arrCheckboxes !== null)
+            {
+                foreach ($arrCheckboxes as $arrCheckbox)
+                {
+                    if($field == $arrCheckbox['key'])
+                    {
+                        $arrData = array(
+                            'inputType' => 'checkbox',
+                            'options'   => [$arrCheckbox['key'] => $arrCheckbox['value']],
+                            'eval'      => [
+                                'mandatory' => in_array($field, $arrMandatory)
+                            ]
+                        );
+
+                        break;
+                    }
+                }
+            }
+
             // HOOK: add custom logic
             if (isset($GLOBALS['TL_HOOKS']['parseLeadMatchingFormField']) && \is_array($GLOBALS['TL_HOOKS']['parseLeadMatchingFormField']))
             {
@@ -493,6 +515,7 @@ class ModuleLeadMatching extends \Module
 
             $objWidget->id .= '_' . $this->id;
             $objWidget->storeValues = true;
+            $objWidget->required = isset($arrData['eval']['mandatory']);
 
             // Validate input
             if (\Input::post('FORM_SUBMIT') == $strFormId)
