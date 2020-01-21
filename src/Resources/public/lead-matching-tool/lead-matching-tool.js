@@ -18,6 +18,7 @@ var LeadMatchingTool = (function () {
             form: 'FORM_SELECTOR',
             loadingClass: 'loading',
             loadingContainer: 'COUNTER_LOADING_SELECTOR',
+            formatNumber: true
         };
 
         var init = function () {
@@ -86,7 +87,12 @@ var LeadMatchingTool = (function () {
                 }
 
                 tool.formSubmit.disabled = !res.data.count;
-                tool.counter.innerHTML = number_format(res.data.count, 0, ',', '.');
+
+                if(tool.settings.formatNumber){
+                    tool.counter.innerHTML = number_format(res.data.count, 0, ',', '.');
+                }else{
+                    tool.counter.innerHTML = res.data.count;
+                }
 
                 // remove loader class
                 if(!!tool.loadingContainer){
