@@ -548,7 +548,7 @@ class ModuleLeadMatching extends \Module
             {
                 case 'contact':
                     $objEmail = new \Email();
-                    $objEmail->from = $this->config->mailTo;
+                    $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
                     $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
                     $objEmail->subject = $this->config->mailSubject;
 
