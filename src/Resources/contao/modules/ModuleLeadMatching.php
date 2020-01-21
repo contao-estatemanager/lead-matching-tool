@@ -482,7 +482,7 @@ class ModuleLeadMatching extends \Module
                     {
                         $arrData = array(
                             'inputType' => 'checkbox',
-                            'options'   => [$arrCheckbox['key'] => $arrCheckbox['value']],
+                            'options'   => [1 => $arrCheckbox['value']],
                             'eval'      => [
                                 'mandatory' => in_array($field, $arrMandatory)
                             ]
@@ -556,6 +556,7 @@ class ModuleLeadMatching extends \Module
 
                     foreach ($arrSubmitted as $k=>$v)
                     {
+                        // ToDo: set label as value for own checkboxes
                         $message .= ($GLOBALS['TL_LANG']['tl_lead_matching_meta'][$k] ?? ucfirst($k)) . ': ' . (\is_array($v) ? implode(', ', $v) : $v) . "\n";
                     }
 
