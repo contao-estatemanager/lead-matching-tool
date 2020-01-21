@@ -71,8 +71,7 @@ var LeadMatchingTool = (function () {
             tool.formSubmit.disabled = true;
 
             // set loader class
-            if(!!tool.loadingContainer)
-            {
+            if(!!tool.loadingContainer){
                 tool.loadingContainer.classList.add(tool.settings.loadingClass);
             }else{
                 tool.counter.classList.add(tool.settings.loadingClass);
@@ -90,7 +89,11 @@ var LeadMatchingTool = (function () {
                 tool.counter.innerHTML = res.data.count;
 
                 // remove loader class
-                tool.counter.classList.remove(tool.settings.loadingClass);
+                if(!!tool.loadingContainer){
+                    tool.loadingContainer.classList.remove(tool.settings.loadingClass);
+                }else{
+                    tool.counter.classList.remove(tool.settings.loadingClass);
+                }
 
                 tool.request = null;
             });
