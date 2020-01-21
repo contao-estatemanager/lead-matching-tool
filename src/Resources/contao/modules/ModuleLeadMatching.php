@@ -131,6 +131,7 @@ class ModuleLeadMatching extends \Module
 
         $this->Template->configId = $this->lmtConfig;
         $this->Template->moduleId = $this->cssID[0];
+        $this->Template->marketing = $this->config->marketingType;
     }
 
     /**
