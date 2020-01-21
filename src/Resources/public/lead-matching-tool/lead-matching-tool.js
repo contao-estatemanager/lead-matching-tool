@@ -86,7 +86,7 @@ var LeadMatchingTool = (function () {
                 }
 
                 tool.formSubmit.disabled = !res.data.count;
-                tool.counter.innerHTML = res.data.count;
+                tool.counter.innerHTML = res.data.count.toFixed(2);
 
                 // remove loader class
                 if(!!tool.loadingContainer){
