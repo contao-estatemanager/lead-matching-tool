@@ -16,7 +16,8 @@ var LeadMatchingTool = (function () {
             container: 'TOOL_SELECTOR',
             counter: 'COUNTER_SELECTOR',
             form: 'FORM_SELECTOR',
-            loadingClass: 'loading'
+            loadingClass: 'loading',
+            loadingContainer: 'COUNTER_LOADING_SELECTOR',
         };
 
         var init = function () {
@@ -25,6 +26,7 @@ var LeadMatchingTool = (function () {
 
             tool.container = document.querySelector(tool.settings.container);
             tool.counter = tool.container.querySelector(tool.settings.counter);
+            tool.loadingContainer = tool.container.querySelector(tool.settings.loadingContainer);
             tool.form = tool.container.querySelector(tool.settings.form);
             tool.formSubmit = tool.form.querySelector('[type="submit"]');
             tool.request = null;
@@ -69,7 +71,12 @@ var LeadMatchingTool = (function () {
             tool.formSubmit.disabled = true;
 
             // set loader class
-            tool.counter.classList.add(tool.settings.loadingClass);
+            if(!!tool.loadingContainer)
+            {
+                tool.loadingContainer.classList.add(tool.settings.loadingClass);
+            }else{
+                tool.counter.classList.add(tool.settings.loadingClass);
+            }
 
             tool.request.addEventListener("load", function(e){
                 var res = JSON.parse(this.responseText);
