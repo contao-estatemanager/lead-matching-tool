@@ -142,9 +142,7 @@ class SearchcriteriaModel extends \Model
                             break;
 
                         case 'objectTypes':
-                            $strConnectTable = 'tl_object_type_connection';
-                            $strQuery .= ' LEFT JOIN ' . $strConnectTable .' ON ' . $strConnectTable . '.pid=' . $strTable . '.id';
-                            $arrQuery[] = 'AND ((' . $strConnectTable . '.oid=' . $value . ' AND ' . $strConnectTable . '.ptable="' . $strTable . '") OR ' . $strTable . '.objectTypes IS NULL)';
+                            $arrQuery[] = 'AND objectType="' . $value . '"';
                             break;
 
                         case 'regions':

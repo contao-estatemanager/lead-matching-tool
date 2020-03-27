@@ -34,13 +34,13 @@
         <source>Indicate which marketing you are looking for.</source>
         <target>Geben Sie an für welche Vermarktung gesucht wird.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.objectTypes.0">
-        <source>Objecttypes</source>
-        <target>Objektarten</target>
+      <trans-unit id="tl_searchcriteria.objectType.0">
+        <source>Objecttype</source>
+        <target>Objektart</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.objectTypes.1">
-        <source>Choose the Object types.</source>
-        <target>Wählen Sie die anzuzeigenden Objektarten.</target>
+      <trans-unit id="tl_searchcriteria.objectType.1">
+        <source>Choose the Object type.</source>
+        <target>Wählen Sie die Objektart.</target>
       </trans-unit>
       <trans-unit id="tl_searchcriteria.regions.0">
         <source>Regions</source>

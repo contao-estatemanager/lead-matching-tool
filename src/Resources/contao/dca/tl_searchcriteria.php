@@ -98,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{title_legend},title,marketing;{config_legend},objectTypes,regions,room_from,room_to,area_from,area_to,price_from,price_to;{geo_legend},latitude,longitude,postalcode,city,range;{published_legend},published'
+        'default'                     => '{title_legend},title,marketing;{config_legend},objectType,regions,room_from,room_to,area_from,area_to,price_from,price_to;{geo_legend},latitude,longitude,postalcode,city,range;{published_legend},published'
     ),
 
     // Fields
@@ -131,16 +131,13 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
             'eval'                      => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
             'sql'                       => "varchar(16) NOT NULL default ''"
         ),
-        'objectTypes' => array
+        'objectType' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_searchcriteria']['objectTypes'],
-            'inputType'                 => 'checkboxWizard',
+            'label'                     => &$GLOBALS['TL_LANG']['tl_searchcriteria']['objectType'],
+            'inputType'                 => 'select',
             'options_callback'          => array('tl_searchcriteria', 'getObjectTypes'),
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
-            'sql'                       => "blob NULL",
-            'save_callback'             => array(
-                array("ContaoEstateManager\\ObjectTypeEntity\\ObjectType", "objectTypeConnectionSaveCallback")
-            )
+            'eval'                      => array('tl_class'=>'w50 clr wizard'),
+            'sql'                       => "varchar(16) NOT NULL default ''"
         ),
         'regions' => array
         (
@@ -210,21 +207,21 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
         ),
         'postalcode' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['postalcode'],
             'inputType'               => 'text',
             'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'city' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['city'],
             'inputType'               => 'text',
             'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'range' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['range'],
             'inputType'               => 'text',
             'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
