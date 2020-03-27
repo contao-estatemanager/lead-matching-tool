@@ -389,7 +389,7 @@ class ModuleLeadMatching extends \Module
                 case 'marketingType':
                     if($this->config->marketingType)
                     {
-                        // skip if the marketing type was set in the config
+                        // skip if the marketing type was set in config
                         continue;
                     }
 
@@ -450,23 +450,56 @@ class ModuleLeadMatching extends \Module
                     break;
 
                 case 'regions':
+                    if(!!$this->config->preciseRegionSearch)
+                    {
+                        $arrData['inputType'] = 'select';
+                        $arrData['options'] = array();
+
+                        if($this->config->addBlankRegion)
+                        {
+                            $arrData['options'] = array('' => '-');
+                        }
+
+                        $arrOptions = \StringUtil::deserialize($this->config->regionsData);
+
+                        foreach ($arrOptions as $key => $value)
+                        {
+                            $arrData['options'][ $key ] = $value;
+                        }
+                    }
+                    else
+                    {
+                        $arrData['inputType'] = 'text';
+                        $objTemplate->regionsAutocompleteId = 'regions_' . $this->id;
+                        $objTemplate->regionsAutocomplete = true;
+                    }
+
+                    break;
+                case 'range':
+                    if(!!$this->config->preciseRegionSearch)
+                    {
+                        continue;
+                    }
+
                     $arrData['inputType'] = 'select';
                     $arrData['options'] = array();
 
-                    if($this->config->addBlankRegion)
+                    if($this->config->addBlankRange)
                     {
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions = \StringUtil::deserialize($this->config->regionsData);
+                    $arrOptions = \StringUtil::deserialize($this->config->rangeOptions);
 
-                    foreach ($arrOptions as $key => $value)
+                    if(!empty($arrOptions))
                     {
-                        $arrData['options'][ $key ] = $value;
+                        foreach ($arrOptions as $opt)
+                        {
+                            $arrData['options'][ $opt['key'] ] = $opt['value'];
+                        }
                     }
 
                     break;
-
                 default:
                     $arrData['inputType'] = 'text';
             }
@@ -516,6 +549,7 @@ class ModuleLeadMatching extends \Module
 
             $objWidget->id .= '_' . $this->id;
             $objWidget->storeValues = true;
+            $objWidget->class = $field;
             $objWidget->required = in_array($field, $arrMandatory);
 
             // Validate input

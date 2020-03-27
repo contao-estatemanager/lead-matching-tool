@@ -91,15 +91,16 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     // Palettes
     'palettes' => array
     (
-        '__selector__'                => array('type', 'addEstateForm', 'addContactForm'),
+        '__selector__'                => array('type', 'preciseRegionSearch', 'addEstateForm', 'addContactForm'),
         'default'                     => '{title_legend},title,type;',
-        'system'                      => '{title_legend},title,type;{config_legend},marketingType;{field_legend},marketingTypes,addBlankMarketingType,objectTypes,addBlankObjectType,regions,addBlankRegion;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;'
+        'system'                      => '{title_legend},title,type;{config_legend},marketingType;{data_legend},marketingTypes,addBlankMarketingType,objectTypes,addBlankObjectType,preciseRegionSearch;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;'
     ),
 
     // Subpalettes
     'subpalettes' => array
     (
-        'addEstateForm'               => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields,estateFormMetaFieldsMandatory,estateFormTemplate',
+        'preciseRegionSearch'         => 'regions,addBlankRegion',
+        'addEstateForm'               => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields,estateFormMetaFieldsMandatory,rangeOptions,estateFormTemplate',
         'addContactForm'              => 'txtContactHeadline,forceContact,txtContactDescription,contactFormMetaFields,contactFormMetaFieldsMandatory,contactFormCheckboxes,salutationFields,addBlankSalutation,contactFormTemplate,mailSubject,mailTo,jumpTo'
     ),
 
@@ -173,6 +174,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'sql'                       => "blob NULL",
         ),
+        'preciseRegionSearch' => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['preciseRegionSearch'],
+            'inputType'                 => 'checkbox',
+            'eval'                      => array('submitOnChange'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                       => "char(1) NOT NULL default ''"
+        ),
         'regions' => array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['regions'],
@@ -190,6 +198,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'salutationFields' => array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['salutationFields'],
+            'inputType'                 => 'keyValueWizard',
+            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                       => "blob NULL",
+        ),
+        'rangeOptions' => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['rangeOptions'],
             'inputType'                 => 'keyValueWizard',
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
             'sql'                       => "blob NULL",
@@ -219,11 +234,19 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
             'sql'                       => "text NULL"
         ),
+        // ToDo: Combine related fields in module
+        'groupRelatedFields' => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['groupRelatedFields'],
+            'inputType'                 => 'checkbox',
+            'eval'                      => array('tl_class'=>'m12 w50'),
+            'sql'                       => "char(1) NOT NULL default '1'"
+        ),
         'estateFormMetaFields' => array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
             'inputType'                 => 'checkboxWizard',
-            'options'                   => array('marketingType', 'objectTypes', 'regions', 'room', 'area', 'price'),
+            'options'                   => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
             'sql'                       => "text NULL"
@@ -232,7 +255,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
             'inputType'                 => 'checkbox',
-            'options'                   => array('marketingType', 'objectTypes', 'regions', 'room', 'area', 'price'),
+            'options'                   => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
             'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
             'sql'                       => "text NULL"

@@ -4,8 +4,8 @@
       <trans-unit id="tl_lead_matching.title_legend">
         <source>Titel</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.field_legend">
-        <source>Field-Configuration</source>
+      <trans-unit id="tl_lead_matching.data_legend">
+        <source>Data-Configuration</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.config_legend">
         <source>Base-Configuration</source>
@@ -60,6 +60,12 @@
       </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankObjectType.1">
         <source>Includes a blank option to the object types in the frontend.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.preciseRegionSearch.0">
+        <source>Use precise region search</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.preciseRegionSearch.1">
+        <source>If the precise region search is active, a select box with selectable regions is provided instead of a radius search.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankRegion.0">
         <source>Include blank option for regions</source>
@@ -186,6 +192,12 @@
       </trans-unit>
       <trans-unit id="tl_lead_matching.jumpTo.1">
         <source>Please choose the page to which visitors will be redirected when clicking a link or submitting a form.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.groupRelatedFields.0">
+        <source>Group related fields</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.groupRelatedFields.1">
+        <source>Groups related fields and outputs them as from to values.</source>
       </trans-unit>
     </body>
   </file>

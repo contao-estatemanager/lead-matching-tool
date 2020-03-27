@@ -5,9 +5,9 @@
         <source>Titel</source>
         <target>Titel</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.field_legend">
-        <source>Field-Configuration</source>
-        <target>Feld-Konfiguration</target>
+      <trans-unit id="tl_lead_matching.data_legend">
+        <source>Data-Configuration</source>
+        <target>Daten-Konfiguration</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.config_legend">
         <source>Base-Configuration</source>
@@ -88,6 +88,14 @@
       <trans-unit id="tl_lead_matching.addBlankRegion.1">
         <source>Includes a blank option to the object types in the frontend.</source>
         <target>Fügt den Regionen eine Leerauswahl im Frontend hinzu.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.preciseRegionSearch.0">
+        <source>Use precise region search</source>
+        <target>Präzise Regionensuche verwenden</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.preciseRegionSearch.1">
+        <source>If the precise region search is active, a select box with selectable regions is provided instead of a radius search.</source>
+        <target>Sofern die präzise Regionensuche aktiv ist, wird, statt einer Umkreissuche eine Select-Box mit auswählbaren Regionen zur Verfügung gestellt.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankSalutation.0">
         <source>Include blank option for salutation</source>
@@ -239,7 +247,7 @@
       </trans-unit>
       <trans-unit id="tl_lead_matching.contactFormCheckboxes.1">
         <source>Define the possible checkbox fields here. Please save this configuration to select the checkbox fields to be displayed via contact form fields.</source>
-        <target>Definieren Sie hier die möglichen Checkbox-Felder. Bitte speichern Sie diese Konfiguration um anschlöießend die anzuzeigenden Checkbox-Felder über Kontakt-Formularfelder auszuwählen.</target>
+        <target>Definieren Sie hier die möglichen Checkbox-Felder. Bitte speichern Sie diese Konfiguration um anschließend die anzuzeigenden Checkbox-Felder über Kontakt-Formularfelder auszuwählen.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.mailSubject.0">
         <source>Mail subject</source>
@@ -312,6 +320,14 @@
       <trans-unit id="tl_lead_matching.txtContactDescription.1">
         <source>Define a description here.</source>
         <target>Definieren Sie hier einen Beschreibungstext.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.groupRelatedFields.0">
+        <source>Group related fields</source>
+        <target>Zusammenhängende Felder gruppieren</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.groupRelatedFields.1">
+        <source>Groups related fields and outputs them as from to values.</source>
+        <target>Gruppiert zusammenhängende Felder und gibt diese als von bis  Werte aus.</target>
       </trans-unit>
     </body>
   </file>

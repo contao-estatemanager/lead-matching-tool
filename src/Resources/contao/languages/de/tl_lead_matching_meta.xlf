@@ -41,6 +41,14 @@
         <source>Regions</source>
         <target>Regionen</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.regions_autocomplete">
+        <source>Location / Postal code</source>
+        <target>Ort / PLZ</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.range">
+        <source>Range</source>
+        <target>Umkreis</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.room">
         <source>Rooms</source>
         <target>Zimmer</target>

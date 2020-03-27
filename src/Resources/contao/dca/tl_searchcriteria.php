@@ -98,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{title_legend},title,marketing;{config_legend},objectTypes,regions,room_from,room_to,area_from,area_to,price_from,price_to;{published_legend},published'
+        'default'                     => '{title_legend},title,marketing;{config_legend},objectTypes,regions,room_from,room_to,area_from,area_to,price_from,price_to;{geo_legend},latitude,longitude,postalcode,city,range;{published_legend},published'
     ),
 
     // Fields
@@ -156,42 +156,77 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['room_from'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'room_to' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['room_to'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'area_from' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['area_from'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'area_to' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['area_to'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'price_from' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_from'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'price_to' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'latitude' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['latitude'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'longitude' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['longitude'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'postalcode' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'city' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'range' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_searchcriteria']['price_to'],
+            'inputType'               => 'text',
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'published' => array

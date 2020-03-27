@@ -68,41 +68,43 @@ var LeadMatchingTool = (function () {
                 tool.request.abort();
             }
 
-            var formData = new FormData(tool.form);
-            var params = new URLSearchParams(formData);
+            setTimeout(function(){
+                var formData = new FormData(tool.form);
+                var params = new URLSearchParams(formData);
 
-            tool.request = new XMLHttpRequest();
+                tool.request = new XMLHttpRequest();
 
-            // disable form submit
-            tool.formSubmit.disabled = true;
+                // disable form submit
+                tool.formSubmit.disabled = true;
 
-            // set loader class
-            loader(true);
+                // set loader class
+                loader(true);
 
-            tool.request.addEventListener("load", function(e){
-                var res = JSON.parse(this.responseText);
+                tool.request.addEventListener("load", function(e){
+                    var res = JSON.parse(this.responseText);
 
-                if(!!res.error){
-                    console.error(res.message);
-                    return;
-                }
+                    if(!!res.error){
+                        console.error(res.message);
+                        return;
+                    }
 
-                tool.formSubmit.disabled = !res.data.count;
+                    tool.formSubmit.disabled = !res.data.count;
 
-                if(tool.settings.formatNumber){
-                    tool.counter.innerHTML = number_format(res.data.count, 0, ',', '.');
-                }else{
-                    tool.counter.innerHTML = res.data.count;
-                }
+                    if(tool.settings.formatNumber){
+                        tool.counter.innerHTML = number_format(res.data.count, 0, ',', '.');
+                    }else{
+                        tool.counter.innerHTML = res.data.count;
+                    }
 
-                // remove loader class
-                loader();
+                    // remove loader class
+                    loader();
 
-                tool.request = null;
-            });
+                    tool.request = null;
+                });
 
-            tool.request.open("GET", "/leadmatching/count/" + configId + "?" + params.toString());
-            tool.request.send();
+                tool.request.open("GET", "/leadmatching/count/" + configId + "?" + params.toString());
+                tool.request.send();
+            }, 250);
         };
 
         var loader = function(state){

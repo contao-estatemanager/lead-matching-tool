@@ -148,9 +148,16 @@ class SearchcriteriaModel extends \Model
                             break;
 
                         case 'regions':
-                            $strConnectTable = 'tl_region_connection';
-                            $strQuery .= ' LEFT JOIN ' . $strConnectTable .' ON ' . $strConnectTable . '.pid=' . $strTable . '.id';
-                            $arrQuery[] = 'AND ((' . $strConnectTable . '.rid=' . $value . ' AND ' . $strConnectTable . '.ptable="' . $strTable . '") OR ' . $strTable . '.regions IS NULL)';
+                            if(!!$config->preciseRegionSearch)
+                            {
+                                $strConnectTable = 'tl_region_connection';
+                                $strQuery .= ' LEFT JOIN ' . $strConnectTable .' ON ' . $strConnectTable . '.pid=' . $strTable . '.id';
+                                $arrQuery[] = 'AND ((' . $strConnectTable . '.rid=' . $value . ' AND ' . $strConnectTable . '.ptable="' . $strTable . '") OR ' . $strTable . '.regions IS NULL)';
+                            }
+                            elseif($data['region_latitude'] && $data['region_longitude'])
+                            {
+                                $arrQuery[] = 'AND ' . $strTable . '.latitude!=0 AND ' . $strTable . '.longitude!=0 AND (6371*acos(cos(radians(' . $data['region_latitude'] . '))*cos(radians(' . $strTable . '.latitude))*cos(radians(' . $strTable . '.longitude)-radians(' . $data['region_longitude'] . '))+sin(radians(' . $data['region_latitude'] . '))*sin(radians(' . $strTable . '.latitude)))) <= ' . $data['range'] ?? 100;
+                            }
                             break;
 
                         case 'room':

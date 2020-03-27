@@ -47,7 +47,7 @@ class LeadMatchingRead extends \Frontend
 
                 $count = 0;
 
-                $validParam = array('marketingType', 'regions', 'objectTypes', 'room', 'area', 'price');
+                $validParam = array('marketingType', 'regions', 'region_latitude', 'region_longitude', 'range', 'objectTypes', 'room', 'area', 'price');
                 $currParam  = $this->getParameters(self::METHOD_GET, $validParam);
 
                 if($config->type === 'system')
