@@ -613,6 +613,17 @@ class ModuleLeadMatching extends \Module
                     break;
 
                 case 'estate':
+                    // Adding not editable POST fields
+                    $arrPost = array_diff(array_keys($_POST), $arrEditable);
+
+                    if(count($arrPost))
+                    {
+                        foreach ($arrPost as $postField)
+                        {
+                            $_SESSION['LEAD_MATCHING']['estate'][ $postField ] = $_POST[ $postField ];
+                        }
+                    }
+
                     $_SESSION['LEAD_MATCHING']['SUBMIT'] = 1;
                     break;
             }
