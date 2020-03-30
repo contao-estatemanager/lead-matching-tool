@@ -303,12 +303,18 @@ class ModuleLeadMatching extends \Module
 
                     case 'price_from':
                     case 'price_to':
-                        $varValue = number_format($varValue, 0 , ',', '.') . ' €';
+                        if($objItem->{$field})
+                        {
+                            $varValue = number_format($varValue, 0 , ',', '.') . ' €';
+                        }
                         break;
 
                     case 'area_from':
                     case 'area_to':
-                        $varValue = number_format($varValue, 2 , ',', '.') . ' m²';
+                        if($objItem->{$field})
+                        {
+                            $varValue = number_format($varValue, 2, ',', '.') . ' m²';
+                        }
                         break;
 
                     case 'tstamp':

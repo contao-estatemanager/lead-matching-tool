@@ -161,7 +161,8 @@ class SearchcriteriaModel extends \Model
                         case 'room':
                         case 'price':
                         case 'area':
-                            $arrQuery[] = 'AND ' . $strTable . '.' . $field . '_from' . '<=' . $value . ' AND ' . $strTable . '.' . $field . '_to' . '>=' . $value;
+                            $tableField = $strTable . '.' . $field;
+                            $arrQuery[] = 'AND (' . $tableField . '_from' . '<=' . $value . ' OR ' . $tableField . '_from="") AND (' . $tableField . '_to' . '>=' . $value . ' OR ' . $tableField . '_to="")';
                             break;
                     }
                 }
