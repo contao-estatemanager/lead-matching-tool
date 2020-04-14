@@ -17,6 +17,7 @@ use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use ContaoEstateManager\LeadMatchingTool\EstateManagerLeadMatchingTool;
+use ContaoEstateManager\EstateManager\EstateManager;
 
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -31,7 +32,7 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
     {
         return [
             BundleConfig::create(EstateManagerLeadMatchingTool::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
+                ->setLoadAfter([ContaoCoreBundle::class, EstateManager:class])
                 ->setReplace(['estatemanagerleadmatchingtool']),
         ];
     }
