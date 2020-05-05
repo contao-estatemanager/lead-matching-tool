@@ -11,6 +11,9 @@
 namespace ContaoEstateManager\LeadMatchingTool;
 
 
+use Contao\Database;
+use Contao\Model;
+
 /**
  * Reads and writes search criteria
  *
@@ -42,7 +45,7 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
 
-class SearchcriteriaModel extends \Model
+class SearchcriteriaModel extends Model
 {
 
     /**
@@ -65,7 +68,7 @@ class SearchcriteriaModel extends \Model
         $strTable = static::$strTable;
         $strQuery = static::buildFilterQuery($config, $data);
 
-        $objResult = \Database::getInstance()->prepare('SELECT ' . $strTable . '.* FROM ' . $strTable . $strQuery);
+        $objResult = Database::getInstance()->prepare('SELECT ' . $strTable . '.* FROM ' . $strTable . $strQuery);
 
         if ($arrOptions['limit'] && $arrOptions['offset'])
         {
@@ -99,7 +102,7 @@ class SearchcriteriaModel extends \Model
         $strTable = static::$strTable;
         $strQuery = static::buildFilterQuery($config, $data);
 
-        $objCount = \Database::getInstance()->execute('SELECT COUNT(' . $strTable . '.id) FROM ' . $strTable . $strQuery);
+        $objCount = Database::getInstance()->execute('SELECT COUNT(' . $strTable . '.id) FROM ' . $strTable . $strQuery);
 
         return $objCount->numRows;
     }
