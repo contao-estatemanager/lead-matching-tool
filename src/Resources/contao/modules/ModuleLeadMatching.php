@@ -150,7 +150,7 @@ class ModuleLeadMatching extends Module
      *
      * @param $intTotal
      */
-    protected function generateList($intTotal)
+    protected function generateList($intTotal): void
     {
         $limit = null;
         $offset = 0;
@@ -235,7 +235,8 @@ class ModuleLeadMatching extends Module
      *
      * @return array
      */
-    public function parseItems($objItems){
+    public function parseItems($objItems): array
+    {
         $limit = $objItems->count();
 
         if ($limit < 1)
@@ -266,7 +267,8 @@ class ModuleLeadMatching extends Module
      *
      * @return string
      */
-    public function parseItem($objItem, $strClass='', $intCount=0){
+    public function parseItem($objItem, $strClass='', $intCount=0): string
+    {
         $objTemplate = new FrontendTemplate($this->config->listItemTemplate);
         $objTemplate->setData($objItem->row());
         $objTemplate->class = $strClass;
@@ -357,7 +359,7 @@ class ModuleLeadMatching extends Module
      *
      * @return string
      */
-    public function generateForm($strMode)
+    public function generateForm($strMode): string
     {
         $doNotSubmit = false;
         $arrSubmitted = array();
@@ -658,7 +660,7 @@ class ModuleLeadMatching extends Module
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         if($this->config->type === 'system')
         {
@@ -729,7 +731,7 @@ class ModuleLeadMatching extends Module
      *
      * @return array|null
      */
-    private function getObjectTypeTitlesByIds($arrIds)
+    private function getObjectTypeTitlesByIds($arrIds): ?array
     {
         if($arrIds === null)
         {
@@ -761,7 +763,7 @@ class ModuleLeadMatching extends Module
      *
      * @return array|null
      */
-    private function getRegionTitlesByIds($arrIds)
+    private function getRegionTitlesByIds($arrIds): ?array
     {
         if($arrIds === null)
         {

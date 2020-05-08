@@ -97,7 +97,7 @@ class SearchcriteriaModel extends Model
      *
      * @return int
      */
-    public static function countPublishedByFilteredAttributes($config, $data=null)
+    public static function countPublishedByFilteredAttributes($config, $data=null): int
     {
         $strTable = static::$strTable;
         $strQuery = static::buildFilterQuery($config, $data);
@@ -115,7 +115,7 @@ class SearchcriteriaModel extends Model
      *
      * @return string
      */
-    private static function buildFilterQuery($config, $data=null)
+    private static function buildFilterQuery($config, $data=null): string
     {
         $strTable = static::$strTable;
         $arrQuery = array($strTable . '.published=1');

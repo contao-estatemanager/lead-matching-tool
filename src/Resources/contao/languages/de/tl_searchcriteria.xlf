@@ -13,6 +13,10 @@
         <source>Publish</source>
         <target>Veröffentlichen</target>
       </trans-unit>
+      <trans-unit id="tl_searchcriteria.geo_legend">
+        <source>Geo-Information / Circumference search</source>
+        <target>Geo-Informationen / Umkreissuche</target>
+      </trans-unit>
 
       <trans-unit id="tl_searchcriteria.title.0">
         <source>Title / Headline</source>
@@ -97,6 +101,46 @@
       <trans-unit id="tl_searchcriteria.price_to.1">
         <source>Define the price size (to).</source>
         <target>Geben Sie eine Preisvorstellung (bis) an.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.latitude.0">
+        <source>Latitude</source>
+        <target>Breitengrad</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.latitude.1">
+        <source>Enter the latitude of the region.</source>
+        <target>Geben Sie hier den Breitengrad der Region an.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.longitude.0">
+        <source>Longitude</source>
+        <target>Längengrad</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.longitude.1">
+        <source>Enter the longitude of the region.</source>
+        <target>Geben Sie hier den Längengrad der Region an.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.postalcode.0">
+        <source>Postal code</source>
+        <target>Postleitzahl</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.postalcode.1">
+        <source>Enter the postal code of the region.</source>
+        <target>Geben Sie hier die Postleitzahl der Region an.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.city.0">
+        <source>City</source>
+        <target>Stadt</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.city.1">
+        <source>Enter the city of the region.</source>
+        <target>Geben Sie hier den Namen der Region an.</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.range.0">
+        <source>Search within a radius of</source>
+        <target>Such im Umkreis von</target>
+      </trans-unit>
+      <trans-unit id="tl_searchcriteria.range.1">
+        <source>Enter the maximum radius (km - without unit).</source>
+        <target>Geben Sie hier den maximalen Radius an (km - ohne Einheit)</target>
       </trans-unit>
 
       <trans-unit id="tl_searchcriteria.published.0">

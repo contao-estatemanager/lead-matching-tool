@@ -352,7 +352,9 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormTemplate'],
             'inputType'               => 'select',
-            'options_callback'        => array('tl_lead_matching', 'getEstateFormTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('lmt_estate_');
+            },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
@@ -360,7 +362,9 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['contactFormTemplate'],
             'inputType'               => 'select',
-            'options_callback'        => array('tl_lead_matching', 'getContactFormTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('lmt_contact_');
+            },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
@@ -368,7 +372,9 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['listItemTemplate'],
             'inputType'               => 'select',
-            'options_callback'        => array('tl_lead_matching', 'getListItemTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('lmt_item_');
+            },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
@@ -658,35 +664,5 @@ class tl_lead_matching extends Backend
         }
 
         return $arrOptions;
-    }
-
-    /**
-     * Return all estate form templates as array
-     *
-     * @return array
-     */
-    public function getEstateFormTemplates()
-    {
-        return $this->getTemplateGroup('lmt_estate_');
-    }
-
-    /**
-     * Return all estate form templates as array
-     *
-     * @return array
-     */
-    public function getContactFormTemplates()
-    {
-        return $this->getTemplateGroup('lmt_contact_');
-    }
-
-    /**
-     * Return all list item templates as array
-     *
-     * @return array
-     */
-    public function getListItemTemplates()
-    {
-        return $this->getTemplateGroup('lmt_item_');
     }
 }
