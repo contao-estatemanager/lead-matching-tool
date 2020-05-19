@@ -18,10 +18,6 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
         'switchToEdit'                => true,
         'enableVersioning'            => true,
         'markAsCopy'                  => 'title',
-        'onload_callback' => array
-        (
-            array('tl_searchcriteria', 'checkPermission')
-        ),
         'sql' => array
         (
             'keys' => array
@@ -135,9 +131,10 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_searchcriteria']['objectType'],
             'inputType'                 => 'select',
-            'options_callback'          => array('tl_searchcriteria', 'getObjectTypes'),
+            'foreignKey'                => 'tl_object_type.title',
             'eval'                      => array('tl_class'=>'w50 clr wizard'),
-            'sql'                       => "varchar(16) NOT NULL default ''"
+            'sql'                       => "int(10) unsigned NOT NULL default '0'",
+            'relation'                  => array('type'=>'hasOne', 'load'=>'lazy')
         ),
         'regions' => array
         (
@@ -239,15 +236,13 @@ $GLOBALS['TL_DCA']['tl_searchcriteria'] = array
     )
 );
 
+
 /**
  * Provide miscellaneous methods that are used by the data configuration array.
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
-
-use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
-
-class tl_searchcriteria extends Backend
+class tl_searchcriteria extends Contao\Backend
 {
 
     /**
@@ -256,39 +251,7 @@ class tl_searchcriteria extends Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
-    }
-
-    /**
-     * Check permissions to edit table tl_searchcriteria
-     *
-     * @throws Contao\CoreBundle\Exception\AccessDeniedException
-     */
-    public function checkPermission()
-    {
-        return;
-    }
-
-    /**
-     * Returns an array of object types
-     *
-     * @return array
-     */
-    public function getObjectTypes()
-    {
-        $arrOptions = array();
-
-        $objObjectTypes = ObjectTypeModel::findAll();
-
-        if($objObjectTypes !== null)
-        {
-            while($objObjectTypes->next())
-            {
-                $arrOptions[ $objObjectTypes->id ] = $objObjectTypes->title;
-            }
-        }
-
-        return $arrOptions;
+        $this->import('Contao\BackendUser', 'User');
     }
 
     /**
@@ -301,9 +264,9 @@ class tl_searchcriteria extends Backend
      *
      * @return array
      */
-    public function labelCallback($row, $label, Contao\DataContainer $dc, $args)
+    public function labelCallback(array $row, string $label, Contao\DataContainer $dc, array $args): array
     {
-        $args[3] = date(\Config::get('datimFormat'), $args[3]);
+        $args[3] = date(Contao\Config::get('datimFormat'), $args[3]);
 
         return $args;
     }
@@ -320,11 +283,11 @@ class tl_searchcriteria extends Backend
      *
      * @return string
      */
-    public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+    public function toggleIcon(array $row, ?string $href, string $label, string $title, string $icon, string $attributes): string
     {
-        if (\strlen(Input::get('tid')))
+        if (strlen(Contao\Input::get('tid')))
         {
-            $this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1), (@func_get_arg(12) ?: null));
+            $this->toggleVisibility(Contao\Input::get('tid'), (Input::get('state') == 1), (@func_get_arg(12) ?: null));
             $this->redirect($this->getReferer());
         }
 
@@ -341,21 +304,21 @@ class tl_searchcriteria extends Backend
             $icon = 'invisible.svg';
         }
 
-        return '<a href="'.$this->addToUrl($href).'" title="'.StringUtil::specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"').'</a> ';
+        return '<a href="'.$this->addToUrl($href).'" title="'.Contao\StringUtil::specialchars($title).'"'.$attributes.'>'.Contao\Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"').'</a> ';
     }
 
     /**
      * Toggle the visibility of a search criteria
      *
-     * @param integer       $intId
-     * @param boolean       $blnVisible
-     * @param DataContainer $dc
+     * @param integer              $intId
+     * @param boolean              $blnVisible
+     * @param Contao\DataContainer $dc
      */
-    public function toggleVisibility($intId, $blnVisible, DataContainer $dc=null)
+    public function toggleVisibility(int $intId, bool $blnVisible, Contao\DataContainer $dc=null): void
     {
         // Set the ID and action
-        Input::setGet('id', $intId);
-        Input::setGet('act', 'toggle');
+        Contao\Input::setGet('id', $intId);
+        Contao\Input::setGet('act', 'toggle');
 
         if ($dc)
         {
@@ -363,16 +326,16 @@ class tl_searchcriteria extends Backend
         }
 
         // Trigger the onload_callback
-        if (\is_array($GLOBALS['TL_DCA']['tl_searchcriteria']['config']['onload_callback']))
+        if (is_array($GLOBALS['TL_DCA']['tl_searchcriteria']['config']['onload_callback']))
         {
             foreach ($GLOBALS['TL_DCA']['tl_searchcriteria']['config']['onload_callback'] as $callback)
             {
-                if (\is_array($callback))
+                if (is_array($callback))
                 {
                     $this->import($callback[0]);
                     $this->{$callback[0]}->{$callback[1]}($dc);
                 }
-                elseif (\is_callable($callback))
+                elseif (is_callable($callback))
                 {
                     $callback($dc);
                 }
@@ -411,16 +374,16 @@ class tl_searchcriteria extends Backend
         }
 
         // Trigger the onsubmit_callback
-        if (\is_array($GLOBALS['TL_DCA']['tl_searchcriteria']['config']['onsubmit_callback']))
+        if (is_array($GLOBALS['TL_DCA']['tl_searchcriteria']['config']['onsubmit_callback']))
         {
             foreach ($GLOBALS['TL_DCA']['tl_searchcriteria']['config']['onsubmit_callback'] as $callback)
             {
-                if (\is_array($callback))
+                if (is_array($callback))
                 {
                     $this->import($callback[0]);
                     $this->{$callback[0]}->{$callback[1]}($dc);
                 }
-                elseif (\is_callable($callback))
+                elseif (is_callable($callback))
                 {
                     $callback($dc);
                 }
