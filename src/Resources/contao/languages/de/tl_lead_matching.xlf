@@ -329,6 +329,14 @@
         <source>Groups related fields and outputs them as from to values.</source>
         <target>Gruppiert zusammenhängende Felder und gibt diese als von bis  Werte aus.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.rangeOptions.0">
+        <source>Range options</source>
+        <target>Umkreis-Optionen</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.rangeOptions.1">
+        <source>Here you can specify a list of available perimeter options (in km)</source>
+        <target>Hier können Sie eine Liste der verfügbaren Umkreis-Optionen angeben (in km).</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

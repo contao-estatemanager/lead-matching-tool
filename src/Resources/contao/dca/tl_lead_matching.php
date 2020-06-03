@@ -8,7 +8,7 @@
  * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
-\System::loadLanguageFile('tl_lead_matching_meta');
+Contao\System::loadLanguageFile('tl_lead_matching_meta');
 
 $GLOBALS['TL_DCA']['tl_lead_matching'] = array
 (
@@ -20,10 +20,6 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'switchToEdit'                => true,
         'enableVersioning'            => true,
         'markAsCopy'                  => 'title',
-        'onload_callback' => array
-        (
-            array('tl_lead_matching', 'checkPermission')
-        ),
         'sql' => array
         (
             'keys' => array
@@ -120,40 +116,44 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'title' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['title'],
+            'exclude'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'type' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['type'],
-            'inputType'                 => 'select',
-            'sorting'                   => true,
-            'options'                   => array('system'),
-            'eval'                      => array('includeBlankOption'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "varchar(16) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['type'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'sorting'                 => true,
+            'options'                 => array('system'),
+            'eval'                    => array('includeBlankOption'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(16) NOT NULL default ''"
         ),
         'marketingType' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['marketingType'],
-            'inputType'                 => 'select',
-            'sorting'                   => true,
-            'options'                   => array('kauf', 'miete'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                      => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "varchar(16) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['marketingType'],
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'sorting'                 => true,
+            'options'                 => array('kauf', 'miete'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(16) NOT NULL default ''"
         ),
         'marketingTypes' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['marketingTypes'],
-            'inputType'                 => 'checkboxWizard',
-            'options'                   => array('kauf', 'miete'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'save_callback'             => array(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['marketingTypes'],
+            'exclude'                 => true,
+            'inputType'               => 'checkboxWizard',
+            'options'                 => array('kauf', 'miete'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'save_callback'           => array(
                 array('tl_lead_matching', 'saveMarketingTypes')
             ),
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "blob NULL",
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "blob NULL",
         ),
         'marketingTypesData' => array
         (
@@ -161,53 +161,59 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         ),
         'objectTypes' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['objectTypes'],
-            'inputType'                 => 'checkboxWizard',
-            'options_callback'          => array('tl_lead_matching', 'getObjectTypes'),
-            'save_callback'             => array(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['objectTypes'],
+            'exclude'                 => true,
+            'inputType'               => 'checkboxWizard',
+            'foreignKey'              => 'tl_object_type.title',
+            'save_callback'           => array(
                 array('tl_lead_matching', 'saveObjectTypes')
             ),
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
-            'sql'                       => "blob NULL",
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
+            'sql'                     => "varchar(1022) NOT NULL default ''",
+            'relation'                => array('type'=>'hasMany', 'load'=>'lazy')
         ),
         'objectTypesData' => array
         (
-            'sql'                       => "blob NULL",
+            'sql'                     => "blob NULL",
         ),
         'preciseRegionSearch' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['preciseRegionSearch'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('submitOnChange'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['preciseRegionSearch'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'regions' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['regions'],
-            'inputType'                 => 'regionTree',
-            'eval'                      => array('multiple'=>true, 'fieldType'=>'checkbox', 'tl_class'=>'w50 clr'),
-            'save_callback'             => array(
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['regions'],
+            'exclude'                 => true,
+            'inputType'               => 'regionTree',
+            'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'tl_class'=>'w50 clr'),
+            'save_callback'           => array(
                 array('tl_lead_matching', 'saveRegions')
             ),
-            'sql'                       => "blob NULL",
+            'sql'                     => "blob NULL",
         ),
         'regionsData' => array
         (
-            'sql'                       => "blob NULL",
+            'sql'                     => "blob NULL",
         ),
         'salutationFields' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['salutationFields'],
-            'inputType'                 => 'keyValueWizard',
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                       => "blob NULL",
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['salutationFields'],
+            'exclude'                 => true,
+            'inputType'               => 'keyValueWizard',
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                     => "blob NULL",
         ),
         'rangeOptions' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['rangeOptions'],
-            'inputType'                 => 'keyValueWizard',
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                       => "blob NULL",
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['rangeOptions'],
+            'exclude'                 => true,
+            'inputType'               => 'keyValueWizard',
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                     => "blob NULL",
         ),
         'numberOfItems' => array
         (
@@ -219,162 +225,188 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         ),
         'perPage' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['perPage'],
-            'exclude'                   => true,
-            'inputType'                 => 'text',
-            'eval'                      => array('rgxp'=>'natural', 'tl_class'=>'w50'),
-            'sql'                       => "smallint(5) unsigned NOT NULL default 0"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['perPage'],
+            'exclude'                 => true,
+            'inputType'               => 'text',
+            'eval'                    => array('rgxp'=>'natural', 'tl_class'=>'w50'),
+            'sql'                     => "smallint(5) unsigned NOT NULL default 0"
         ),
         'listMetaFields' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['listMetaFields'],
-            'inputType'                 => 'checkboxWizard',
-            'options_callback'          => array('tl_lead_matching', 'getListMetaFields'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
-            'sql'                       => "text NULL"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['listMetaFields'],
+            'exclude'                 => true,
+            'inputType'               => 'checkboxWizard',
+            'options_callback'        => array('tl_lead_matching', 'getListMetaFields'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
+            'sql'                     => "text NULL"
         ),
         // ToDo: Combine related fields in module
         'groupRelatedFields' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['groupRelatedFields'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'m12 w50'),
-            'sql'                       => "char(1) NOT NULL default '1'"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['groupRelatedFields'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'m12 w50'),
+            'sql'                     => "char(1) NOT NULL default '1'"
         ),
         'estateFormMetaFields' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
-            'inputType'                 => 'checkboxWizard',
-            'options'                   => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
-            'sql'                       => "text NULL"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
+            'exclude'                 => true,
+            'inputType'               => 'checkboxWizard',
+            'options'                 => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'eval'                    => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
+            'sql'                     => "text NULL"
         ),
         'estateFormMetaFieldsMandatory' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
-            'inputType'                 => 'checkbox',
-            'options'                   => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "text NULL"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'options'                 => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "text NULL"
         ),
         'contactFormMetaFields' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFields'],
-            'inputType'                 => 'checkboxWizard',
-            'options_callback'          => array('tl_lead_matching', 'getContactFormFields'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                      => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
-            'sql'                       => "text NULL"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFields'],
+            'exclude'                 => true,
+            'inputType'               => 'checkboxWizard',
+            'options_callback'        => array('tl_lead_matching', 'getContactFormFields'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'eval'                    => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
+            'sql'                     => "text NULL"
         ),
         'contactFormMetaFieldsMandatory' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFieldsMandatory'],
-            'inputType'                 => 'checkbox',
-            'options_callback'          => array('tl_lead_matching', 'getContactFormFields'),
-            'reference'                 => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "text NULL"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFieldsMandatory'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'options_callback'        => array('tl_lead_matching', 'getContactFormFields'),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "text NULL"
         ),
         'contactFormCheckboxes' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormCheckboxes'],
-            'inputType'                 => 'keyValueWizard',
-            'eval'                      => array('multiple'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                       => "blob NULL",
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormCheckboxes'],
+            'exclude'                 => true,
+            'inputType'               => 'keyValueWizard',
+            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr'),
+            'sql'                     => "blob NULL",
         ),
         'countResults' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['countResults'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 m12'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['countResults'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 m12'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addBlankMarketingType' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankMarketingType'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 clr'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankMarketingType'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addBlankObjectType' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankObjectType'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 clr'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankObjectType'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addBlankRegion' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankRegion'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 clr'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankRegion'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addBlankSalutation' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankSalutation'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 clr'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankSalutation'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addContactForm' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['addContactForm'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('submitOnChange'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addContactForm'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addEstateForm' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['addEstateForm'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('submitOnChange'=>true, 'tl_class'=>'w50'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addEstateForm'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'forceList' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['forceList'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 m12'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['forceList'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 m12'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'forceContact' => array
         (
-            'label'                     => &$GLOBALS['TL_LANG']['tl_lead_matching']['forceContact'],
-            'inputType'                 => 'checkbox',
-            'eval'                      => array('tl_class'=>'w50 m12'),
-            'sql'                       => "char(1) NOT NULL default ''"
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['forceContact'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 m12'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'estateFormTemplate' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormTemplate'],
+            'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_lead_matching', 'getEstateFormTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('lmt_estate_');
+            },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'contactFormTemplate' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['contactFormTemplate'],
+            'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_lead_matching', 'getContactFormTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('lmt_contact_');
+            },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'listItemTemplate' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['listItemTemplate'],
+            'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_lead_matching', 'getListItemTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('lmt_item_');
+            },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'mailSubject' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailSubject'],
+            'exclude'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -382,6 +414,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'mailTo' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailTo'],
+            'exclude'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50', 'rgxp'=>'email'),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -399,6 +432,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'txtEstateHeadline' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtEstateHeadline'],
+            'exclude'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -406,6 +440,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'txtEstateDescription' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtEstateDescription'],
+            'exclude'                 => true,
             'inputType'               => 'textarea',
             'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
             'sql'                     => "mediumtext NULL"
@@ -413,6 +448,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'txtListHeadline' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtListHeadline'],
+            'exclude'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -420,6 +456,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'txtListDescription' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtListDescription'],
+            'exclude'                 => true,
             'inputType'               => 'textarea',
             'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
             'sql'                     => "mediumtext NULL"
@@ -427,6 +464,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'txtContactHeadline' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtContactHeadline'],
+            'exclude'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -434,6 +472,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'txtContactDescription' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['txtContactDescription'],
+            'exclude'                 => true,
             'inputType'               => 'textarea',
             'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
             'sql'                     => "mediumtext NULL"
@@ -441,16 +480,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     )
 );
 
+
 /**
  * Provide miscellaneous methods that are used by the data configuration array.
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
-
-use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
-use ContaoEstateManager\RegionEntity\RegionModel;
-
-class tl_lead_matching extends Backend
+class tl_lead_matching extends Contao\Backend
 {
 
     /**
@@ -459,53 +495,21 @@ class tl_lead_matching extends Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
-    }
-
-    /**
-     * Check permissions to edit table tl_lead_matching
-     *
-     * @throws Contao\CoreBundle\Exception\AccessDeniedException
-     */
-    public function checkPermission()
-    {
-        return;
+        $this->import('Contao\BackendUser', 'User');
     }
 
     /**
      * Returns an array of object types
      *
-     * @return array
-     */
-    public function getObjectTypes()
-    {
-        $arrOptions = array();
-
-        $objObjectTypes = ObjectTypeModel::findAll();
-
-        if($objObjectTypes !== null)
-        {
-           while($objObjectTypes->next())
-           {
-               $arrOptions[ $objObjectTypes->id ] = $objObjectTypes->title;
-           }
-        }
-
-        return $arrOptions;
-    }
-
-    /**
-     * Returns an array of object types
-     *
-     * @param $dc
+     * @param Contao\DataContainer $dc
      *
      * @return array
      */
-    public function getContactFormFields($dc)
+    public function getContactFormFields(Contao\DataContainer $dc): array
     {
         $arrOptions = array('salutation', 'firstname', 'name', 'email', 'phone');
 
-        $arrCheckboxes = \StringUtil::deserialize($dc->activeRecord->contactFormCheckboxes);
+        $arrCheckboxes = Contao\StringUtil::deserialize($dc->activeRecord->contactFormCheckboxes);
 
         if($arrCheckboxes !== null)
         {
@@ -521,18 +525,19 @@ class tl_lead_matching extends Backend
     /**
      * Save key value set of object types
      *
-     * @param $varValue
-     * @param $dc
+     * @param mixed                $varValue
+     * @param Contao\DataContainer $dc
      *
      * @return string
      */
-    public function saveObjectTypes($varValue, $dc){
+    public function saveObjectTypes($varValue, Contao\DataContainer $dc): string
+    {
         if(!$varValue || $dc->activeRecord->type !== 'system')
         {
             return $varValue;
         }
 
-        $arrChoosedTypes = \StringUtil::deserialize($varValue);
+        $arrChoosedTypes = Contao\StringUtil::deserialize($varValue);
 
         if($arrChoosedTypes === null)
         {
@@ -541,7 +546,7 @@ class tl_lead_matching extends Backend
 
         $arrColumns = array("id IN('" . implode("','", $arrChoosedTypes) . "')");
 
-        $objObjectTypes = ObjectTypeModel::findBy($arrColumns, array());
+        $objObjectTypes = ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel::findBy($arrColumns, array());
 
         if($objObjectTypes !== null)
         {
@@ -563,18 +568,19 @@ class tl_lead_matching extends Backend
     /**
      * Save key value set of marketing types
      *
-     * @param $varValue
-     * @param $dc
+     * @param mixed                $varValue
+     * @param Contao\DataContainer $dc
      *
      * @return string
      */
-    public function saveMarketingTypes($varValue, $dc){
+    public function saveMarketingTypes($varValue, Contao\DataContainer $dc): string
+    {
         if(!$varValue || $dc->activeRecord->type !== 'system')
         {
             return $varValue;
         }
 
-        $arrChoosedTypes = \StringUtil::deserialize($varValue);
+        $arrChoosedTypes = Contao\StringUtil::deserialize($varValue);
 
         if($arrChoosedTypes === null)
         {
@@ -598,18 +604,19 @@ class tl_lead_matching extends Backend
     /**
      * Save key value set of regions
      *
-     * @param $varValue
-     * @param $dc
+     * @param mixed                $varValue
+     * @param Contao\DataContainer $dc
      *
      * @return string
      */
-    public function saveRegions($varValue, $dc){
+    public function saveRegions($varValue, Contao\DataContainer $dc): string
+    {
         if(!$varValue || $dc->activeRecord->type !== 'system')
         {
             return $varValue;
         }
 
-        $arrChoosedTypes = \StringUtil::deserialize($varValue);
+        $arrChoosedTypes = Contao\StringUtil::deserialize($varValue);
 
         if($arrChoosedTypes === null)
         {
@@ -618,7 +625,7 @@ class tl_lead_matching extends Backend
 
         $arrColumns = array("id IN('" . implode("','", $arrChoosedTypes) . "')");
 
-        $objRegions = RegionModel::findBy($arrColumns, array());
+        $objRegions = ContaoEstateManager\RegionEntity\RegionModel::findBy($arrColumns, array());
 
         if($objRegions !== null)
         {
@@ -642,12 +649,12 @@ class tl_lead_matching extends Backend
      *
      * @return array
      */
-    public function getListMetaFields()
+    public function getListMetaFields(): array
     {
         $arrOptions = array();
         $arrSkip = array('published');
 
-        \Controller::loadDataContainer('tl_searchcriteria');
+        Contao\Controller::loadDataContainer('tl_searchcriteria');
 
         foreach($GLOBALS['TL_DCA']['tl_searchcriteria']['fields'] as $key=>$opt)
         {
@@ -658,35 +665,5 @@ class tl_lead_matching extends Backend
         }
 
         return $arrOptions;
-    }
-
-    /**
-     * Return all estate form templates as array
-     *
-     * @return array
-     */
-    public function getEstateFormTemplates()
-    {
-        return $this->getTemplateGroup('lmt_estate_');
-    }
-
-    /**
-     * Return all estate form templates as array
-     *
-     * @return array
-     */
-    public function getContactFormTemplates()
-    {
-        return $this->getTemplateGroup('lmt_contact_');
-    }
-
-    /**
-     * Return all list item templates as array
-     *
-     * @return array
-     */
-    public function getListItemTemplates()
-    {
-        return $this->getTemplateGroup('lmt_item_');
     }
 }

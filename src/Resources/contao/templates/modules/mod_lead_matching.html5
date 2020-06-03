@@ -26,8 +26,10 @@
             <?=$this->headlineList ? '<h3>'.$this->headlineList.'</h3>' : ''?>
             <?=$this->labelList ? '<h4>'.$this->labelList.'</h4>' : ''?>
 
-            <?= implode('', $this->items) ?>
-            <?=$this->pagination?>
+            <?php if($this->items): ?>
+                <?= implode('', $this->items) ?>
+                <?=$this->pagination?>
+            <?php endif; ?>
         </section>
     <?php endif; ?>
     <?php if($this->addContactForm): ?>

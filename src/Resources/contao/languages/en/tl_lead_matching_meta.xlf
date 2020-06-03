@@ -64,6 +64,21 @@
       <trans-unit id="tl_lead_matching_meta.price_to">
         <source>Price to</source>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.objectType">
+        <source>Object type</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.latitude">
+        <source>Latitude</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.longitude">
+        <source>Longitude</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.postalcode">
+        <source>Postal code</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.city">
+        <source>City</source>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.salutation">
         <source>Salutation</source>
       </trans-unit>
