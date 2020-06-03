@@ -21,6 +21,9 @@
   "require-dev": {
     "contao/manager-plugin": "^2.0"
   },
+  "suggest": {
+    "contao-estatemanager/lead-matching-tool-onoffice": "Lead matching tool based on the onOffice API"
+  },
   "conflict": {
     "contao/core": "*",
     "contao/manager-plugin": "<2.0 || >=3.0"
