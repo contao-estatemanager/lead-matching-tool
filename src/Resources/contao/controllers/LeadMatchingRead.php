@@ -2,6 +2,7 @@
 
 namespace ContaoEstateManager\LeadMatchingTool;
 
+use Contao\Frontend;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -9,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
-class LeadMatchingRead extends \Frontend
+class LeadMatchingRead extends Frontend
 {
     /**
      * Method Constants

@@ -10,7 +10,18 @@
 
 namespace ContaoEstateManager\LeadMatchingTool;
 
+use Contao\BackendTemplate;
+use Contao\Config;
 use Contao\CoreBundle\Exception\PageNotFoundException;
+use Contao\Email;
+use Contao\Environment;
+use Contao\FrontendTemplate;
+use Contao\Input;
+use Contao\Module;
+use Contao\Pagination;
+use Contao\StringUtil;
+use Contao\System;
+use Contao\Widget;
 use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
 use ContaoEstateManager\RegionEntity\RegionModel;
 use Patchwork\Utf8;
@@ -20,7 +31,7 @@ use Patchwork\Utf8;
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
-class ModuleLeadMatching extends \Module
+class ModuleLeadMatching extends Module
 {
     /**
      * Template
@@ -49,7 +60,7 @@ class ModuleLeadMatching extends \Module
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['leadMatching'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -59,7 +70,7 @@ class ModuleLeadMatching extends \Module
             return $objTemplate->parse();
         }
 
-        \System::loadLanguageFile('tl_lead_matching_meta');
+        System::loadLanguageFile('tl_lead_matching_meta');
 
         return parent::generate();
     }
@@ -139,7 +150,7 @@ class ModuleLeadMatching extends \Module
      *
      * @param $intTotal
      */
-    protected function generateList($intTotal)
+    protected function generateList($intTotal): void
     {
         $limit = null;
         $offset = 0;
@@ -171,7 +182,7 @@ class ModuleLeadMatching extends \Module
 
             // Get the current page
             $id = 'page_lm' . $this->id;
-            $page = \Input::get($id) ?? 1;
+            $page = Input::get($id) ?? 1;
 
             // Do not index or cache the page if the page number is outside the range
             if ($page < 1 || $page > max(ceil($total/$this->config->perPage), 1))
@@ -190,7 +201,7 @@ class ModuleLeadMatching extends \Module
             }
 
             // Add the pagination menu
-            $objPagination = new \Pagination($total, $this->config->perPage, \Config::get('maxPaginationLinks'), $id);
+            $objPagination = new Pagination($total, $this->config->perPage, Config::get('maxPaginationLinks'), $id);
             $this->Template->pagination = $objPagination->generate("\n  ");
         }
 
@@ -224,7 +235,8 @@ class ModuleLeadMatching extends \Module
      *
      * @return array
      */
-    public function parseItems($objItems){
+    public function parseItems($objItems): array
+    {
         $limit = $objItems->count();
 
         if ($limit < 1)
@@ -255,13 +267,14 @@ class ModuleLeadMatching extends \Module
      *
      * @return string
      */
-    public function parseItem($objItem, $strClass='', $intCount=0){
-        $objTemplate = new \FrontendTemplate($this->config->listItemTemplate);
+    public function parseItem($objItem, $strClass='', $intCount=0): string
+    {
+        $objTemplate = new FrontendTemplate($this->config->listItemTemplate);
         $objTemplate->setData($objItem->row());
         $objTemplate->class = $strClass;
 
         $arrFields = array();
-        $listFields = \StringUtil::deserialize($this->config->listMetaFields);
+        $listFields = StringUtil::deserialize($this->config->listMetaFields);
 
         if($listFields !== null)
         {
@@ -273,7 +286,7 @@ class ModuleLeadMatching extends \Module
                 switch($field)
                 {
                     case 'objectTypes':
-                        $objectTypeIds = \StringUtil::deserialize($varValue);
+                        $objectTypeIds = StringUtil::deserialize($varValue);
                         $objectTypes   = $this->getObjectTypeTitlesByIds($objectTypeIds);
 
                         if($objectTypes !== null)
@@ -288,7 +301,7 @@ class ModuleLeadMatching extends \Module
                         break;
 
                     case 'regions':
-                        $regionIds = \StringUtil::deserialize($varValue);
+                        $regionIds = StringUtil::deserialize($varValue);
                         $regions   = $this->getRegionTitlesByIds($regionIds);
 
                         if($regions !== null)
@@ -318,7 +331,7 @@ class ModuleLeadMatching extends \Module
                         break;
 
                     case 'tstamp':
-                        $varValue = date(\Config::get('dateFormat'), $varValue);
+                        $varValue = date(Config::get('dateFormat'), $varValue);
                         break;
 
                     case 'marketing':
@@ -346,7 +359,7 @@ class ModuleLeadMatching extends \Module
      *
      * @return string
      */
-    public function generateForm($strMode)
+    public function generateForm($strMode): string
     {
         $doNotSubmit = false;
         $arrSubmitted = array();
@@ -358,8 +371,8 @@ class ModuleLeadMatching extends \Module
                 $strSubmit   = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['submitContact'];
 
                 $strTemplate  = $this->config->contactFormTemplate;
-                $arrEditable  = \StringUtil::deserialize($this->config->contactFormMetaFields, true);
-                $arrMandatory = \StringUtil::deserialize($this->config->contactFormMetaFieldsMandatory, true);
+                $arrEditable  = StringUtil::deserialize($this->config->contactFormMetaFields, true);
+                $arrMandatory = StringUtil::deserialize($this->config->contactFormMetaFieldsMandatory, true);
                 break;
 
             case 'estate':
@@ -367,17 +380,17 @@ class ModuleLeadMatching extends \Module
                 $strSubmit   = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['submitEstate'];
 
                 $strTemplate  = $this->config->estateFormTemplate;
-                $arrEditable  = \StringUtil::deserialize($this->config->estateFormMetaFields, true);
-                $arrMandatory = \StringUtil::deserialize($this->config->estateFormMetaFieldsMandatory, true);
+                $arrEditable  = StringUtil::deserialize($this->config->estateFormMetaFields, true);
+                $arrMandatory = StringUtil::deserialize($this->config->estateFormMetaFieldsMandatory, true);
                 break;
 
             default:
                 return '';
         }
 
-        $objTemplate = new \FrontendTemplate($strTemplate);
+        $objTemplate = new FrontendTemplate($strTemplate);
 
-        $objTemplate->action = \Environment::get('requestUri');
+        $objTemplate->action = Environment::get('requestUri');
         $objTemplate->formId = $strFormId;
         $objTemplate->submit = $strSubmit;
 
@@ -407,7 +420,7 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions  = \StringUtil::deserialize($this->config->marketingTypesData, true);
+                    $arrOptions  = StringUtil::deserialize($this->config->marketingTypesData, true);
 
                     foreach ($arrOptions as $key => $value)
                     {
@@ -425,7 +438,7 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions = \StringUtil::deserialize($this->config->salutationFields, true);
+                    $arrOptions = StringUtil::deserialize($this->config->salutationFields, true);
 
                     if(!empty($arrOptions))
                     {
@@ -446,7 +459,7 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions  = \StringUtil::deserialize($this->config->objectTypesData, true);
+                    $arrOptions  = StringUtil::deserialize($this->config->objectTypesData, true);
 
                     foreach ($arrOptions as $key => $value)
                     {
@@ -466,7 +479,7 @@ class ModuleLeadMatching extends \Module
                             $arrData['options'] = array('' => '-');
                         }
 
-                        $arrOptions = \StringUtil::deserialize($this->config->regionsData);
+                        $arrOptions = StringUtil::deserialize($this->config->regionsData);
 
                         foreach ($arrOptions as $key => $value)
                         {
@@ -495,7 +508,7 @@ class ModuleLeadMatching extends \Module
                         $arrData['options'] = array('' => '-');
                     }
 
-                    $arrOptions = \StringUtil::deserialize($this->config->rangeOptions);
+                    $arrOptions = StringUtil::deserialize($this->config->rangeOptions);
 
                     if(!empty($arrOptions))
                     {
@@ -511,7 +524,7 @@ class ModuleLeadMatching extends \Module
             }
 
             // Prepare checkboxes
-            $arrCheckboxes = \StringUtil::deserialize($this->config->contactFormCheckboxes);
+            $arrCheckboxes = StringUtil::deserialize($this->config->contactFormCheckboxes);
 
             if($arrCheckboxes !== null)
             {
@@ -542,7 +555,7 @@ class ModuleLeadMatching extends \Module
                 }
             }
 
-            /** @var \Widget $strClass */
+            /** @var Widget $strClass */
             $strClass = $GLOBALS['TL_FFL'][ $arrData['inputType'] ];
 
             // Continue if the class is not defined
@@ -559,7 +572,7 @@ class ModuleLeadMatching extends \Module
             $objWidget->required = in_array($field, $arrMandatory);
 
             // Validate input
-            if (\Input::post('FORM_SUBMIT') == $strFormId)
+            if (Input::post('FORM_SUBMIT') == $strFormId)
             {
                 $objWidget->validate();
                 $varValue = $objWidget->value;
@@ -582,12 +595,12 @@ class ModuleLeadMatching extends \Module
         }
 
         // Handle submitted forms
-        if(\Input::post('FORM_SUBMIT') == $strFormId && !$doNotSubmit)
+        if(Input::post('FORM_SUBMIT') == $strFormId && !$doNotSubmit)
         {
             switch($strMode)
             {
                 case 'contact':
-                    $objEmail = new \Email();
+                    $objEmail = new Email();
                     $objEmail->from = $GLOBALS['TL_ADMIN_EMAIL'];
                     $objEmail->fromName = $GLOBALS['TL_ADMIN_NAME'];
                     $objEmail->subject = $this->config->mailSubject;
@@ -647,7 +660,7 @@ class ModuleLeadMatching extends \Module
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         if($this->config->type === 'system')
         {
@@ -718,7 +731,7 @@ class ModuleLeadMatching extends \Module
      *
      * @return array|null
      */
-    private function getObjectTypeTitlesByIds($arrIds)
+    private function getObjectTypeTitlesByIds($arrIds): ?array
     {
         if($arrIds === null)
         {
@@ -750,7 +763,7 @@ class ModuleLeadMatching extends \Module
      *
      * @return array|null
      */
-    private function getRegionTitlesByIds($arrIds)
+    private function getRegionTitlesByIds($arrIds): ?array
     {
         if($arrIds === null)
         {

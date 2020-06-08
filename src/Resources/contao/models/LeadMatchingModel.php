@@ -11,6 +11,8 @@
 namespace ContaoEstateManager\LeadMatchingTool;
 
 
+use Contao\Model;
+
 /**
  * Reads and writes lead matching
  *
@@ -103,7 +105,7 @@ namespace ContaoEstateManager\LeadMatchingTool;
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
 
-class LeadMatchingModel extends \Model
+class LeadMatchingModel extends Model
 {
 
     /**

@@ -85,6 +85,26 @@
         <source>Price to</source>
         <target>Preis bis</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.objectType">
+        <source>Object type</source>
+        <target>Objektart</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.latitude">
+        <source>Latitude</source>
+        <target>Breitengrad</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.longitude">
+        <source>Longitude</source>
+        <target>Längengrad</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.postalcode">
+        <source>Postal code</source>
+        <target>PLZ</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.city">
+        <source>City</source>
+        <target>Stadt</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.salutation">
         <source>Salutation</source>
         <target>Anrede</target>

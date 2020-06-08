@@ -6,20 +6,23 @@
   "license":"proprietary",
   "authors":[
     {
-      "name":"Oveleon",
-      "homepage":"https://www.oveleon.de/",
+      "name":"Daniele Sciannimanica",
+      "homepage":"https://github.com/doishub",
       "role":"Developer"
     }
   ],
   "require":{
     "php":">=7.1",
     "contao/core-bundle":"^4.4",
-    "contao-estatemanager/core": "dev-master",
+    "contao-estatemanager/core": "^1.0",
     "contao-estatemanager/region-entity": "^1.2",
     "contao-estatemanager/object-type-entity": "^1.0"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.0"
+  },
+  "suggest": {
+    "contao-estatemanager/lead-matching-tool-onoffice": "Lead matching tool based on the onOffice API"
   },
   "conflict": {
     "contao/core": "*",
