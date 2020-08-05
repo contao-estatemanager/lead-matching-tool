@@ -528,9 +528,9 @@ class tl_lead_matching extends Contao\Backend
      * @param mixed                $varValue
      * @param Contao\DataContainer $dc
      *
-     * @return array
+     * @return string
      */
-    public function saveObjectTypes($varValue, Contao\DataContainer $dc): ?array
+    public function saveObjectTypes($varValue, Contao\DataContainer $dc): ?string
     {
         if(!$varValue || $dc->activeRecord->type !== 'system')
         {
@@ -571,9 +571,9 @@ class tl_lead_matching extends Contao\Backend
      * @param mixed                $varValue
      * @param Contao\DataContainer $dc
      *
-     * @return array
+     * @return string
      */
-    public function saveMarketingTypes($varValue, Contao\DataContainer $dc): ?array
+    public function saveMarketingTypes($varValue, Contao\DataContainer $dc): ?string
     {
         if(!$varValue || $dc->activeRecord->type !== 'system')
         {
@@ -607,9 +607,9 @@ class tl_lead_matching extends Contao\Backend
      * @param mixed                $varValue
      * @param Contao\DataContainer $dc
      *
-     * @return array
+     * @return string
      */
-    public function saveRegions($varValue, Contao\DataContainer $dc): ?array
+    public function saveRegions($varValue, Contao\DataContainer $dc): ?string
     {
         if(!$varValue || $dc->activeRecord->type !== 'system')
         {
