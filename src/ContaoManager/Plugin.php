@@ -33,7 +33,6 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
         return [
             BundleConfig::create(EstateManagerLeadMatchingTool::class)
                 ->setLoadAfter([ContaoCoreBundle::class, EstateManager::class])
-                ->setReplace(['estatemanagerleadmatchingtool']),
         ];
     }
 

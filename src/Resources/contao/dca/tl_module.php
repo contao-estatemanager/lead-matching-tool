@@ -1,14 +1,5 @@
 <?php
-/**
- * This file is part of Contao EstateManager.
- *
- * @link      https://www.contao-estatemanager.com/
- * @source    https://github.com/contao-estatemanager/lead-matching-tool
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
- */
-
-$GLOBALS['TL_DCA']['tl_module']['palettes']['leadMatching'] = '{title_legend},name,headline,type;{config_legend},lmtConfig;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['lead_matching'] = '{title_legend},name,headline,type;{config_legend},lmtConfig;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 // Add fields
 $GLOBALS['TL_DCA']['tl_module']['fields']['lmtConfig'] = array
@@ -47,7 +38,7 @@ class tl_module_lead_matching extends Contao\Backend
     {
         $arrOptions = array();
 
-        $objConfigs = ContaoEstateManager\LeadMatchingTool\LeadMatchingModel::findAll();
+        $objConfigs = ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel::findAll();
 
         if($objConfigs)
         {

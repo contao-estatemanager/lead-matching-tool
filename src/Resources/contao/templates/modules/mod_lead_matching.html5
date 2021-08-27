@@ -1,52 +1,9 @@
-<?php
-    $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/estatemanagerleadmatchingtool/lead-matching-tool/lead-matching-tool.js|static';
-    $GLOBALS['TL_CSS'][]        = 'bundles/estatemanagerleadmatchingtool/lead-matching-tool/lead-matching-tool.css|static';
-?>
-
 <?php $this->extend('block_unsearchable'); ?>
 
 <?php $this->block('content'); ?>
 
 <div class="inside">
-    <?php if($this->addEstateForm): ?>
-        <section id="estate-form">
-            <?=$this->headlineEstateForm ? '<h2>'.$this->headlineEstateForm.'</h2>' : ''?>
-            <?=$this->labelEstateForm ? '<p>'.$this->labelEstateForm.'</p>' : ''?>
-            <?=$this->estateForm?>
-        </section>
-    <?php endif; ?>
-    <?php if($this->addCunter): ?>
-        <div id="counter">
-            <?=$this->cntTotal?>
-        </div>
-        <?=$this->labelCount ? '<span>'.$this->labelCount.'</span>' : ''?>
-    <?php endif; ?>
-    <?php if($this->addList): ?>
-        <section id="result-list">
-            <?=$this->headlineList ? '<h3>'.$this->headlineList.'</h3>' : ''?>
-            <?=$this->labelList ? '<h4>'.$this->labelList.'</h4>' : ''?>
-
-            <?php if($this->items): ?>
-                <?= implode('', $this->items) ?>
-                <?=$this->pagination?>
-            <?php endif; ?>
-        </section>
-    <?php endif; ?>
-    <?php if($this->addContactForm): ?>
-        <section id="contact-form">
-            <?=$this->headlineContactForm ? '<h3>'.$this->headlineContactForm.'</h3>' : ''?>
-            <?=$this->labelContactForm ? '<p>'.$this->labelContactForm.'</p>' : ''?>
-            <?=$this->contactForm?>
-        </section>
-    <?php endif; ?>
+    <?=$this->output?>
 </div>
-
-<script type="text/javascript">
-    var lmt = new LeadMatchingTool(<?=$this->configId?>, {
-        container: '#<?=$this->moduleId?>',
-        counter: '#counter',
-        form: '#estate-form form',
-    });
-</script>
 
 <?php $this->endblock(); ?>

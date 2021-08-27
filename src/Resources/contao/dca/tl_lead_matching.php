@@ -35,13 +35,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'sorting' => array
         (
             'mode'                    => 2,
-            'fields'                  => array('id'),
+            'fields'                  => array('title'),
             'flag'                    => 1,
             'panelLayout'             => 'filter;sort,search,limit'
         ),
         'label' => array
         (
-            'fields'                  => array('id', 'title', 'marketingType'),
+            'fields'                  => array('title', 'marketingType'),
             'showColumns'             => true
         ),
         'global_operations' => array
@@ -105,8 +105,6 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     (
         'id' => array
         (
-            'label'                   => array('ID'),
-            'sorting'                 => true,
             'sql'                     => "int(10) unsigned NOT NULL auto_increment"
         ),
         'tstamp' => array

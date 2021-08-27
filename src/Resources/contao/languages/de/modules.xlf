@@ -1,13 +1,13 @@
 <?xml version="1.0" ?><xliff version="1.1">
   <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en" target-language="de">
     <body>
-      <trans-unit id="FMD.leadMatching.0">
+      <trans-unit id="FMD.lead_matching.0">
         <source>Lead Matching Tool</source>
         <target>Käufer- / Mieterfinder</target>
       </trans-unit>
-      <trans-unit id="FMD.leadMatching.1">
-        <source></source>
-        <target></target>
+      <trans-unit id="FMD.lead_matching.1">
+        <source>Output of the buyer / tenant finder module</source>
+        <target>Ausgabe des Käufer- / Mieterfinder Moduls</target>
       </trans-unit>
 
       <trans-unit id="MOD.searchcriteria.0">
