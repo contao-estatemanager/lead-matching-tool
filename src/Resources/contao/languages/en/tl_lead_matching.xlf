@@ -49,6 +49,18 @@
       <trans-unit id="tl_lead_matching.addContactForm.1">
         <source>Allows you to contact specific search inquiries.</source>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.estateForm.0">
+        <source>Real estate form</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateForm.1">
+        <source>Select the form here.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactForm.0">
+        <source>Contact form</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactForm.1">
+        <source>Select the form here.</source>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankMarketingType.0">
         <source>Include blank option for marketing types</source>
       </trans-unit>
@@ -73,12 +85,6 @@
       <trans-unit id="tl_lead_matching.addBlankRegion.1">
         <source>Includes a blank option to the object types in the frontend.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addBlankSalutation.0">
-        <source>Include blank option for salutation</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.addBlankSalutation.1">
-        <source>Includes a blank option to the salutation field in the frontend.</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.countResults.0">
         <source>Display quantity</source>
       </trans-unit>
@@ -96,18 +102,6 @@
       </trans-unit>
       <trans-unit id="tl_lead_matching.perPage.1">
         <source>The number of items per page. Set to 0 to disable pagination.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormTemplate.0">
-        <source>Estatedata Form Template</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormTemplate.1">
-        <source>Please select a template.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormTemplate.0">
-        <source>Contact Form Template</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormTemplate.1">
-        <source>Please select a template.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.listItemTemplate.0">
         <source>List Item Template</source>
@@ -139,30 +133,6 @@
       <trans-unit id="tl_lead_matching.listMetaFields.1">
         <source>Define the fields to display.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
-        <source>Estate form fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
-        <source>Define the fields to display.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFields.0">
-        <source>Contact form fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFields.1">
-        <source>Define the fields to display.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.0">
-        <source>Estate form mandatory fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.1">
-        <source>Define the fields to display as mandatory.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.0">
-        <source>Contact form mandatory fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.1">
-        <source>Define the fields to display as mandatory.</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.objectTypes.0">
         <source>Objecttypes</source>
       </trans-unit>
@@ -175,29 +145,15 @@
       <trans-unit id="tl_lead_matching.regions.1">
         <source>Define the regions to display.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.salutationFields.0">
-        <source>Salutation fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.salutationFields.1">
-        <source>Define here the possible salutation fields.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailSubject.0">
-        <source>Mail subject</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailSubject.1">
-        <source>Define here the mail sibject.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.jumpTo.0">
-        <source>Redirect page</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.jumpTo.1">
-        <source>Please choose the page to which visitors will be redirected when clicking a link or submitting a form.</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.groupRelatedFields.0">
         <source>Group related fields</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.groupRelatedFields.1">
         <source>Groups related fields and outputs them as from to values.</source>
+      </trans-unit>
+
+      <trans-unit id="tl_lead_matching.editalias">
+        <source>Edit the source element ID %s</source>
       </trans-unit>
     </body>
   </file>

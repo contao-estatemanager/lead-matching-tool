@@ -1,14 +1,8 @@
 <?php
-/**
- * This file is part of Contao EstateManager.
- *
- * @link      https://www.contao-estatemanager.com/
- * @source    https://github.com/contao-estatemanager/lead-matching-tool
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
- */
+use Contao\System;
+use ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule\LeadMatchingController;
 
-Contao\System::loadLanguageFile('tl_lead_matching_meta');
+System::loadLanguageFile('tl_lead_matching_meta');
 
 $GLOBALS['TL_DCA']['tl_lead_matching'] = array
 (
@@ -96,8 +90,8 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
     'subpalettes' => array
     (
         'preciseRegionSearch'         => 'regions,addBlankRegion',
-        'addEstateForm'               => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields,estateFormMetaFieldsMandatory,rangeOptions,estateFormTemplate',
-        'addContactForm'              => 'txtContactHeadline,forceContact,txtContactDescription,contactFormMetaFields,contactFormMetaFieldsMandatory,contactFormCheckboxes,salutationFields,addBlankSalutation,contactFormTemplate,mailSubject,mailTo,jumpTo'
+        'addEstateForm'               => 'txtEstateHeadline,forceList,txtEstateDescription,estateForm',
+        'addContactForm'              => 'txtContactHeadline,forceContact,txtContactDescription,contactForm'
     ),
 
     // Fields
@@ -125,7 +119,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'exclude'                 => true,
             'inputType'               => 'select',
             'sorting'                 => true,
-            'options'                 => array('system'),
+            'options'                 => array(LeadMatchingController::TYPE),
             'eval'                    => array('includeBlankOption'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50'),
             'sql'                     => "varchar(16) NOT NULL default ''"
         ),
@@ -148,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'options'                 => array('kauf', 'miete'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'save_callback'           => array(
-                array('tl_lead_matching', 'saveMarketingTypes')
+                array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'saveMarketingTypes')
             ),
             'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
             'sql'                     => "blob NULL",
@@ -157,6 +151,14 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'sql'                       => "blob NULL",
         ),
+        'addBlankMarketingType' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankMarketingType'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
+        ),
         'objectTypes' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['objectTypes'],
@@ -164,7 +166,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'inputType'               => 'checkboxWizard',
             'foreignKey'              => 'tl_object_type.title',
             'save_callback'           => array(
-                array('tl_lead_matching', 'saveObjectTypes')
+                array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'saveObjectTypes')
             ),
             'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
             'sql'                     => "varchar(1022) NOT NULL default ''",
@@ -173,6 +175,14 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         'objectTypesData' => array
         (
             'sql'                     => "blob NULL",
+        ),
+        'addBlankObjectType' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankObjectType'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'preciseRegionSearch' => array
         (
@@ -189,7 +199,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'inputType'               => 'regionTree',
             'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'tl_class'=>'w50 clr'),
             'save_callback'           => array(
-                array('tl_lead_matching', 'saveRegions')
+                array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'saveRegions')
             ),
             'sql'                     => "blob NULL",
         ),
@@ -197,21 +207,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         (
             'sql'                     => "blob NULL",
         ),
-        'salutationFields' => array
+        'addBlankRegion' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['salutationFields'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankRegion'],
             'exclude'                 => true,
-            'inputType'               => 'keyValueWizard',
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                     => "blob NULL",
-        ),
-        'rangeOptions' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['rangeOptions'],
-            'exclude'                 => true,
-            'inputType'               => 'keyValueWizard',
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                     => "blob NULL",
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 clr'),
+            'sql'                     => "char(1) NOT NULL default ''"
         ),
         'numberOfItems' => array
         (
@@ -234,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['listMetaFields'],
             'exclude'                 => true,
             'inputType'               => 'checkboxWizard',
-            'options_callback'        => array('tl_lead_matching', 'getListMetaFields'),
+            'options_callback'        => array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'getListMetaFields'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr wizard'),
             'sql'                     => "text NULL"
@@ -248,53 +250,31 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'eval'                    => array('tl_class'=>'m12 w50'),
             'sql'                     => "char(1) NOT NULL default '1'"
         ),
-        'estateFormMetaFields' => array
+        'estateForm' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFields'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateForm'],
             'exclude'                 => true,
-            'inputType'               => 'checkboxWizard',
-            'options'                 => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
-            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                    => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
-            'sql'                     => "text NULL"
+            'inputType'               => 'select',
+            'options_callback'        => array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'getForms'),
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50 wizard'),
+            'wizard' => array
+            (
+                array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'editForm')
+            ),
+            'sql'                     => "int(10) unsigned NOT NULL default 0"
         ),
-        'estateFormMetaFieldsMandatory' => array
+        'contactForm' => array
         (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormMetaFieldsMandatory'],
+            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateForm'],
             'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'options'                 => array('marketingType', 'objectTypes', 'regions', 'range', 'room', 'area', 'price'),
-            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
-            'sql'                     => "text NULL"
-        ),
-        'contactFormMetaFields' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFields'],
-            'exclude'                 => true,
-            'inputType'               => 'checkboxWizard',
-            'options_callback'        => array('tl_lead_matching', 'getContactFormFields'),
-            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                    => array('multiple'=>true, 'mandatory'=>true, 'tl_class'=>'w50 wizard clr'),
-            'sql'                     => "text NULL"
-        ),
-        'contactFormMetaFieldsMandatory' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormMetaFieldsMandatory'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'options_callback'        => array('tl_lead_matching', 'getContactFormFields'),
-            'reference'               => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50'),
-            'sql'                     => "text NULL"
-        ),
-        'contactFormCheckboxes' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['contactFormCheckboxes'],
-            'exclude'                 => true,
-            'inputType'               => 'keyValueWizard',
-            'eval'                    => array('multiple'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                     => "blob NULL",
+            'inputType'               => 'select',
+            'options_callback'        => array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'getForms'),
+            'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50 wizard'),
+            'wizard' => array
+            (
+                array('ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'editForm')
+            ),
+            'sql'                     => "int(10) unsigned NOT NULL default 0"
         ),
         'countResults' => array
         (
@@ -302,38 +282,6 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'exclude'                 => true,
             'inputType'               => 'checkbox',
             'eval'                    => array('tl_class'=>'w50 m12'),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'addBlankMarketingType' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankMarketingType'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50 clr'),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'addBlankObjectType' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankObjectType'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50 clr'),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'addBlankRegion' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankRegion'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50 clr'),
-            'sql'                     => "char(1) NOT NULL default ''"
-        ),
-        'addBlankSalutation' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['addBlankSalutation'],
-            'exclude'                 => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50 clr'),
             'sql'                     => "char(1) NOT NULL default ''"
         ),
         'addContactForm' => array
@@ -368,28 +316,6 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             'eval'                    => array('tl_class'=>'w50 m12'),
             'sql'                     => "char(1) NOT NULL default ''"
         ),
-        'estateFormTemplate' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['estateFormTemplate'],
-            'exclude'                 => true,
-            'inputType'               => 'select',
-            'options_callback'        => function (){
-                return Contao\Controller::getTemplateGroup('lmt_estate_');
-            },
-            'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-        ),
-        'contactFormTemplate' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_module']['contactFormTemplate'],
-            'exclude'                 => true,
-            'inputType'               => 'select',
-            'options_callback'        => function (){
-                return Contao\Controller::getTemplateGroup('lmt_contact_');
-            },
-            'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-        ),
         'listItemTemplate' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_module']['listItemTemplate'],
@@ -400,32 +326,6 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
             },
             'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50 clr'),
             'sql'                     => "varchar(255) NOT NULL default ''"
-        ),
-        'mailSubject' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailSubject'],
-            'exclude'                 => true,
-            'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50 clr'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-        ),
-        'mailTo' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['mailTo'],
-            'exclude'                 => true,
-            'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50', 'rgxp'=>'email'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-        ),
-        'jumpTo' => array
-        (
-            'label'                   => &$GLOBALS['TL_LANG']['tl_lead_matching']['jumpTo'],
-            'exclude'                 => true,
-            'inputType'               => 'pageTree',
-            'foreignKey'              => 'tl_page.title',
-            'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
-            'sql'                     => "int(10) unsigned NOT NULL default 0",
-            'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
         ),
         'txtEstateHeadline' => array
         (
@@ -477,191 +377,3 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = array
         ),
     )
 );
-
-
-/**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Daniele Sciannimanica <https://github.com/doishub>
- */
-class tl_lead_matching extends Contao\Backend
-{
-
-    /**
-     * Import the back end user object
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->import('Contao\BackendUser', 'User');
-    }
-
-    /**
-     * Returns an array of object types
-     *
-     * @param Contao\DataContainer $dc
-     *
-     * @return array
-     */
-    public function getContactFormFields(Contao\DataContainer $dc): array
-    {
-        $arrOptions = array('salutation', 'firstname', 'name', 'email', 'phone');
-
-        $arrCheckboxes = Contao\StringUtil::deserialize($dc->activeRecord->contactFormCheckboxes);
-
-        if($arrCheckboxes !== null)
-        {
-            foreach ($arrCheckboxes as $arrCheckbox)
-            {
-                $arrOptions[] = $arrCheckbox['key'];
-            }
-        }
-
-        return $arrOptions;
-    }
-
-    /**
-     * Save key value set of object types
-     *
-     * @param mixed                $varValue
-     * @param Contao\DataContainer $dc
-     *
-     * @return string
-     */
-    public function saveObjectTypes($varValue, Contao\DataContainer $dc): ?string
-    {
-        if(!$varValue || $dc->activeRecord->type !== 'system')
-        {
-            return $varValue;
-        }
-
-        $arrChoosedTypes = Contao\StringUtil::deserialize($varValue);
-
-        if($arrChoosedTypes === null)
-        {
-            return $varValue;
-        }
-
-        $arrColumns = array("id IN('" . implode("','", $arrChoosedTypes) . "')");
-
-        $objObjectTypes = ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel::findBy($arrColumns, array());
-
-        if($objObjectTypes !== null)
-        {
-            $arrOptions = array();
-
-            while($objObjectTypes->next())
-            {
-                $arrOptions[ $objObjectTypes->id ] = $objObjectTypes->title;
-            }
-
-            // Store the new object type data
-            $this->Database->prepare("UPDATE tl_lead_matching SET objectTypesData=? WHERE id=?")
-                           ->execute(serialize($arrOptions), $dc->id);
-        }
-
-        return $varValue;
-    }
-
-    /**
-     * Save key value set of marketing types
-     *
-     * @param mixed                $varValue
-     * @param Contao\DataContainer $dc
-     *
-     * @return string
-     */
-    public function saveMarketingTypes($varValue, Contao\DataContainer $dc): ?string
-    {
-        if(!$varValue || $dc->activeRecord->type !== 'system')
-        {
-            return $varValue;
-        }
-
-        $arrChoosedTypes = Contao\StringUtil::deserialize($varValue);
-
-        if($arrChoosedTypes === null)
-        {
-            return $varValue;
-        }
-
-        $arrOptions = array();
-
-        foreach ($arrChoosedTypes as $type)
-        {
-            $arrOptions[ $type ] = &$GLOBALS['TL_LANG']['tl_lead_matching_meta'][ $type ];
-        }
-
-        // Store the new object type data
-        $this->Database->prepare("UPDATE tl_lead_matching SET marketingTypesData=? WHERE id=?")
-                       ->execute(serialize($arrOptions), $dc->id);
-
-        return $varValue;
-    }
-
-    /**
-     * Save key value set of regions
-     *
-     * @param mixed                $varValue
-     * @param Contao\DataContainer $dc
-     *
-     * @return string
-     */
-    public function saveRegions($varValue, Contao\DataContainer $dc): ?string
-    {
-        if(!$varValue || $dc->activeRecord->type !== 'system')
-        {
-            return $varValue;
-        }
-
-        $arrChoosedTypes = Contao\StringUtil::deserialize($varValue);
-
-        if($arrChoosedTypes === null)
-        {
-            return $varValue;
-        }
-
-        $arrColumns = array("id IN('" . implode("','", $arrChoosedTypes) . "')");
-
-        $objRegions = ContaoEstateManager\RegionEntity\RegionModel::findBy($arrColumns, array());
-
-        if($objRegions !== null)
-        {
-            $arrOptions = array();
-
-            while($objRegions->next())
-            {
-                $arrOptions[ $objRegions->id ] = $objRegions->title;
-            }
-
-            // Store the new object type data
-            $this->Database->prepare("UPDATE tl_lead_matching SET regionsData=? WHERE id=?")
-                           ->execute(serialize($arrOptions), $dc->id);
-        }
-
-        return $varValue;
-    }
-
-    /**
-     * Returns an array of search criteria fields
-     *
-     * @return array
-     */
-    public function getListMetaFields(): array
-    {
-        $arrOptions = array();
-        $arrSkip = array('published');
-
-        Contao\Controller::loadDataContainer('tl_searchcriteria');
-
-        foreach($GLOBALS['TL_DCA']['tl_searchcriteria']['fields'] as $key=>$opt)
-        {
-            if(!in_array($key, $arrSkip))
-            {
-                $arrOptions[] = $key;
-            }
-        }
-
-        return $arrOptions;
-    }
-}

@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class LeadMatchingController extends AbstractFrontendModuleController
 {
+    public const TYPE = 'system';
+
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {
         $template->output = 'Output';

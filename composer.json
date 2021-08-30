@@ -12,7 +12,7 @@
     }
   ],
   "require":{
-    "php":">=7.1",
+    "php":"^7.2 || ^8.0",
     "contao/core-bundle":"^4.9",
     "contao-estatemanager/core": "^1.0",
     "contao-estatemanager/region-entity": "^1.2",
@@ -20,10 +20,11 @@
     "codefog/contao-haste": "^4.25"
   },
   "require-dev": {
-    "contao/manager-plugin": "^2.0"
+    "contao/manager-plugin": "^2.0",
+    "friendsofphp/php-cs-fixer": "^2.16"
   },
   "suggest": {
-    "contao-estatemanager/lead-matching-tool-onoffice": "Lead matching tool based on the onOffice API"
+    "contao-estatemanager/lead-matching-tool-onoffice": "Enables data synchronization via onOffice API"
   },
   "conflict": {
     "contao/core": "*",
