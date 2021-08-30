@@ -23,6 +23,10 @@ return (new PhpCsFixer\Config())
         '@PHPUnit60Migration:risky' => true,
         'align_multiline_comment' => true,
         'array_indentation' => true,
+        'trim_array_spaces' => true,
+        'no_trailing_comma_in_singleline_array' => true,
+        'no_trailing_comma_in_list_call' => true,
+        'no_whitespace_before_comma_in_array' => true,
         'array_syntax' => ['syntax' => 'short'],
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
@@ -45,6 +49,10 @@ return (new PhpCsFixer\Config())
         ],
         'native_function_invocation' => [
             'include' => ['@compiler_optimized'],
+        ],
+        'braces' => [
+            'position_after_control_structures' => 'next',
+            'position_after_functions_and_oop_constructs' => 'next',
         ],
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
