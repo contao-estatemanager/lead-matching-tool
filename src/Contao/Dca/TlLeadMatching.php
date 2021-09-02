@@ -170,9 +170,9 @@ class TlLeadMatching
         $arrOptions = [];
         $arrSkip = ['published'];
 
-        Controller::loadDataContainer('tl_searchcriteria');
+        Controller::loadDataContainer('tl_search_criteria');
 
-        foreach ($GLOBALS['TL_DCA']['tl_searchcriteria']['fields'] as $key => $opt)
+        foreach ($GLOBALS['TL_DCA']['tl_search_criteria']['fields'] as $key => $opt)
         {
             if (!\in_array($key, $arrSkip, true))
             {

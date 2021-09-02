@@ -3,7 +3,15 @@
 <?php $this->block('content'); ?>
 
 <div class="inside">
-    <?=$this->output?>
+    <?=$this->txtEstateHeadline?>
+    <hr/>
+    <?=$this->formEstate?>
+
+    <?php if($this->countResults): ?>
+        Anzahl: <?=$this->count?>
+    <?php endif; ?>
+    <hr/>
+    <?=$this->formContact?>
 </div>
 
 <?php $this->endblock(); ?>

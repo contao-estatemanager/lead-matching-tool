@@ -16,7 +16,6 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['lead_matching'] = '{title_legend},n
 
 // Add fields
 $GLOBALS['TL_DCA']['tl_module']['fields']['lmtConfig'] = [
-    'label' => &$GLOBALS['TL_LANG']['tl_module']['lmtConfig'],
     'exclude' => true,
     'inputType' => 'select',
     'options_callback' => ['ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlModule', 'getLeadMatchingConfiguration'],

@@ -33,13 +33,13 @@
         <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
         <target>Wird benötigt um die Liste anhand von Immobilien-Eckdaten zu filtern. Ohne Formular wird die komplette Liste gefundener Suchanfragen ausgegeben.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateForm.0">
-        <source>Real estate form</source>
-        <target>Immobilien-Formular</target>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
+        <source>Estate form fields</source>
+        <target>Immobilien-Formularfelder</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateForm.1">
-        <source>Select the form here.</source>
-        <target>Wählen Sie hier das Formular aus.</target>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
+        <source>Define the fields to display.</source>
+        <target>Definieren Sie die anzuzeigenden Felder.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.contactForm.0">
         <source>Contact form</source>
@@ -47,7 +47,7 @@
       </trans-unit>
       <trans-unit id="tl_lead_matching.contactForm.1">
         <source>Select the form here.</source>
-        <target>Wählen Sie hier das Formular aus.</target>
+        <target>Wählen Sie hier das Formular aus, welches zuvor im Formular-Generator erstellt wurde.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.title.0">
         <source>Title</source>

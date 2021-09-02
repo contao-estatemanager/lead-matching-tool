@@ -15,14 +15,14 @@ declare(strict_types=1);
 $GLOBALS['TL_ESTATEMANAGER_ADDONS'][] = ['ContaoEstateManager\LeadMatchingTool\EstateManager', 'AddonManager'];
 
 use ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel;
-use ContaoEstateManager\LeadMatchingTool\Model\SearchcriteriaModel;
+use ContaoEstateManager\LeadMatchingTool\Model\SearchCriteriaModel;
 
 if (ContaoEstateManager\LeadMatchingTool\EstateManager\AddonManager::valid())
 {
     // Back end modules
     array_insert($GLOBALS['BE_MOD']['real_estate'], \count($GLOBALS['BE_MOD']['real_estate'] ?? 3), [
         'searchcriteria' => [
-            'tables' => ['tl_searchcriteria'],
+            'tables' => ['tl_search_criteria'],
         ],
         'leadmatching' => [
             'tables' => ['tl_lead_matching'],
@@ -30,6 +30,6 @@ if (ContaoEstateManager\LeadMatchingTool\EstateManager\AddonManager::valid())
     ]);
 
     // Models
-    $GLOBALS['TL_MODELS']['tl_searchcriteria'] = SearchcriteriaModel::class;
+    $GLOBALS['TL_MODELS']['tl_search_criteria'] = SearchCriteriaModel::class;
     $GLOBALS['TL_MODELS']['tl_lead_matching'] = LeadMatchingModel::class;
 }

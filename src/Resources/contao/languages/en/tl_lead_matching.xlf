@@ -49,11 +49,11 @@
       <trans-unit id="tl_lead_matching.addContactForm.1">
         <source>Allows you to contact specific search inquiries.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateForm.0">
-        <source>Real estate form</source>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
+        <source>Estate form fields</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateForm.1">
-        <source>Select the form here.</source>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
+        <source>Define the fields to display.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.contactForm.0">
         <source>Contact form</source>

@@ -32,30 +32,21 @@ use Contao\Model;
  * @property string $perPage
  * @property string $listMetaFields
  * @property string $estateFormMetaFields
- * @property string $estateFormMetaFieldsMandatory
- * @property string $contactFormMetaFields
- * @property string $contactFormMetaFieldsMandatory
- * @property string $contactFormCheckboxes
  * @property string $countResults
- * @property string $addBlankMarketingType
- * @property string $addBlankObjectType
- * @property string $addBlankSalutation
- * @property string $addBlankRegion
- * @property string $addContactForm
- * @property string $addEstateForm
+ * @property bool   $addContactForm
+ * @property bool   $addEstateForm
+ * @property int    $contactForm
+ * @property int    $estateForm
  * @property string $forceList
  * @property string $forceContact
- * @property string $estateFormTemplate
- * @property string $contactFormTemplate
  * @property string $listItemTemplate
- * @property string $mailSubject
- * @property string $mailTo
  * @property string $txtEstateHeadline
  * @property string $txtEstateDescription
  * @property string $txtListHeadline
  * @property string $txtListDescription
  * @property string $txtContactHeadline
  * @property string $txtContactDescription
+ * @property bool   $preciseRegionSearch
  */
 class LeadMatchingModel extends Model
 {
