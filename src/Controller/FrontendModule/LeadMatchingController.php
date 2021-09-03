@@ -235,6 +235,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
             {
                 $varLabel = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$field];
                 $varValue = $objItem->{$field} ?: $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
+                $options = $GLOBALS['TL_LANG']['tl_search_criteria']['fields'][$field]['leadMatching'] ?? null;
 
                 /*switch($field)
                 {
@@ -261,7 +262,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
     {
         // Create form fields
         $arrFields = StringUtil::deserialize($this->config->estateFormMetaFields, true);
-        $arrFieldOptions = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['fieldOptions'] ?? [];
+        $arrFieldOptions = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['leadMatching'] ?? [];
 
         // Create fields
         foreach ($arrFields as $fieldName)
@@ -284,7 +285,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
                 ],
             ];
 
-            $fieldOptions = $arrFieldOptions[$fieldName] ?? [];
+            $fieldOptions = $arrFieldOptions[$fieldName]['fieldOptions'] ?? [];
 
             // Add options / values
             switch ($fieldName)

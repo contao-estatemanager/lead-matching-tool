@@ -134,6 +134,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50 clr'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => 'room',
+            ]
         ],
         'room_to' => [
             'inputType' => 'text',

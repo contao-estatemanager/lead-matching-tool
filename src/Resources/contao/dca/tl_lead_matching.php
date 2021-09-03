@@ -195,37 +195,39 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
             'reference' => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval' => ['multiple' => true, 'mandatory' => true, 'tl_class' => 'w50 wizard clr'],
             'sql' => 'text NULL',
-            'fieldOptions' => [
+            'leadMatching' => [
                 'marketingType' => [
-                    'inputType' => 'select',
-                    'eval' => [
-                        'mandatory' => true,
-                        'includeBlankOption' => true,
-                    ],
+                    'fieldOptions' => [
+                        'inputType' => 'select',
+                        'eval' => [
+                            'mandatory' => true,
+                            'includeBlankOption' => true
+                        ]
+                    ]
                 ],
                 'objectTypes' => [
-                    'inputType' => 'select',
-                    'eval' => [
-                        'mandatory' => true,
-                        'includeBlankOption' => true,
-                    ],
-                    'lead_matching' => [
-                        'filter' => [
-                            'field' => 'objectType',
+                    'fieldOptions' => [
+                        'inputType' => 'select',
+                        'eval' => [
+                            'mandatory' => true,
+                            'includeBlankOption' => true,
                         ],
+                    ],
+                    'filter' => [
+                        'fieldName' => 'objectType',
                     ],
                 ],
                 'regions' => [
-                    'eval' => [
-                        'mandatory' => true,
-                        'includeBlankOption' => true,
+                    'fieldOptions' => [
+                        'eval' => [
+                            'mandatory' => true,
+                            'includeBlankOption' => true,
+                        ],
                     ],
                 ],
                 'range' => [
-                    'lead_matching' => [
-                        'filter' => [
-                            'skip' => true,
-                        ],
+                    'filter' => [
+                        'skip' => true,
                     ],
                 ],
             ],

@@ -70,7 +70,7 @@ class SearchCriteriaModel extends Model
     public static function createFilterQuery(string $strSelect, LeadMatchingModel $objConfig, ?array $formData = null): array
     {
         $strTable = static::$strTable;
-        $fieldOptions = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['fieldOptions'] ?? [];
+        $arrFieldOptions = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['leadMatching'] ?? [];
 
         // Query part builder
         $q = function (string $strField, string $o = '=') use ($strTable) {
@@ -93,10 +93,10 @@ class SearchCriteriaModel extends Model
             foreach ($formData as $strName => $varValue)
             {
                 // Check if the field must be skipped in filtering
-                $blnSkip = (bool) ($fieldOptions[$strName]['lead_matching']['filter']['skip'] ?? false);
+                $blnSkip = (bool) ($arrFieldOptions[$strName]['filter']['skip'] ?? false);
 
                 // Check if the field has a different name
-                $strField = ($fieldOptions[$strName]['lead_matching']['filter']['field'] ?? null) ?? $strName;
+                $strField = ($arrFieldOptions[$strName]['filter']['fieldName'] ?? null) ?? $strName;
 
                 if ($varValue && !$blnSkip)
                 {
