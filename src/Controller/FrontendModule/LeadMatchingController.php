@@ -14,18 +14,20 @@ declare(strict_types=1);
 
 namespace ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule;
 
+use Contao\Config;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
+use Contao\CoreBundle\Exception\PageNotFoundException;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
+use Contao\FrontendTemplate;
 use Contao\Input;
-use Contao\Model;
 use Contao\Model\Collection;
 use Contao\ModuleModel;
+use Contao\Pagination;
 use Contao\StringUtil;
 use Contao\Template;
 use ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel;
 use ContaoEstateManager\LeadMatchingTool\Model\SearchCriteriaModel;
 use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
-use ContaoEstateManager\RegionEntity\RegionConnectionModel;
 use ContaoEstateManager\RegionEntity\RegionModel;
 use Haste\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,14 +66,19 @@ class LeadMatchingController extends AbstractFrontendModuleController
     protected Form $objFormContact;
 
     /**
-     * Holds the current filter data
+     * Holds the current filter data.
      */
-    protected array $filterData;
+    protected ?array $filterData = null;
 
     /**
      * Defines whether the contact form should be displayed.
      */
     protected bool $blnContactForm = false;
+
+    /**
+     * Defines whether the list should be displayed.
+     */
+    protected bool $blnList = false;
 
     /**
      * Frontend module.
@@ -94,6 +101,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
         $this->objFormContact = new Form('contact', 'POST', fn ($objForm) => $this->isFormSubmitted($objForm));
 
         $this->blnContactForm = (bool) $this->config->addContactForm && ((bool) $this->config->forceContact || ($this->objFormEstate->isValid() && $this->objFormEstate->isSubmitted()));
+        $this->blnList = (bool) $this->config->forceList || ($this->objFormEstate->isValid() && $this->objFormEstate->isSubmitted());
 
         // Build estate form
         if ((bool) $this->config->addEstateForm)
@@ -107,11 +115,143 @@ class LeadMatchingController extends AbstractFrontendModuleController
             $template->formContact = $this->buildContactForm();
         }
 
+        // Generate search criteria list
         $template->count = $this->count();
-        $this->find();
         $template->list = '';
+        $template->pagination = '';
+
+        if ($this->blnList)
+        {
+            $this->generateList($template);
+        }
+
+        $template->empty = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyList'];
 
         return $template->getResponse();
+    }
+
+    /**
+     * Generate list.
+     */
+    protected function generateList(Template &$template): void
+    {
+        $intTotal = $template->count;
+        $limit = null;
+        $offset = 0;
+
+        // Maximum number of items
+        if ($this->config->numberOfItems > 0)
+        {
+            $limit = $this->config->numberOfItems;
+        }
+
+        if ($intTotal < 1)
+        {
+            return;
+        }
+
+        $total = $intTotal - $offset;
+
+        // Split the results
+        if ($this->config->perPage > 0 && (!isset($limit) || $this->config->numberOfItems > $this->config->perPage))
+        {
+            // Adjust the overall limit
+            if (isset($limit))
+            {
+                $total = min($limit, $total);
+            }
+
+            // Get the current page
+            $id = 'page_lm'.$this->config->id;
+            $page = Input::get($id) ?? 1;
+
+            // Do not index or cache the page if the page number is outside the range
+            if ($page < 1 || $page > max(ceil($total / $this->config->perPage), 1))
+            {
+                throw new PageNotFoundException('Page not found: '.\Environment::get('uri'));
+            }
+
+            // Set limit and offset
+            $limit = $this->config->perPage;
+            $offset += (max($page, 1) - 1) * $this->config->perPage;
+
+            // Overall limit
+            if ((int) $offset + (int) $limit > $total)
+            {
+                $limit = $total - $offset;
+            }
+
+            // Add the pagination menu
+            $objPagination = new Pagination($total, $this->config->perPage, Config::get('maxPaginationLinks'), $id);
+            $template->pagination = $objPagination->generate("\n  ");
+        }
+
+        $objItems = $this->fetch(((int) $limit ?: 0), (int) $offset);
+        $template->list = $this->parseItems($objItems);
+    }
+
+    /**
+     * Parse items.
+     *
+     * @param $objItems
+     */
+    protected function parseItems($objItems): string
+    {
+        $limit = $objItems->count();
+
+        if ($limit < 1)
+        {
+            return '';
+        }
+
+        $count = 0;
+        $arrItems = [];
+
+        foreach ($objItems as $objItem)
+        {
+            $arrItems[] = $this->parseItem($objItem, ((1 === ++$count) ? ' first' : '').(($count === $limit) ? ' last' : '').((($count % 2) === 0) ? ' odd' : ' even'), $count);
+        }
+
+        return implode('', $arrItems);
+    }
+
+    /**
+     * Parse items.
+     *
+     * @param $objItem
+     */
+    protected function parseItem($objItem, string $strClass = '', int $intCount = 0): string
+    {
+        $objTemplate = new FrontendTemplate($this->config->listItemTemplate);
+        $objTemplate->setData($objItem->row());
+        $objTemplate->class = $strClass;
+
+        $arrFields = [];
+        $listFields = StringUtil::deserialize($this->config->listMetaFields);
+
+        if (null !== $listFields)
+        {
+            foreach ($listFields as $field)
+            {
+                $varLabel = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$field];
+                $varValue = $objItem->{$field} ?: $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
+
+                /*switch($field)
+                {
+
+                }*/
+
+                $arrFields[] = [
+                    'class' => $field,
+                    'label' => $varLabel,
+                    'value' => $varValue,
+                ];
+            }
+        }
+
+        $objTemplate->fields = $arrFields;
+
+        return $objTemplate->parse();
     }
 
     /**
@@ -263,13 +403,15 @@ class LeadMatchingController extends AbstractFrontendModuleController
         });
     }
 
+    /**
+     * Save and holds the current filter data.
+     */
     protected function saveFilterData(): void
     {
         $this->filterData = [];
 
-        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void
-        {
-            $this->filterData[ $strName ] = $objWidget->value;
+        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void {
+            $this->filterData[$strName] = $objWidget->value;
         });
     }
 
@@ -294,10 +436,10 @@ class LeadMatchingController extends AbstractFrontendModuleController
     /**
      * Find list items.
      */
-    protected function find(?int $limit = null, ?int $offset = null): ?Collection
+    protected function fetch(?int $limit = null, ?int $offset = null): ?Collection
     {
         $strTable = SearchCriteriaModel::getTable();
-        $strSelect = 'SELECT ' . $strTable . '.* FROM ' . $strTable;
+        $strSelect = 'SELECT '.$strTable.'.* FROM '.$strTable;
 
         // Create filter query
         [$query, $parameter] = SearchCriteriaModel::createFilterQuery($strSelect, $this->config, $this->filterData);
@@ -306,10 +448,14 @@ class LeadMatchingController extends AbstractFrontendModuleController
         $arrOptions = [];
 
         if ($limit)
+        {
             $arrOptions['limit'] = $limit;
+        }
 
         if ($offset)
+        {
             $arrOptions['offset'] = $offset;
+        }
 
         // Execute filter query and return collection
         return SearchCriteriaModel::execute($query, $parameter, true, $arrOptions);
@@ -319,8 +465,6 @@ class LeadMatchingController extends AbstractFrontendModuleController
      * Check if a form is submitted.
      *
      * @param $objForm
-     *
-     * @return bool
      */
     private function isFormSubmitted($objForm): bool
     {

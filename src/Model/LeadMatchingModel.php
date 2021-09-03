@@ -28,8 +28,8 @@ use Contao\Model;
  * @property string $objectTypesData
  * @property string $regions
  * @property string $regionsData
- * @property string $numberOfItems
- * @property string $perPage
+ * @property int    $numberOfItems
+ * @property int    $perPage
  * @property string $listMetaFields
  * @property string $estateFormMetaFields
  * @property string $countResults

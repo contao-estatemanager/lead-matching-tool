@@ -3,15 +3,28 @@
 <?php $this->block('content'); ?>
 
 <div class="inside">
+    <section class="lm-filter">
     <?=$this->txtEstateHeadline?>
-    <hr/>
+
     <?=$this->formEstate?>
 
     <?php if($this->countResults): ?>
         Anzahl: <?=$this->count?>
     <?php endif; ?>
+    </section>
     <hr/>
-    <?=$this->formContact?>
+    <section class="lm-list">
+        <?php if($this->list): ?>
+            <?=$this->list?>
+        <?php else: ?>
+            <?=$this->empty?>
+        <?php endif; ?>
+
+    </section>
+    <hr/>
+    <section class="lm-contact">
+        <?=$this->formContact?>
+    </section>
 </div>
 
 <?php $this->endblock(); ?>

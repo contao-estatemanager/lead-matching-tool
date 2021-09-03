@@ -211,7 +211,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
                     ],
                     'lead_matching' => [
                         'filter' => [
-                            'field' => 'objectType'
+                            'field' => 'objectType',
                         ],
                     ],
                 ],

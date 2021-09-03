@@ -17,7 +17,6 @@ namespace ContaoEstateManager\LeadMatchingTool\Model;
 use Contao\Database;
 use Contao\Model;
 use Contao\Model\Collection;
-
 use ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule\LeadMatchingController;
 use ContaoEstateManager\RegionEntity\RegionConnectionModel;
 
@@ -38,12 +37,7 @@ class SearchCriteriaModel extends Model
     protected static $strTable = 'tl_search_criteria';
 
     /**
-     * Execute query with given parameters
-     *
-     * @param string $strQuery
-     * @param array $arrParameter
-     * @param bool $blnCollection
-     * @param array|null $arrOptions
+     * Execute query with given parameters.
      *
      * @return Database\Result|Collection
      */
@@ -62,7 +56,7 @@ class SearchCriteriaModel extends Model
 
         $res = $db->execute($arrParameter);
 
-        if(!$blnCollection)
+        if (!$blnCollection)
         {
             return $res;
         }
@@ -72,21 +66,14 @@ class SearchCriteriaModel extends Model
 
     /**
      * Generate filter query string.
-     *
-     * @param string $strSelect
-     * @param LeadMatchingModel $objConfig
-     * @param array $formData
-     *
-     * @return array
      */
-    public static function createFilterQuery(string $strSelect, LeadMatchingModel $objConfig, array $formData): array
+    public static function createFilterQuery(string $strSelect, LeadMatchingModel $objConfig, ?array $formData = null): array
     {
         $strTable = static::$strTable;
         $fieldOptions = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['fieldOptions'] ?? [];
 
         // Query part builder
-        $q = function (string $strField, string $o = '=') use ($strTable)
-        {
+        $q = function (string $strField, string $o = '=') use ($strTable) {
             return vsprintf("$strTable.%s%s?", [$strField, $o]);
         };
 
@@ -101,49 +88,52 @@ class SearchCriteriaModel extends Model
             $arrCollection[LeadMatchingController::FIELD_MARKETING] = [$q(LeadMatchingController::FIELD_MARKETING), [$objConfig->marketingType]];
         }
 
-        foreach ($formData as $strName => $varValue)
+        if (null !== $formData)
         {
-            // Check if the field must be skipped in filtering
-            $blnSkip = (bool) ($fieldOptions[$strName]['lead_matching']['filter']['skip'] ?? false);
-
-            // Check if the field has a different name
-            $strField = ($fieldOptions[$strName]['lead_matching']['filter']['field'] ?? null) ?? $strName;
-
-            if ($varValue && !$blnSkip)
+            foreach ($formData as $strName => $varValue)
             {
-                switch ($strName)
+                // Check if the field must be skipped in filtering
+                $blnSkip = (bool) ($fieldOptions[$strName]['lead_matching']['filter']['skip'] ?? false);
+
+                // Check if the field has a different name
+                $strField = ($fieldOptions[$strName]['lead_matching']['filter']['field'] ?? null) ?? $strName;
+
+                if ($varValue && !$blnSkip)
                 {
-                    case LeadMatchingController::FIELD_MARKETING:
-                    case LeadMatchingController::FIELD_OBJECT_TYPES:
-                        $arrCollection[$strName] = [$q($strField), [$varValue]];
-                        break;
+                    switch ($strName)
+                    {
+                        case LeadMatchingController::FIELD_MARKETING:
+                        case LeadMatchingController::FIELD_OBJECT_TYPES:
+                            $arrCollection[$strName] = [$q($strField), [$varValue]];
+                            break;
 
-                    case LeadMatchingController::FIELD_REGIONS:
-                        if ((bool) $objConfig->preciseRegionSearch)
-                        {
-                            $regionTable = RegionConnectionModel::getTable();
+                        case LeadMatchingController::FIELD_REGIONS:
+                            if ((bool) $objConfig->preciseRegionSearch)
+                            {
+                                $regionTable = RegionConnectionModel::getTable();
 
-                            $strSelect .= ' LEFT JOIN '.$regionTable.' ON '.$regionTable.'.pid='.$strTable.'.id';
-                            $arrCollection[LeadMatchingController::FIELD_REGIONS] = [
-                                '(('.$regionTable.'.rid=? AND '.$regionTable.'.ptable=?) OR '.$strTable.'.regions IS NULL)',
+                                $strSelect .= ' LEFT JOIN '.$regionTable.' ON '.$regionTable.'.pid='.$strTable.'.id';
+                                $arrCollection[LeadMatchingController::FIELD_REGIONS] = [
+                                    '(('.$regionTable.'.rid=? AND '.$regionTable.'.ptable=?) OR '.$strTable.'.regions IS NULL)',
+                                    [
+                                        $varValue,
+                                        $strTable,
+                                    ],
+                                ];
+                            }
+                            break;
+
+                        default:
+                            $arrCollection[$strField] = [
+                                '('.$q($strField.'_from', '<=').' OR '.$q($strField.'_from').') AND ('.$q($strField.'_to', '>=').' OR '.$q($strField.'_to', '=').')',
                                 [
-                                    $varValue,
-                                    $strTable,
+                                    (float) $varValue,
+                                    '',
+                                    (float) $varValue,
+                                    '',
                                 ],
                             ];
-                        }
-                        break;
-
-                    default:
-                        $arrCollection[$strField] = [
-                            '('.$q($strField.'_from', '<=').' OR '.$q($strField.'_from').') AND ('.$q($strField.'_to', '>=').' OR '.$q($strField.'_to', '=').')',
-                            [
-                                (float) $varValue,
-                                '',
-                                (float) $varValue,
-                                '',
-                            ],
-                        ];
+                    }
                 }
             }
         }
