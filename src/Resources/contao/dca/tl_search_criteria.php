@@ -114,6 +114,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'reference' => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50'],
             'sql' => "varchar(16) NOT NULL default ''",
+            'leadMatching' => [
+                'format' => ['translate'],
+            ]
         ],
         'objectType' => [
             'inputType' => 'select',
@@ -121,6 +124,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'eval' => ['tl_class' => 'w50 clr wizard'],
             'sql' => "int(10) unsigned NOT NULL default '0'",
             'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
+            'leadMatching' => [
+                'format' => ['objectTypes'],
+            ]
         ],
         'regions' => [
             'inputType' => 'regionTree',
@@ -129,39 +135,79 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'save_callback' => [
                 ['ContaoEstateManager\RegionEntity\Region', 'regionConnectionSaveCallback'],
             ],
+            'leadMatching' => [
+                'format' => ['regions'],
+            ]
         ],
         'room_from' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50 clr'],
             'sql' => "varchar(255) NOT NULL default ''",
             'leadMatching' => [
-                'group' => 'room',
+                'group' => [
+                    'name' => 'room'
+                ]
             ]
         ],
         'room_to' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'room'
+                ]
+            ]
         ],
         'area_from' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50 clr'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'area',
+                    'append' => ' m²'
+                ]
+            ]
         ],
         'area_to' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'area',
+                    'append' => ' m²'
+                ]
+            ]
         ],
         'price_from' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50 clr'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'price',
+                    'append' => ' ' . $GLOBALS['TL_LANG']['tl_lead_matching_meta']['currency']
+                ],
+                'format' => function ($varValue) {
+                    return number_format((float) $varValue, 0, ',', '.');
+                }
+            ]
         ],
         'price_to' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'price',
+                    'append' => ' ' . $GLOBALS['TL_LANG']['tl_lead_matching_meta']['currency']
+                ],
+                'format' => function ($varValue) {
+                    return number_format((float) $varValue, 0, ',', '.');
+                }
+            ]
         ],
         'latitude' => [
             'inputType' => 'text',
@@ -177,11 +223,23 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'location',
+                    'separator' => ' '
+                ]
+            ]
         ],
         'city' => [
             'inputType' => 'text',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
+            'leadMatching' => [
+                'group' => [
+                    'name' => 'location',
+                    'separator' => ' '
+                ]
+            ]
         ],
         'range' => [
             'inputType' => 'text',

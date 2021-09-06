@@ -24,6 +24,7 @@ use Contao\Model\Collection;
 use Contao\ModuleModel;
 use Contao\Pagination;
 use Contao\StringUtil;
+use Contao\System;
 use Contao\Template;
 use ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel;
 use ContaoEstateManager\LeadMatchingTool\Model\SearchCriteriaModel;
@@ -227,6 +228,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
         $objTemplate->class = $strClass;
 
         $arrFields = [];
+        $arrGroups = [];
         $listFields = StringUtil::deserialize($this->config->listMetaFields);
 
         if (null !== $listFields)
@@ -234,20 +236,84 @@ class LeadMatchingController extends AbstractFrontendModuleController
             foreach ($listFields as $field)
             {
                 $varLabel = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$field];
-                $varValue = $objItem->{$field} ?: $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField'];
-                $options = $GLOBALS['TL_LANG']['tl_search_criteria']['fields'][$field]['leadMatching'] ?? null;
+                $varValue = $objItem->{$field};
+                $options  = $GLOBALS['TL_DCA']['tl_search_criteria']['fields'][$field]['leadMatching'] ?? null;
+                $format   = (array) ($options['format'] ?? []);
 
-                /*switch($field)
+                // Trigger the format callback
+                foreach ($format as $callback)
                 {
+                    if(is_string($callback))
+                    {
+                        $varValue = $this->formatValue($callback, $varValue);
+                    }
+                    elseif (is_array($callback))
+                    {
+                        $varValue = System::importStatic($callback[0])->{$callback[1]}($varValue, $this);
+                    }
+                    elseif (is_callable($callback))
+                    {
+                        $varValue = $callback($varValue, $this);
+                    }
+                }
 
-                }*/
-
-                $arrFields[] = [
+                $arrFields[ $field ] = [
                     'class' => $field,
                     'label' => $varLabel,
                     'value' => $varValue,
                 ];
+
+                $groupOptions = $options['group'] ?? null;
+
+                if($groupOptions)
+                {
+                    $groupName = $groupOptions['name'];
+                    $groupAppend = $groupOptions['append'] ?? '';
+                    $groupSeparator = $groupOptions['separator'] ?? ' - ';
+
+                    if(!array_key_exists($groupName, $arrGroups))
+                    {
+                        $arrGroups[ $groupName ] = [
+                            'label'  => $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$groupName] ?? $varLabel,
+                            'values' => [],
+                            'fields' => [],
+                            'separator' => $groupSeparator,
+                            'append' => $groupAppend,
+                        ];
+                    }
+
+                    $arrGroups[ $groupName ]['values'][] = $varValue;
+                    $arrGroups[ $groupName ]['fields'][] = $field;
+                }
             }
+        }
+
+        // Group fields
+        $groupedFields = [];
+
+        foreach ($arrGroups as $groupName => $group)
+        {
+            // Remove empty fields
+            $arrValues = array_filter($group['values']);
+
+            // Combine fields
+            $groupedFields[ $groupName ] = [
+                'class' => implode(' ', $group['fields']) . ' ' . $groupName,
+                'label' => $group['label'],
+                'value' => implode($group['separator'], $arrValues) . $group['append']
+            ];
+
+            // Delete fields
+            foreach ($group['fields'] as $field)
+            {
+                unset($arrFields[ $field ]);
+            }
+
+            // Add combined fields
+            $arrFields = array_merge(
+                $arrFields,
+                $groupedFields
+            );
         }
 
         $objTemplate->fields = $arrFields;
@@ -411,9 +477,65 @@ class LeadMatchingController extends AbstractFrontendModuleController
     {
         $this->filterData = [];
 
-        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void {
+        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void
+        {
             $this->filterData[$strName] = $objWidget->value;
         });
+    }
+
+    /**
+     * Format values
+     *
+     * @param $format
+     * @param $varValue
+     *
+     * @return string
+     */
+    public function formatValue($format, $varValue): string
+    {
+        switch($format)
+        {
+            case self::FIELD_OBJECT_TYPES:
+                $objObjectType = ObjectTypeModel::findById($varValue);
+
+                if(null !== $objObjectType)
+                {
+                    $varValue = $objObjectType->title;
+                }
+                break;
+
+            case self::FIELD_REGIONS:
+                // Skip if proximity search is active
+                if (!$this->config->preciseRegionSearch)
+                {
+                    break;
+                }
+
+                $relatedOptionIds = StringUtil::deserialize($this->config->regions);
+                $arrOptions = [];
+
+                if (null !== $relatedOptionIds)
+                {
+                    $objRegions = RegionModel::findMultipleByIds($relatedOptionIds);
+
+                    if (null !== $objRegions)
+                    {
+                        foreach ($objRegions as $objRegion)
+                        {
+                            $arrOptions[$objRegion->id] = $objRegion->title;
+                        }
+                    }
+                }
+
+                $varValue = implode(", ", $arrOptions);
+                break;
+
+            case 'translate':
+                $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$varValue] ?? $varValue;
+                break;
+        }
+
+        return $varValue;
     }
 
     /**

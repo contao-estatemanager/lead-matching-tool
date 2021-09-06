@@ -77,6 +77,10 @@
         <source>Price</source>
         <target>Preis</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.currency">
+        <source>€</source>
+        <target>€</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.price_from">
         <source>Price from</source>
         <target>Preis ab</target>
@@ -88,6 +92,10 @@
       <trans-unit id="tl_lead_matching_meta.objectType">
         <source>Object type</source>
         <target>Objektart</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.location">
+        <source>Location</source>
+        <target>Ort</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.latitude">
         <source>Latitude</source>
