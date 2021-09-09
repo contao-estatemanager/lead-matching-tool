@@ -16,6 +16,7 @@ namespace ContaoEstateManager\LeadMatchingTool\Contao\Dca;
 
 use Contao\Config;
 use Contao\DataContainer;
+use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
 
 class TlSearchCriteria
 {
@@ -24,7 +25,16 @@ class TlSearchCriteria
      */
     public function labelCallback(array $row, string $label, DataContainer $dc, array $args): array
     {
-        $args[3] = date(Config::get('datimFormat'), (int) $args[3]);
+        $objObjectType = ObjectTypeModel::findById($args[3]);
+        $strObjectType = '-';
+
+        if (null !== $objObjectType)
+        {
+            $strObjectType = $objObjectType->title;
+        }
+
+        $args[3] = $strObjectType;
+        $args[4] = date(Config::get('datimFormat'), (int) $args[4]);
 
         return $args;
     }

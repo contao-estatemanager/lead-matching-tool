@@ -35,9 +35,7 @@ return (new PhpCsFixer\Config())
         'escape_implicit_backslashes' => true,
         'fully_qualified_strict_types' => true,
         'general_phpdoc_annotation_remove' => [
-            'author',
-            'expectedException',
-            'expectedExceptionMessage',
+            'author'
         ],
         'header_comment' => ['header' => $header],
         'heredoc_to_nowdoc' => true,
@@ -62,7 +60,6 @@ return (new PhpCsFixer\Config())
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
-        'ordered_class_elements' => true,
         'ordered_imports' => true,
         'php_unit_strict' => true,
         'phpdoc_add_missing_param_annotation' => true,
@@ -74,7 +71,6 @@ return (new PhpCsFixer\Config())
         ],
         'return_assignment' => true,
         'strict_comparison' => true,
-        'strict_param' => true,
         'string_line_ending' => true,
         'void_return' => true,
     ])

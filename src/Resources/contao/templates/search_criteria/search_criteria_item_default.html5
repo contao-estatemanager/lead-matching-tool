@@ -1,3 +1,4 @@
+<hr/>
 <div class="item<?=$this->class?> block">
     <?php foreach ($this->fields as $field):?>
         <div class="<?=$field['class']?>">

@@ -118,6 +118,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
 
         // Generate search criteria list
         $template->count = $this->count();
+        $template->showList = $this->blnList;
         $template->list = '';
         $template->pagination = '';
 
@@ -237,27 +238,27 @@ class LeadMatchingController extends AbstractFrontendModuleController
             {
                 $varLabel = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$field];
                 $varValue = $objItem->{$field};
-                $options  = $GLOBALS['TL_DCA']['tl_search_criteria']['fields'][$field]['leadMatching'] ?? null;
-                $format   = (array) ($options['format'] ?? []);
+                $options = $GLOBALS['TL_DCA']['tl_search_criteria']['fields'][$field]['leadMatching'] ?? null;
+                $format = (array) ($options['format'] ?? []);
 
                 // Trigger the format callback
                 foreach ($format as $callback)
                 {
-                    if(is_string($callback))
+                    if (\is_string($callback))
                     {
                         $varValue = $this->formatValue($callback, $varValue);
                     }
-                    elseif (is_array($callback))
+                    elseif (\is_array($callback))
                     {
                         $varValue = System::importStatic($callback[0])->{$callback[1]}($varValue, $this);
                     }
-                    elseif (is_callable($callback))
+                    elseif (\is_callable($callback))
                     {
                         $varValue = $callback($varValue, $this);
                     }
                 }
 
-                $arrFields[ $field ] = [
+                $arrFields[$field] = [
                     'class' => $field,
                     'label' => $varLabel,
                     'value' => $varValue,
@@ -265,16 +266,16 @@ class LeadMatchingController extends AbstractFrontendModuleController
 
                 $groupOptions = $options['group'] ?? null;
 
-                if($groupOptions)
+                if ($groupOptions)
                 {
                     $groupName = $groupOptions['name'];
                     $groupAppend = $groupOptions['append'] ?? '';
                     $groupSeparator = $groupOptions['separator'] ?? ' - ';
 
-                    if(!array_key_exists($groupName, $arrGroups))
+                    if (!\array_key_exists($groupName, $arrGroups))
                     {
-                        $arrGroups[ $groupName ] = [
-                            'label'  => $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$groupName] ?? $varLabel,
+                        $arrGroups[$groupName] = [
+                            'label' => $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$groupName] ?? $varLabel,
                             'values' => [],
                             'fields' => [],
                             'separator' => $groupSeparator,
@@ -282,8 +283,8 @@ class LeadMatchingController extends AbstractFrontendModuleController
                         ];
                     }
 
-                    $arrGroups[ $groupName ]['values'][] = $varValue;
-                    $arrGroups[ $groupName ]['fields'][] = $field;
+                    $arrGroups[$groupName]['values'][] = $varValue;
+                    $arrGroups[$groupName]['fields'][] = $field;
                 }
             }
         }
@@ -297,16 +298,16 @@ class LeadMatchingController extends AbstractFrontendModuleController
             $arrValues = array_filter($group['values']);
 
             // Combine fields
-            $groupedFields[ $groupName ] = [
-                'class' => implode(' ', $group['fields']) . ' ' . $groupName,
+            $groupedFields[$groupName] = [
+                'class' => implode(' ', $group['fields']).' '.$groupName,
                 'label' => $group['label'],
-                'value' => implode($group['separator'], $arrValues) . $group['append']
+                'value' => implode($group['separator'], $arrValues).$group['append'],
             ];
 
             // Delete fields
             foreach ($group['fields'] as $field)
             {
-                unset($arrFields[ $field ]);
+                unset($arrFields[$field]);
             }
 
             // Add combined fields
@@ -352,6 +353,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
             ];
 
             $fieldOptions = $arrFieldOptions[$fieldName]['fieldOptions'] ?? [];
+            $additionalFields = $arrFieldOptions[$fieldName]['additionalFields'] ?? null;
 
             // Add options / values
             switch ($fieldName)
@@ -414,6 +416,18 @@ class LeadMatchingController extends AbstractFrontendModuleController
                 $fieldDefaults,
                 $fieldOptions
             ));
+
+            // Add additional fields
+            if ($additionalFields)
+            {
+                foreach ($additionalFields as $aFieldName => $aFieldOptions)
+                {
+                    $this->objFormEstate->addFormField($aFieldName, array_merge(
+                        $fieldDefaults,
+                        $aFieldOptions
+                    ));
+                }
+            }
         }
 
         // Add submit button
@@ -477,65 +491,9 @@ class LeadMatchingController extends AbstractFrontendModuleController
     {
         $this->filterData = [];
 
-        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void
-        {
+        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void {
             $this->filterData[$strName] = $objWidget->value;
         });
-    }
-
-    /**
-     * Format values
-     *
-     * @param $format
-     * @param $varValue
-     *
-     * @return string
-     */
-    public function formatValue($format, $varValue): string
-    {
-        switch($format)
-        {
-            case self::FIELD_OBJECT_TYPES:
-                $objObjectType = ObjectTypeModel::findById($varValue);
-
-                if(null !== $objObjectType)
-                {
-                    $varValue = $objObjectType->title;
-                }
-                break;
-
-            case self::FIELD_REGIONS:
-                // Skip if proximity search is active
-                if (!$this->config->preciseRegionSearch)
-                {
-                    break;
-                }
-
-                $relatedOptionIds = StringUtil::deserialize($this->config->regions);
-                $arrOptions = [];
-
-                if (null !== $relatedOptionIds)
-                {
-                    $objRegions = RegionModel::findMultipleByIds($relatedOptionIds);
-
-                    if (null !== $objRegions)
-                    {
-                        foreach ($objRegions as $objRegion)
-                        {
-                            $arrOptions[$objRegion->id] = $objRegion->title;
-                        }
-                    }
-                }
-
-                $varValue = implode(", ", $arrOptions);
-                break;
-
-            case 'translate':
-                $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$varValue] ?? $varValue;
-                break;
-        }
-
-        return $varValue;
     }
 
     /**
@@ -582,6 +540,59 @@ class LeadMatchingController extends AbstractFrontendModuleController
 
         // Execute filter query and return collection
         return SearchCriteriaModel::execute($query, $parameter, true, $arrOptions);
+    }
+
+    /**
+     * Format values.
+     *
+     * @param $format
+     * @param $varValue
+     */
+    public function formatValue($format, $varValue): string
+    {
+        switch ($format)
+        {
+            case self::FIELD_OBJECT_TYPES:
+                $objObjectType = ObjectTypeModel::findById($varValue);
+
+                if (null !== $objObjectType)
+                {
+                    $varValue = $objObjectType->title;
+                }
+                break;
+
+            case self::FIELD_REGIONS:
+                // Skip if proximity search is active
+                if (!$this->config->preciseRegionSearch)
+                {
+                    break;
+                }
+
+                $relatedOptionIds = StringUtil::deserialize($this->config->regions);
+                $arrOptions = [];
+
+                if (null !== $relatedOptionIds)
+                {
+                    $objRegions = RegionModel::findMultipleByIds($relatedOptionIds);
+
+                    if (null !== $objRegions)
+                    {
+                        foreach ($objRegions as $objRegion)
+                        {
+                            $arrOptions[$objRegion->id] = $objRegion->title;
+                        }
+                    }
+                }
+
+                $varValue = implode(', ', $arrOptions);
+                break;
+
+            case 'translate':
+                $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$varValue] ?? $varValue;
+                break;
+        }
+
+        return $varValue;
     }
 
     /**

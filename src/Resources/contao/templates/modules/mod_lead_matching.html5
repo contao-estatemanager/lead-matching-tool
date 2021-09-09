@@ -1,3 +1,7 @@
+<?php
+    $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/estatemanagerleadmatchingtool/scripts/dist/main.js|static';
+?>
+
 <?php $this->extend('block_unsearchable'); ?>
 
 <?php $this->block('content'); ?>
@@ -9,22 +13,40 @@
     <?=$this->formEstate?>
 
     <?php if($this->countResults): ?>
-        Anzahl: <?=$this->count?>
+        Anzahl: <span data-counter><?=$this->count?></span>
     <?php endif; ?>
     </section>
     <hr/>
     <section class="lm-list">
-        <?php if($this->list): ?>
-            <?=$this->list?>
-        <?php else: ?>
-            <?=$this->empty?>
+        <?php if($this->showList): ?>
+            <?php if($this->list): ?>
+                <?=$this->list?>
+                <?=$this->pagination?>
+            <?php else: ?>
+                <?=$this->empty?>
+            <?php endif; ?>
         <?php endif; ?>
-
     </section>
     <hr/>
     <section class="lm-contact">
         <?=$this->formContact?>
     </section>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        new LeadMatching({
+            configId: <?=$this->id?>,
+            proximitySearch: {
+                active: !'<?=$this->preciseRegionSearch?>',
+                engine: 'google'
+            },
+            countLive: {
+                active: !!'<?=$this->countResults?>',
+                sourceUrl: '<?=Contao\Environment::get('url')?>' // ToDo: Check locale suffix
+            }
+        });
+    });
+</script>
 
 <?php $this->endblock(); ?>

@@ -201,9 +201,9 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
                         'inputType' => 'select',
                         'eval' => [
                             'mandatory' => true,
-                            'includeBlankOption' => true
-                        ]
-                    ]
+                            'includeBlankOption' => true,
+                        ],
+                    ],
                 ],
                 'objectTypes' => [
                     'fieldOptions' => [
@@ -222,6 +222,14 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
                         'eval' => [
                             'mandatory' => true,
                             'includeBlankOption' => true,
+                        ],
+                    ],
+                    'additionalFields' => [
+                        'region_lat' => [
+                            'inputType' => 'hidden',
+                        ],
+                        'region_lng' => [
+                            'inputType' => 'hidden',
                         ],
                     ],
                 ],

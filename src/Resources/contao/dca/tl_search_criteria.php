@@ -39,7 +39,7 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'panelLayout' => 'filter;sort,search,limit',
         ],
         'label' => [
-            'fields' => ['id', 'title', 'marketingType', 'tstamp'],
+            'fields' => ['id', 'title', 'marketingType', 'objectType', 'tstamp'],
             'showColumns' => true,
             'label_callback' => ['ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlSearchCriteria', 'labelCallback'],
         ],
@@ -116,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'sql' => "varchar(16) NOT NULL default ''",
             'leadMatching' => [
                 'format' => ['translate'],
-            ]
+            ],
         ],
         'objectType' => [
             'inputType' => 'select',
@@ -126,7 +126,7 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
             'leadMatching' => [
                 'format' => ['objectTypes'],
-            ]
+            ],
         ],
         'regions' => [
             'inputType' => 'regionTree',
@@ -137,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             ],
             'leadMatching' => [
                 'format' => ['regions'],
-            ]
+            ],
         ],
         'room_from' => [
             'inputType' => 'text',
@@ -145,9 +145,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'sql' => "varchar(255) NOT NULL default ''",
             'leadMatching' => [
                 'group' => [
-                    'name' => 'room'
-                ]
-            ]
+                    'name' => 'room',
+                ],
+            ],
         ],
         'room_to' => [
             'inputType' => 'text',
@@ -155,9 +155,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'sql' => "varchar(255) NOT NULL default ''",
             'leadMatching' => [
                 'group' => [
-                    'name' => 'room'
-                ]
-            ]
+                    'name' => 'room',
+                ],
+            ],
         ],
         'area_from' => [
             'inputType' => 'text',
@@ -166,9 +166,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'leadMatching' => [
                 'group' => [
                     'name' => 'area',
-                    'append' => ' m²'
-                ]
-            ]
+                    'append' => ' m²',
+                ],
+            ],
         ],
         'area_to' => [
             'inputType' => 'text',
@@ -177,9 +177,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'leadMatching' => [
                 'group' => [
                     'name' => 'area',
-                    'append' => ' m²'
-                ]
-            ]
+                    'append' => ' m²',
+                ],
+            ],
         ],
         'price_from' => [
             'inputType' => 'text',
@@ -188,12 +188,12 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'leadMatching' => [
                 'group' => [
                     'name' => 'price',
-                    'append' => ' ' . $GLOBALS['TL_LANG']['tl_lead_matching_meta']['currency']
+                    'append' => ' '.$GLOBALS['TL_LANG']['tl_lead_matching_meta']['currency'],
                 ],
                 'format' => function ($varValue) {
                     return number_format((float) $varValue, 0, ',', '.');
-                }
-            ]
+                },
+            ],
         ],
         'price_to' => [
             'inputType' => 'text',
@@ -202,12 +202,12 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'leadMatching' => [
                 'group' => [
                     'name' => 'price',
-                    'append' => ' ' . $GLOBALS['TL_LANG']['tl_lead_matching_meta']['currency']
+                    'append' => ' '.$GLOBALS['TL_LANG']['tl_lead_matching_meta']['currency'],
                 ],
                 'format' => function ($varValue) {
                     return number_format((float) $varValue, 0, ',', '.');
-                }
-            ]
+                },
+            ],
         ],
         'latitude' => [
             'inputType' => 'text',
@@ -226,9 +226,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'leadMatching' => [
                 'group' => [
                     'name' => 'location',
-                    'separator' => ' '
-                ]
-            ]
+                    'separator' => ' ',
+                ],
+            ],
         ],
         'city' => [
             'inputType' => 'text',
@@ -237,9 +237,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'leadMatching' => [
                 'group' => [
                     'name' => 'location',
-                    'separator' => ' '
-                ]
-            ]
+                    'separator' => ' ',
+                ],
+            ],
         ],
         'range' => [
             'inputType' => 'text',
