@@ -39,7 +39,7 @@
             configId: <?=$this->id?>,
             proximitySearch: {
                 active: !'<?=$this->preciseRegionSearch?>',
-                engine: 'google'
+                sourceUrl: '<?=Contao\Environment::get('url')?>' // ToDo: Check locale suffix
             },
             countLive: {
                 active: !!'<?=$this->countResults?>',

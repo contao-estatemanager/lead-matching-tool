@@ -152,7 +152,8 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
         ],
         'regions' => [
             'exclude' => true,
-            'inputType' => 'regionTree',
+            'inputType' => 'picker',
+            'relation' => ['type' => 'hasOne', 'load' => 'lazy', 'table' => 'tl_region'],
             'eval' => ['multiple' => true, 'fieldType' => 'checkbox', 'tl_class' => 'w50 clr'],
             'save_callback' => [
                 ['ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'saveRegions'],

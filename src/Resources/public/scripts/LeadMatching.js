@@ -1,4 +1,5 @@
 import {extend} from "./helper/extend";
+import autoComplete from "@tarekraafat/autocomplete.js";
 
 export class LeadMatching {
     constructor(options) {
@@ -7,8 +8,10 @@ export class LeadMatching {
             configId: null,
             proximitySearch: {
                 active: false,
-                engine: 'system',
-                selector: '[name="regions"]'
+                placeholder: 'Regionen',
+                selector: '[name="regions"]',
+                sourceUrl: '',
+                source: 'regions'                   // [string|object]: Default 'regions'
             },
             countLive: {
                 active: true,
@@ -84,6 +87,75 @@ export class LeadMatching {
     }
 
     _initProximitySearch () {
-        // ToDo
+        const searchOptions = this.options.proximitySearch;
+        const domRegionInput = document.querySelector(searchOptions.selector)
+
+        domRegionInput.type = 'search'
+        domRegionInput.spellcheck = false
+        domRegionInput.autocorrect = 'off'
+        domRegionInput.autocomplete = 'off'
+        domRegionInput.autocapitalize = 'off'
+
+        // Check source
+        if(searchOptions.source === 'regions') {
+            searchOptions.source = this._getSystemRegionSource()
+        }
+
+        this.autocomplete = new autoComplete({
+            selector: searchOptions.selector,
+            wrapper: false,
+            placeHolder: searchOptions.placeholder,
+            data: searchOptions.source,
+            resultsList: {
+                element: (list, data) => {
+                    if (!data.results.length) {
+                        // Create "No Results" message element
+                        const message = document.createElement("div");
+                        // Add class to the created element
+                        message.setAttribute("class", "no_result");
+                        // Add message text content
+                        message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
+                        // Append message element to the results list
+                        list.prepend(message);
+                    }
+                },
+                noResults: true,
+            },
+            resultItem: {
+                highlight: true
+            },
+            events: {
+                input: {
+                    selection: (event) => {
+                        const selection = event.detail.selection.value;
+                        this.autocomplete.input.value = selection;
+                    }
+                }
+            }
+        });
+    }
+
+    _getSystemRegionSource() {
+        return {
+            src: async (query) => {
+                try {
+                    const post = new FormData();
+                          post.append('query', query);
+
+                    const source = await fetch(this.options.proximitySearch.sourceUrl + '/region/query', {
+                        method: 'POST',
+                        body: post,
+                    });
+
+                    const data = await source.json();
+                    console.log(data.results);
+
+                    return data.results;
+                } catch (error) {
+                    return error;
+                }
+            },
+            keys: ["region"]
+        };
     }
 }

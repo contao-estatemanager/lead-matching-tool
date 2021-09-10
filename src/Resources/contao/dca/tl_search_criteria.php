@@ -129,8 +129,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             ],
         ],
         'regions' => [
-            'inputType' => 'regionTree',
+            'inputType' => 'picker',
             'eval' => ['multiple' => true, 'fieldType' => 'checkbox', 'tl_class' => 'w50 clr'],
+            'relation' => ['type' => 'hasOne', 'load' => 'lazy', 'table' => 'tl_region'],
             'sql' => 'blob NULL',
             'save_callback' => [
                 ['ContaoEstateManager\RegionEntity\Region', 'regionConnectionSaveCallback'],
