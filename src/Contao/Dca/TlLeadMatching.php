@@ -61,16 +61,16 @@ class TlLeadMatching
             return $varValue;
         }
 
-        $arrChoosedTypes = StringUtil::deserialize($varValue);
+        $arrChosenTypes = StringUtil::deserialize($varValue);
 
-        if (null === $arrChoosedTypes)
+        if (null === $arrChosenTypes)
         {
             return $varValue;
         }
 
         $arrOptions = [];
 
-        foreach ($arrChoosedTypes as $type)
+        foreach ($arrChosenTypes as $type)
         {
             $arrOptions[$type] = &$GLOBALS['TL_LANG']['tl_lead_matching_meta'][$type];
         }
@@ -94,14 +94,14 @@ class TlLeadMatching
             return $varValue;
         }
 
-        $arrChoosedTypes = StringUtil::deserialize($varValue);
+        $arrChosenTypes = StringUtil::deserialize($varValue);
 
-        if (null === $arrChoosedTypes)
+        if (null === $arrChosenTypes)
         {
             return $varValue;
         }
 
-        $arrColumns = ["id IN('".implode("','", $arrChoosedTypes)."')"];
+        $arrColumns = ["id IN('".implode("','", $arrChosenTypes)."')"];
 
         $objObjectTypes = ObjectTypeModel::findBy($arrColumns, []);
 
@@ -134,14 +134,14 @@ class TlLeadMatching
             return $varValue;
         }
 
-        $arrChoosedTypes = StringUtil::deserialize($varValue);
+        $arrChosenTypes = StringUtil::deserialize($varValue);
 
-        if (null === $arrChoosedTypes)
+        if (null === $arrChosenTypes)
         {
             return $varValue;
         }
 
-        $arrColumns = ["id IN('".implode("','", $arrChoosedTypes)."')"];
+        $arrColumns = ["id IN('".implode("','", $arrChosenTypes)."')"];
 
         $objRegions = RegionModel::findBy($arrColumns, []);
 

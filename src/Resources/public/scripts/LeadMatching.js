@@ -25,7 +25,7 @@ export class LeadMatching {
                 engine: 'google',
                 google: {
                     loader: {
-                        apiKey: 'AIzaSyDtBYNCk26Pnna-y2J78MlvnkFbztA7hxw',
+                        apiKey: '',
                         version: 'weekly',
                         libraries: ['places']
                     },
