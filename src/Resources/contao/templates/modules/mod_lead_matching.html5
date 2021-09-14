@@ -1,5 +1,6 @@
 <?php
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/estatemanagerleadmatchingtool/scripts/dist/main.js|static';
+    $GLOBALS['TL_CSS'][] = 'bundles/estatemanagerleadmatchingtool/styles/leadmatching.css';
 ?>
 
 <?php $this->extend('block_unsearchable'); ?>
@@ -37,13 +38,12 @@
     document.addEventListener('DOMContentLoaded', function(){
         new LeadMatching({
             configId: <?=$this->id?>,
+            baseUrl: '<?=Contao\Environment::get('url')?>',
             proximitySearch: {
-                active: !'<?=$this->preciseRegionSearch?>',
-                sourceUrl: '<?=Contao\Environment::get('url')?>' // ToDo: Check locale suffix
+                active: !'<?=$this->preciseRegionSearch?>'
             },
             countLive: {
-                active: !!'<?=$this->countResults?>',
-                sourceUrl: '<?=Contao\Environment::get('url')?>' // ToDo: Check locale suffix
+                active: !!'<?=$this->countResults?>'
             }
         });
     });

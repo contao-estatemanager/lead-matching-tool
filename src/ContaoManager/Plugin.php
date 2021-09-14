@@ -20,8 +20,8 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 use ContaoEstateManager\EstateManager\EstateManager;
-use ContaoEstateManager\RegionEntity\RegionEntity;
 use ContaoEstateManager\LeadMatchingTool\EstateManagerLeadMatchingTool;
+use ContaoEstateManager\RegionEntity\RegionEntity;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 

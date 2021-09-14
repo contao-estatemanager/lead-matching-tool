@@ -123,12 +123,22 @@ class SearchCriteriaModel extends Model
                                     ],
                                 ];
                             }
-                            // ToDo: Umkreissuche
+                            elseif ($formData['region_lat'] && $formData['region_lng'])
+                            {
+                                $arrCollection[LeadMatchingController::FIELD_REGIONS] = [
+                                    '('.$strTable.'.latitude!=0 AND '.$strTable.'.longitude!=0 AND (6371*acos(cos(radians(?))*cos(radians('.$strTable.'.latitude))*cos(radians('.$strTable.'.longitude)-radians(?))+sin(radians(?))*sin(radians('.$strTable.'.latitude)))) <= ?)',
+                                    [
+                                        $formData['region_lat'],
+                                        $formData['region_lng'],
+                                        $formData['region_lat'],
+                                        $formData['range'] ?? 100,
+                                    ],
+                                ];
+                            }
                             break;
 
                         default:
                             // ToDo: Hook oder Callback aus DCA
-
                             $arrCollection[$strField] = [
                                 '('.$q($strField.'_from', '<=').' OR '.$q($strField.'_from').') AND ('.$q($strField.'_to', '>=').' OR '.$q($strField.'_to', '=').')',
                                 [

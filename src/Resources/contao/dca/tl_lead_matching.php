@@ -235,6 +235,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
                     ],
                 ],
                 'range' => [
+                    'fieldOptions' => [
+                        'inputType' => 'select',
+                        'options' => [5, 10, 20, 50, 100],
+                        'eval' => [
+                            'includeBlankOption' => true,
+                        ],
+                    ],
                     'filter' => [
                         'skip' => true,
                     ],
