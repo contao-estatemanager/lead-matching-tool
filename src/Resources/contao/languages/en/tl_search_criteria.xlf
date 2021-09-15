@@ -10,9 +10,13 @@
       <trans-unit id="tl_search_criteria.published_legend">
         <source>Publish</source>
       </trans-unit>
-      <trans-unit id="tl_search_criteria.geo_legend">
-        <source>Geo-Information / Circumference search</source>
+      <trans-unit id="tl_search_criteria.region_legend">
+        <source>Regions</source>
       </trans-unit>
+      <trans-unit id="tl_search_criteria.geo_legend">
+        <source>Proximity search</source>
+      </trans-unit>
+
       <trans-unit id="tl_search_criteria.title.0">
         <source>Title / Headline</source>
       </trans-unit>
@@ -38,7 +42,7 @@
         <source>Regions</source>
       </trans-unit>
       <trans-unit id="tl_search_criteria.regions.1">
-        <source>Define the regions.</source>
+        <source>Define the regions. This field is observed if manual selection is preferred.</source>
       </trans-unit>
       <trans-unit id="tl_search_criteria.room_from.0">
         <source>Room from</source>

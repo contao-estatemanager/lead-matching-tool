@@ -73,11 +73,26 @@
       <trans-unit id="tl_lead_matching.addBlankObjectType.1">
         <source>Includes a blank option to the object types in the frontend.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.0">
-        <source>Use precise region search</source>
+      <trans-unit id="tl_lead_matching.regionMode.0">
+        <source>Region mode</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.1">
-        <source>If the precise region search is active, a select box with selectable regions is provided instead of a radius search.</source>
+      <trans-unit id="tl_lead_matching.regionMode.1">
+        <source>Defines how the regions are entered.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.selection">
+        <source>Own selection</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.google">
+        <source>Google (proximity search)</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.0">
+        <source>Google API-Key</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.1">
+        <source>Enter your API key here to enable the proximity search via Google. The library "places" must be available.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.system">
+        <source>System (proximity search)</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankRegion.0">
         <source>Include blank option for regions</source>
@@ -121,6 +136,9 @@
       <trans-unit id="tl_lead_matching.marketingType.1">
         <source>Specify the marketing type. If the field is left empty, all marketing types are taken into account.</source>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.marketingTypeBlank">
+        <source>Manual selection</source>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.marketingTypes.0">
         <source>Marketing types</source>
       </trans-unit>
@@ -143,7 +161,7 @@
         <source>Regions</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.regions.1">
-        <source>Define the regions to display.</source>
+        <source>Define the selectable regions.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.groupRelatedFields.0">
         <source>Group related fields</source>

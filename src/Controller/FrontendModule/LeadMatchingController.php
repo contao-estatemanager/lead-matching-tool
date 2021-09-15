@@ -94,9 +94,6 @@ class LeadMatchingController extends AbstractFrontendModuleController
             return null;
         }
 
-        // Pass configuration data to the template
-        $template->setData($this->config->row());
-
         // Generate forms
         $this->objFormEstate = new Form('estate', 'POST', fn ($objForm) => $this->isFormSubmitted($objForm));
         $this->objFormContact = new Form('contact', 'POST', fn ($objForm) => $this->isFormSubmitted($objForm));
@@ -118,7 +115,6 @@ class LeadMatchingController extends AbstractFrontendModuleController
 
         // Generate search criteria list
         $template->count = $this->count();
-        $template->showList = $this->blnList;
         $template->list = '';
         $template->pagination = '';
 
@@ -127,7 +123,24 @@ class LeadMatchingController extends AbstractFrontendModuleController
             $this->generateList($template);
         }
 
-        $template->empty = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyList'];
+        // Texts from module
+        $template->estateHeadline = $this->config->txtEstateHeadline;
+        $template->estateDescription = $this->config->txtEstateDescription;
+        $template->listHeadline = $this->config->txtListHeadline;
+        $template->listDescription = $this->config->txtListDescription;
+        $template->contactHeadline = $this->config->txtContactHeadline;
+        $template->contactDescription = $this->config->txtContactDescription;
+
+        // Texts from translations
+        $template->labelEmptyList = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyList'];
+        $template->labelNumberOfItems = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['numberOfItems'];
+
+        // Config
+        $template->showList = $this->blnList;
+        $template->proximityEngine = $this->config->regionMode;
+        $template->isProximitySearch = 'selection' === $this->config->regionMode ? 0 : 1;
+        $template->isLiveCounting = $this->config->countResults ? 1 : 0;
+        $template->config = $this->config;
 
         return $template->getResponse();
     }
@@ -385,7 +398,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
 
                 case self::FIELD_REGIONS:
                     // Skip if proximity search is active
-                    if (!$this->config->preciseRegionSearch)
+                    if ('selection' !== $this->config->regionMode)
                     {
                         break;
                     }
@@ -563,7 +576,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
 
             case self::FIELD_REGIONS:
                 // Skip if proximity search is active
-                if (!$this->config->preciseRegionSearch)
+                if ('selection' !== $this->config->regionMode)
                 {
                     break;
                 }

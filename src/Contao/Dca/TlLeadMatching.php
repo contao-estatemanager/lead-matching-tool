@@ -15,12 +15,14 @@ declare(strict_types=1);
 namespace ContaoEstateManager\LeadMatchingTool\Contao\Dca;
 
 use Contao\Controller;
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\Database;
 use Contao\DataContainer;
 use Contao\Image;
 use Contao\StringUtil;
 use ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule\LeadMatchingController;
+use ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel;
 use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
 use ContaoEstateManager\RegionEntity\RegionModel;
 
@@ -80,6 +82,45 @@ class TlLeadMatching
         ;
 
         return $varValue;
+    }
+
+    /**
+     * Displays the field only if no marketingType selection has been made.
+     */
+    public function showMarketingTypes(DataContainer $dc = null): void
+    {
+        if (null !== $dc)
+        {
+            $objConfig = LeadMatchingModel::findByPk($dc->id);
+
+            if (null !== $objConfig && $objConfig->marketingType)
+            {
+                // Remove marketingTypes from palette
+                PaletteManipulator::create()
+                    ->removeField('marketingTypes', 'data_legend')
+                    ->applyToPalette('system', $dc->table)
+                ;
+            }
+        }
+    }
+
+    /**
+     * Displays the field only if regions mode "selection".
+     */
+    public function showRegions(DataContainer $dc = null): void
+    {
+        if (null !== $dc)
+        {
+            $objConfig = LeadMatchingModel::findByPk($dc->id);
+
+            if (null !== $objConfig && 'selection' !== $objConfig->regionMode)
+            {
+                PaletteManipulator::create()
+                    ->removeField('regions', 'data_legend')
+                    ->applyToPalette('system', $dc->table)
+                ;
+            }
+        }
     }
 
     /**

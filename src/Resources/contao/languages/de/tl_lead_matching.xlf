@@ -2,16 +2,12 @@
   <file datatype="php" original="src/Resources/contao/languages/en/tl_lead_matching.php" source-language="en" target-language="de">
     <body>
       <trans-unit id="tl_lead_matching.title_legend">
-        <source>Titel</source>
-        <target>Titel</target>
+        <source>Title / Configuration</source>
+        <target>Titel / Konfiguration</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.data_legend">
         <source>Data-Configuration</source>
         <target>Daten-Konfiguration</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.config_legend">
-        <source>Base-Configuration</source>
-        <target>Basis-Konfiguration</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.searchcriteria_legend">
         <source>Searchcriteria / List</source>
@@ -105,13 +101,33 @@
         <source>Includes a blank option to the object types in the frontend.</source>
         <target>Fügt den Regionen eine Leerauswahl im Frontend hinzu.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.0">
-        <source>Use precise region search</source>
-        <target>Präzise Regionensuche verwenden</target>
+      <trans-unit id="tl_lead_matching.regionMode.0">
+        <source>Region enter mode</source>
+        <target>Regionen Eingabemodus</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.1">
-        <source>If the precise region search is active, a select box with selectable regions is provided instead of a radius search.</source>
-        <target>Sofern die präzise Regionensuche aktiv ist, wird, statt einer Umkreissuche eine Select-Box mit auswählbaren Regionen zur Verfügung gestellt.</target>
+      <trans-unit id="tl_lead_matching.regionMode.1">
+        <source>Defines how the regions are entered.</source>
+        <target>Definiert wie die Eingabe der Regionen erfolgt.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.selection">
+        <source>Own selection</source>
+        <target>Eigene Auswahl</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.google">
+        <source>Google (proximity search)</source>
+        <target>Google (Umkreissuche)</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.0">
+        <source>Google API-Key</source>
+        <target>Google API-Schlüssel</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.1">
+        <source>Enter your API key here to enable the proximity search via Google. The library "places" must be available.</source>
+        <target>Geben Sie hier Ihren API-Schlüssel an um die Umkreissuche über Google zu ermöglichen. Die Bibliothek "places" muss zur Verfügung stehen.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.system">
+        <source>System (proximity search)</source>
+        <target>System (Umkreissuche)</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.countResults.0">
         <source>Display quantity</source>
@@ -161,6 +177,10 @@
         <source>Specify the marketing type. If the field is left empty, all marketing types are taken into account.</source>
         <target>Geben Sie die Vermarktungsart an. Sollte das Feld leer gelassen werden, werden alle Vermarktungsarten berücksichtigt.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.marketingTypeBlank">
+        <source>Manual selection</source>
+        <target>Manuelle Auswahl</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.marketingTypes.0">
         <source>Marketing types</source>
         <target>Vermarktungsarten</target>
@@ -190,8 +210,8 @@
         <target>Regionen</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.regions.1">
-        <source>Define the regions to display.</source>
-        <target>Definieren Sie die anzuzeigenden Regionen.</target>
+        <source>Define the selectable regions.</source>
+        <target>Definieren Sie die auswählbaren Regionen.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.contactFormCheckboxes.0">
         <source>Checkbox fields</source>

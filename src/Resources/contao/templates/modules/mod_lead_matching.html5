@@ -7,32 +7,44 @@
 
 <?php $this->block('content'); ?>
 
-<div class="inside">
-    <section class="lm-filter">
-    <?=$this->txtEstateHeadline?>
-
-    <?=$this->formEstate?>
-
-    <?php if($this->countResults): ?>
-        Anzahl: <span data-counter><?=$this->count?></span>
-    <?php endif; ?>
-    </section>
-    <hr/>
-    <section class="lm-list">
-        <?php if($this->showList): ?>
-            <?php if($this->list): ?>
-                <?=$this->list?>
-                <?=$this->pagination?>
-            <?php else: ?>
-                <?=$this->empty?>
-            <?php endif; ?>
+<section class="filter">
+    <div class="description">
+        <h2><?=$this->estateHeadline?></h2>
+        <?=$this->estateDescription?>
+    </div>
+    <div class="estate-form">
+        <?=$this->formEstate?>
+        <?php if($this->countResults): ?>
+            <span data-counter><?=$this->count?></span>
+            <span><?=$this->labelNumberOfItems?></span>
         <?php endif; ?>
-    </section>
-    <hr/>
-    <section class="lm-contact">
+    </div>
+</section>
+
+<section class="list">
+    <?php if($this->showList): ?>
+        <div class="description">
+            <h2><?=$this->listHeadline?></h2>
+            <?=$this->listDescription?>
+        </div>
+        <?php if($this->list): ?>
+            <?=$this->list?>
+            <?=$this->pagination?>
+        <?php else: ?>
+            <?=$this->labelEmptyList?>
+        <?php endif; ?>
+    <?php endif; ?>
+</section>
+
+<section class="contact">
+    <div class="description">
+        <h2><?=$this->contactHeadline?></h2>
+        <?=$this->contactDescription?>
+    </div>
+    <div class="contact-form">
         <?=$this->formContact?>
-    </section>
-</div>
+    </div>
+</section>
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -40,10 +52,16 @@
             configId: <?=$this->id?>,
             baseUrl: '<?=Contao\Environment::get('url')?>',
             proximitySearch: {
-                active: !'<?=$this->preciseRegionSearch?>'
+                active: !!<?=$this->isProximitySearch?>,
+                engine: '<?=$this->proximityEngine?>',
+                google: {
+                    loader: {
+                        apiKey: '<?=$this->googleApiKey?>'
+                    }
+                }
             },
             countLive: {
-                active: !!'<?=$this->countResults?>'
+                active: !!<?=$this->isLiveCounting?>
             }
         });
     });

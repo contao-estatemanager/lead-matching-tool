@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
 
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},title,marketingType;{config_legend},objectType,regions,room_from,room_to,area_from,area_to,price_from,price_to;{geo_legend},latitude,longitude,postalcode,city,range;{published_legend},published',
+        'default' => '{title_legend},title,marketingType;{config_legend},objectType,room_from,room_to,area_from,area_to,price_from,price_to;{region_legend},regions;{geo_legend},latitude,longitude,postalcode,city,range;{published_legend},published',
     ],
 
     // Fields

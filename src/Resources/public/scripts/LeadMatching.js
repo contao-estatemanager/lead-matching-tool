@@ -10,6 +10,9 @@ export class LeadMatching {
             baseUrl: '',
             proximitySearch: {
                 active: false,
+                engine: 'system',
+                route: '/region/all',
+                noResultsFound: 'Found No Results for %s',
                 autoComplete: {
                     selector: '[name="regions"]',
                     placeHolder: 'Regionen',
@@ -22,7 +25,6 @@ export class LeadMatching {
                     lat: '[name="region_lat"]',
                     lng: '[name="region_lng"]'
                 },
-                engine: 'google',
                 google: {
                     loader: {
                         apiKey: '',
@@ -35,9 +37,7 @@ export class LeadMatching {
                             country: ['deu','aut','che']
                         }
                     }
-                },
-                route: '/region/all',
-                noResultsFound: 'Found No Results for %s',
+                }
             },
             countLive: {
                 active: true,
@@ -226,7 +226,7 @@ export class LeadMatching {
                     const post = new FormData()
                     post.append('query', query)
 
-                    const source = await fetch(this.options.baseUrl + searchOptions.route, {
+                    const source = await fetch(this.options.baseUrl + this.options.proximitySearch.route, {
                         method: 'POST',
                         body: post
                     });

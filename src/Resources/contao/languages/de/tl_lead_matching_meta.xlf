@@ -41,10 +41,6 @@
         <source>Regions</source>
         <target>Regionen</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.regions_autocomplete">
-        <source>Location / Postal code</source>
-        <target>Ort / PLZ</target>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.range">
         <source>Range</source>
         <target>Umkreis</target>
@@ -113,37 +109,9 @@
         <source>City</source>
         <target>Stadt</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.salutation">
-        <source>Salutation</source>
-        <target>Anrede</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.firstname">
-        <source>First name</source>
-        <target>Vorname</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.name">
-        <source>Name</source>
-        <target>Nachname</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.email">
-        <source>E-mail</source>
-        <target>E-Mail</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.phone">
-        <source>Phone</source>
-        <target>Telefon</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.submitContact">
-        <source>Send</source>
-        <target>Absenden</target>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.submitEstate">
         <source>Search</source>
         <target>Interessenten suchen</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.emptyList">
-        <source>Empty</source>
-        <target>Keine Ergebnisse gefunden</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.emptyList">
         <source>Empty</source>
@@ -153,8 +121,8 @@
         <source>no data</source>
         <target>keine Angabe</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelCount">
-        <source>Results found</source>
+      <trans-unit id="tl_lead_matching_meta.numberOfItems">
+        <source>results found</source>
         <target>Interessenten gefunden</target>
       </trans-unit>
     </body>

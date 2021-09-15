@@ -24,6 +24,10 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
         'switchToEdit' => true,
         'enableVersioning' => true,
         'markAsCopy' => 'title',
+        'onload_callback' => [
+            ['ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'showMarketingTypes'],
+            ['ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlLeadMatching', 'showRegions'],
+        ],
         'sql' => [
             'keys' => [
                 'id' => 'primary',
@@ -73,14 +77,14 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
 
     // Palettes
     'palettes' => [
-        '__selector__' => ['type', 'preciseRegionSearch', 'addEstateForm', 'addContactForm'],
+        '__selector__' => ['type', 'addEstateForm', 'addContactForm', 'regionMode'],
         'default' => '{title_legend},title,type;',
-        'system' => '{title_legend},title,type;{config_legend},marketingType;{data_legend},marketingTypes,objectTypes,preciseRegionSearch;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;',
+        'system' => '{title_legend},title,type,marketingType,regionMode;{data_legend},marketingTypes,objectTypes,regions;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;',
     ],
 
     // Subpalettes
     'subpalettes' => [
-        'preciseRegionSearch' => 'regions',
+        'regionMode_google' => 'googleApiKey',
         'addEstateForm' => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields',
         'addContactForm' => 'txtContactHeadline,forceContact,txtContactDescription,contactForm',
     ],
@@ -113,7 +117,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
             'sorting' => true,
             'options' => ['kauf', 'miete'],
             'reference' => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
-            'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50'],
+            'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50', 'blankOptionLabel' => &$GLOBALS['TL_LANG']['tl_lead_matching']['marketingTypeBlank'], 'submitOnChange' => true],
             'sql' => "varchar(16) NOT NULL default ''",
         ],
         'marketingTypes' => [
@@ -144,11 +148,13 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
         'objectTypesData' => [
             'sql' => 'blob NULL',
         ],
-        'preciseRegionSearch' => [
+        'regionMode' => [
             'exclude' => true,
-            'inputType' => 'checkbox',
-            'eval' => ['submitOnChange' => true, 'tl_class' => 'w50 clr'],
-            'sql' => "char(1) NOT NULL default ''",
+            'inputType' => 'select',
+            'options' => ['selection', 'system', 'google'],
+            'reference' => &$GLOBALS['TL_LANG']['tl_lead_matching'],
+            'eval' => ['submitOnChange' => true, 'tl_class' => 'w50'],
+            'sql' => "varchar(32) NOT NULL default ''",
         ],
         'regions' => [
             'exclude' => true,
@@ -162,6 +168,12 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
         ],
         'regionsData' => [
             'sql' => 'blob NULL',
+        ],
+        'googleApiKey' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql' => "varchar(255) NOT NULL default ''",
         ],
         'numberOfItems' => [
             'exclude' => true,

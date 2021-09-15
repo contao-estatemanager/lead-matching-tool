@@ -110,7 +110,7 @@ class SearchCriteriaModel extends Model
                             break;
 
                         case LeadMatchingController::FIELD_REGIONS:
-                            if ((bool) $objConfig->preciseRegionSearch)
+                            if ('selection' === $objConfig->regionMode)
                             {
                                 $regionTable = RegionConnectionModel::getTable();
 

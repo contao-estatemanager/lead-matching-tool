@@ -31,9 +31,6 @@
       <trans-unit id="tl_lead_matching_meta.regions">
         <source>Regions</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.regions_autocomplete">
-        <source>Location / Postal code</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.range">
         <source>Range</source>
       </trans-unit>
@@ -85,29 +82,8 @@
       <trans-unit id="tl_lead_matching_meta.city">
         <source>City</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.salutation">
-        <source>Salutation</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.firstname">
-        <source>First name</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.name">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.email">
-        <source>E-mail</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.phone">
-        <source>Phone</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.submitContact">
-        <source>Send</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.submitEstate">
         <source>Search</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.emptyList">
-        <source>Empty</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching_meta.emptyList">
         <source>Empty</source>
@@ -115,7 +91,7 @@
       <trans-unit id="tl_lead_matching_meta.emptyField">
         <source>no data</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching_meta.labelCount">
+      <trans-unit id="tl_lead_matching_meta.numberOfItems">
         <source>Results found</source>
       </trans-unit>
     </body>

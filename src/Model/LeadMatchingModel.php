@@ -26,6 +26,7 @@ use Contao\Model;
  * @property string $marketingTypesData
  * @property string $objectTypes
  * @property string $objectTypesData
+ * @property string $regionMode
  * @property string $regions
  * @property string $regionsData
  * @property int    $numberOfItems
@@ -46,7 +47,6 @@ use Contao\Model;
  * @property string $txtListDescription
  * @property string $txtContactHeadline
  * @property string $txtContactDescription
- * @property bool   $preciseRegionSearch
  */
 class LeadMatchingModel extends Model
 {

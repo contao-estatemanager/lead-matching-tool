@@ -13,9 +13,13 @@
         <source>Publish</source>
         <target>Veröffentlichen</target>
       </trans-unit>
+      <trans-unit id="tl_search_criteria.region_legend">
+        <source>Regions</source>
+        <target>Regionen</target>
+      </trans-unit>
       <trans-unit id="tl_search_criteria.geo_legend">
-        <source>Geo-Information / Circumference search</source>
-        <target>Geo-Informationen / Umkreissuche</target>
+        <source>Proximity search</source>
+        <target>Umkreissuche</target>
       </trans-unit>
 
       <trans-unit id="tl_search_criteria.title.0">
@@ -51,8 +55,8 @@
         <target>Regionen</target>
       </trans-unit>
       <trans-unit id="tl_search_criteria.regions.1">
-        <source>Define the regions.</source>
-        <target>Definieren Sie die Regionen.</target>
+        <source>Define the regions. This field is observed if manual selection is preferred.</source>
+        <target>Definieren Sie die Regionen. Dieses Feld wird beachtet, wenn eine manuelle Auswahl bevorzugt wird.</target>
       </trans-unit>
       <trans-unit id="tl_search_criteria.room_from.0">
         <source>Room from</source>
