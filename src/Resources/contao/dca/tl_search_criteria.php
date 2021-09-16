@@ -114,9 +114,6 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'reference' => &$GLOBALS['TL_LANG']['tl_lead_matching_meta'],
             'eval' => ['includeBlankOption' => true, 'tl_class' => 'w50'],
             'sql' => "varchar(16) NOT NULL default ''",
-            'leadMatching' => [
-                'format' => ['translate'],
-            ],
         ],
         'objectType' => [
             'inputType' => 'select',

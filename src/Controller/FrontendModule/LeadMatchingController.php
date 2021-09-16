@@ -15,9 +15,12 @@ declare(strict_types=1);
 namespace ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule;
 
 use Contao\Config;
+use Contao\ContentElement;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\Exception\PageNotFoundException;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
+use Contao\Form;
+use Contao\FormModel;
 use Contao\FrontendTemplate;
 use Contao\Input;
 use Contao\Model\Collection;
@@ -30,9 +33,10 @@ use ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel;
 use ContaoEstateManager\LeadMatchingTool\Model\SearchCriteriaModel;
 use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
 use ContaoEstateManager\RegionEntity\RegionModel;
-use Haste\Form\Form;
+use Haste\Form\Form as HasteForm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 
 /**
  * @FrontendModule(category="estatemanager")
@@ -52,19 +56,19 @@ class LeadMatchingController extends AbstractFrontendModuleController
     public const FIELD_REGIONS = 'regions';
 
     /**
+     * Session bag key.
+     */
+    public const SESSION_BAG_KEY = 'lead_matching';
+
+    /**
      * Configuration model.
      */
     protected LeadMatchingModel $config;
 
     /**
-     * Real estate form.
+     * Filter form.
      */
-    protected Form $objFormEstate;
-
-    /**
-     * Contact form.
-     */
-    protected Form $objFormContact;
+    protected HasteForm $objFormFilter;
 
     /**
      * Holds the current filter data.
@@ -72,21 +76,16 @@ class LeadMatchingController extends AbstractFrontendModuleController
     protected ?array $filterData = null;
 
     /**
-     * Defines whether the contact form should be displayed.
+     * Session bag.
      */
-    protected bool $blnContactForm = false;
-
-    /**
-     * Defines whether the list should be displayed.
-     */
-    protected bool $blnList = false;
+    private AttributeBagInterface $objSessionBag;
 
     /**
      * Frontend module.
      */
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {
-        // Get lead matching configuration
+        // Get configuration
         $this->config = LeadMatchingModel::findByIdOrAlias($model->lmtConfig);
 
         if (null === $this->config)
@@ -94,38 +93,39 @@ class LeadMatchingController extends AbstractFrontendModuleController
             return null;
         }
 
-        // Generate forms
-        $this->objFormEstate = new Form('estate', 'POST', fn ($objForm) => $this->isFormSubmitted($objForm));
-        $this->objFormContact = new Form('contact', 'POST', fn ($objForm) => $this->isFormSubmitted($objForm));
+        /* @var AttributeBagInterface $objSessionBag */
+        $this->objSessionBag = System::getContainer()->get('session')->getBag('contao_frontend');
 
-        $this->blnContactForm = (bool) $this->config->addContactForm && ((bool) $this->config->forceContact || ($this->objFormEstate->isValid() && $this->objFormEstate->isSubmitted()));
-        $this->blnList = (bool) $this->config->forceList || ($this->objFormEstate->isValid() && $this->objFormEstate->isSubmitted());
+        // Generate filter form
+        $this->objFormFilter = new HasteForm('estate', 'POST', fn ($objForm) => $this->isFormSubmitted($objForm));
 
-        // Build estate form
-        if ((bool) $this->config->addEstateForm)
+        // Check whether sections may be output
+        $template->showFilterForm = $this->config->addFilterForm;
+        $template->showContactForm = (bool) $this->config->addContactForm && ((bool) $this->config->forceContact || ($this->objFormFilter->isValid() && $this->objFormFilter->isSubmitted()));
+        $template->showList = (bool) $this->config->forceList || !$this->config->addFilterForm || ($this->objFormFilter->isValid() && $this->objFormFilter->isSubmitted());
+
+        if ((bool) $this->config->addFilterForm)
         {
-            $template->formEstate = $this->buildEstateForm();
+            $template->formFilter = $this->generateFilterForm();
         }
 
-        // Build contact form
-        if ($this->blnContactForm)
+        if ((bool) $this->config->addContactForm)
         {
-            $template->formContact = $this->buildContactForm();
+            $template->formContact = $this->generateContactForm();
         }
 
-        // Generate search criteria list
         $template->count = $this->count();
         $template->list = '';
         $template->pagination = '';
 
-        if ($this->blnList)
+        if ($template->showList)
         {
             $this->generateList($template);
         }
 
         // Texts from module
-        $template->estateHeadline = $this->config->txtEstateHeadline;
-        $template->estateDescription = $this->config->txtEstateDescription;
+        $template->filterHeadline = $this->config->txtEstateHeadline;
+        $template->filterDescription = $this->config->txtEstateDescription;
         $template->listHeadline = $this->config->txtListHeadline;
         $template->listDescription = $this->config->txtListDescription;
         $template->contactHeadline = $this->config->txtContactHeadline;
@@ -136,10 +136,10 @@ class LeadMatchingController extends AbstractFrontendModuleController
         $template->labelNumberOfItems = $GLOBALS['TL_LANG']['tl_lead_matching_meta']['numberOfItems'];
 
         // Config
-        $template->showList = $this->blnList;
         $template->proximityEngine = $this->config->regionMode;
         $template->isProximitySearch = 'selection' === $this->config->regionMode ? 0 : 1;
         $template->isLiveCounting = $this->config->countResults ? 1 : 0;
+        $template->googleApiKey = $this->config->googleApiKey;
         $template->config = $this->config;
 
         return $template->getResponse();
@@ -338,7 +338,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
     /**
      * Generate estate form and return it as string.
      */
-    protected function buildEstateForm(): string
+    protected function generateFilterForm(): string
     {
         // Create form fields
         $arrFields = StringUtil::deserialize($this->config->estateFormMetaFields, true);
@@ -425,7 +425,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
             }
 
             // Add field to form
-            $this->objFormEstate->addFormField($fieldName, array_merge(
+            $this->objFormFilter->addFormField($fieldName, array_merge(
                 $fieldDefaults,
                 $fieldOptions
             ));
@@ -435,7 +435,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
             {
                 foreach ($additionalFields as $aFieldName => $aFieldOptions)
                 {
-                    $this->objFormEstate->addFormField($aFieldName, array_merge(
+                    $this->objFormFilter->addFormField($aFieldName, array_merge(
                         $fieldDefaults,
                         $aFieldOptions
                     ));
@@ -444,57 +444,45 @@ class LeadMatchingController extends AbstractFrontendModuleController
         }
 
         // Add submit button
-        $this->objFormEstate->addSubmitFormField('submit', $GLOBALS['TL_LANG']['tl_lead_matching_meta']['submitEstate']);
+        $this->objFormFilter->addSubmitFormField('submit', $GLOBALS['TL_LANG']['tl_lead_matching_meta']['submitEstate']);
 
         // Validate
-        if ($this->objFormEstate->validate())
+        if ($this->objFormFilter->validate())
         {
             $this->saveFilterData();
-
-            if ($this->blnContactForm)
-            {
-                $this->transferFields();
-            }
         }
 
-        return $this->objFormEstate->generate();
+        return $this->objFormFilter->generate();
     }
 
     /**
-     * Generate contact form and return it as string.
+     * Create and return the Form from config.
+     *
+     * @return Form|null
      */
-    protected function buildContactForm(): string
+    protected function generateContactForm(): ?string
     {
-        // Create form fields by generator id
-        $this->objFormContact->addFieldsFromFormGenerator($this->config->contactForm);
+        $objRow = FormModel::findByIdOrAlias($this->config->contactForm);
 
-        // Validate form
-        if ($this->objFormContact->validate())
+        if (null === $objRow)
         {
-            // ToDo: Validate dynamic fields
-            // ToDo: Send form?
+            return null;
         }
 
-        return $this->objFormContact->generate();
-    }
+        $strClass = ContentElement::findClass('form');
 
-    /**
-     * Adds estate form fields as hidden fields to the contact form.
-     */
-    protected function transferFields(): void
-    {
-        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void {
-            $strValue = Input::postRaw($strName);
+        if (!class_exists($strClass))
+        {
+            return null;
+        }
 
-            if ($strValue)
-            {
-                $this->objFormContact->addFormField($strName, [
-                    'inputType' => 'hidden',
-                    'name' => $strName,
-                    'value' => $strValue,
-                ]);
-            }
-        });
+        $objRow->typePrefix = 'ce_';
+        $objRow->form = $objRow->id;
+
+        /** @var Form $objElement */
+        $objForm = new $strClass($objRow);
+
+        return $objForm->generate();
     }
 
     /**
@@ -504,9 +492,22 @@ class LeadMatchingController extends AbstractFrontendModuleController
     {
         $this->filterData = [];
 
-        $this->objFormEstate->fetchAll(function ($strName, $objWidget): void {
-            $this->filterData[$strName] = $objWidget->value;
+        $this->objFormFilter->fetchAll(function ($strName, $objWidget): void {
+            if ('submit' === $strName)
+            {
+                return;
+            }
+
+            $this->filterData[$strName] = [
+                'label' => $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$strName] ?? $strName,
+                'raw' => $objWidget->value,
+                'value' => $this->formatValue($strName, $objWidget->value),
+            ];
         });
+
+        $bag = $this->objSessionBag->get(self::SESSION_BAG_KEY);
+        $bag[$this->config->contactForm] = $this->filterData;
+        $this->objSessionBag->set(self::SESSION_BAG_KEY, $bag);
     }
 
     /**
@@ -516,9 +517,18 @@ class LeadMatchingController extends AbstractFrontendModuleController
     {
         $strTable = SearchCriteriaModel::getTable();
         $strSelect = 'SELECT COUNT('.$strTable.'.id) as numberOfItems FROM '.$strTable;
+        $arrData = [];
+
+        // Prepare form data
+        if ($this->filterData)
+        {
+            $arrData = array_map(function ($a) {
+                return $a['raw'];
+            }, $this->filterData);
+        }
 
         // Create filter query
-        [$query, $parameter] = SearchCriteriaModel::createFilterQuery($strSelect, $this->config, $this->filterData);
+        [$query, $parameter] = SearchCriteriaModel::createFilterQuery($strSelect, $this->config, $arrData);
 
         // Execute filter query
         $objSearchCriteria = SearchCriteriaModel::execute($query, $parameter);
@@ -534,9 +544,18 @@ class LeadMatchingController extends AbstractFrontendModuleController
     {
         $strTable = SearchCriteriaModel::getTable();
         $strSelect = 'SELECT '.$strTable.'.* FROM '.$strTable;
+        $arrData = [];
+
+        // Prepare form data
+        if ($this->filterData)
+        {
+            $arrData = array_map(function ($a) {
+                return $a['raw'];
+            }, $this->filterData);
+        }
 
         // Create filter query
-        [$query, $parameter] = SearchCriteriaModel::createFilterQuery($strSelect, $this->config, $this->filterData);
+        [$query, $parameter] = SearchCriteriaModel::createFilterQuery($strSelect, $this->config, $arrData);
 
         // Set options
         $arrOptions = [];
@@ -561,7 +580,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
      * @param $format
      * @param $varValue
      */
-    public function formatValue($format, $varValue): string
+    protected function formatValue($format, $varValue): string
     {
         switch ($format)
         {
@@ -600,9 +619,8 @@ class LeadMatchingController extends AbstractFrontendModuleController
                 $varValue = implode(', ', $arrOptions);
                 break;
 
-            case 'translate':
+            default:
                 $varValue = $GLOBALS['TL_LANG']['tl_lead_matching_meta'][$varValue] ?? $varValue;
-                break;
         }
 
         return $varValue;

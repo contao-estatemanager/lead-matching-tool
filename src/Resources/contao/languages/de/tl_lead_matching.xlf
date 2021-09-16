@@ -21,11 +21,11 @@
         <source>Contact form</source>
         <target>Kontaktformular</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.0">
-        <source>Add real estate form</source>
-        <target>Immobilien-Formular hinzufügen</target>
+      <trans-unit id="tl_lead_matching.addFilterForm.0">
+        <source>Add filter</source>
+        <target>Filter hinzufügen</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.1">
+      <trans-unit id="tl_lead_matching.addFilterForm.1">
         <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
         <target>Wird benötigt um die Liste anhand von Immobilien-Eckdaten zu filtern. Ohne Formular wird die komplette Liste gefundener Suchanfragen ausgegeben.</target>
       </trans-unit>

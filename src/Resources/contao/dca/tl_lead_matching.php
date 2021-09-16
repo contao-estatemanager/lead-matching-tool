@@ -77,15 +77,15 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
 
     // Palettes
     'palettes' => [
-        '__selector__' => ['type', 'addEstateForm', 'addContactForm', 'regionMode'],
+        '__selector__' => ['type', 'addFilterForm', 'addContactForm', 'regionMode'],
         'default' => '{title_legend},title,type;',
-        'system' => '{title_legend},title,type,marketingType,regionMode;{data_legend},marketingTypes,objectTypes,regions;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addEstateForm;{contact_form_legend},addContactForm;',
+        'system' => '{title_legend},title,type,marketingType,regionMode;{data_legend},marketingTypes,objectTypes,regions;{searchcriteria_legend},listMetaFields,txtListHeadline,txtListDescription,numberOfItems,perPage,listItemTemplate,countResults;{estate_form_legend},addFilterForm;{contact_form_legend},addContactForm;',
     ],
 
     // Subpalettes
     'subpalettes' => [
         'regionMode_google' => 'googleApiKey',
-        'addEstateForm' => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields',
+        'addFilterForm' => 'txtEstateHeadline,forceList,txtEstateDescription,estateFormMetaFields',
         'addContactForm' => 'txtContactHeadline,forceContact,txtContactDescription,contactForm',
     ],
 
@@ -258,6 +258,21 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
                         'skip' => true,
                     ],
                 ],
+                'room' => [
+                    'filter' => [
+                        'callback' => 'range',
+                    ],
+                ],
+                'area' => [
+                    'filter' => [
+                        'callback' => 'range',
+                    ],
+                ],
+                'price' => [
+                    'filter' => [
+                        'callback' => 'range',
+                    ],
+                ],
             ],
         ],
         'contactForm' => [
@@ -282,7 +297,7 @@ $GLOBALS['TL_DCA']['tl_lead_matching'] = [
             'eval' => ['submitOnChange' => true, 'tl_class' => 'w50'],
             'sql' => "char(1) NOT NULL default ''",
         ],
-        'addEstateForm' => [
+        'addFilterForm' => [
             'exclude' => true,
             'inputType' => 'checkbox',
             'eval' => ['submitOnChange' => true, 'tl_class' => 'w50'],

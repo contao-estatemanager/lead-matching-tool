@@ -42,12 +42,6 @@ return (new PhpCsFixer\Config())
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
         'multiline_comment_opening_closing' => true,
-        'multiline_whitespace_before_semicolons' => [
-            'strategy' => 'new_line_for_chained_calls',
-        ],
-        'native_function_invocation' => [
-            'include' => ['@compiler_optimized'],
-        ],
         'braces' => [
             'position_after_control_structures' => 'next',
             'position_after_functions_and_oop_constructs' => 'next',

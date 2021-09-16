@@ -19,10 +19,10 @@
       <trans-unit id="tl_lead_matching.contact_form_legend">
         <source>Contact form</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.0">
+      <trans-unit id="tl_lead_matching.addFilterForm.0">
         <source>Add real estate form</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.1">
+      <trans-unit id="tl_lead_matching.addFilterForm.1">
         <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.title.0">

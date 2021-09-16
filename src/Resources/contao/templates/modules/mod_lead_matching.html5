@@ -7,22 +7,24 @@
 
 <?php $this->block('content'); ?>
 
-<section class="filter">
-    <div class="description">
-        <h2><?=$this->estateHeadline?></h2>
-        <?=$this->estateDescription?>
-    </div>
-    <div class="estate-form">
-        <?=$this->formEstate?>
-        <?php if($this->countResults): ?>
-            <span data-counter><?=$this->count?></span>
-            <span><?=$this->labelNumberOfItems?></span>
-        <?php endif; ?>
-    </div>
-</section>
+<?php if($this->showFilterForm): ?>
+    <section class="filter">
+        <div class="description">
+            <h2><?=$this->filterHeadline?></h2>
+            <?=$this->filterDescription?>
+        </div>
+        <div class="estate-form">
+            <?=$this->formFilter?>
+            <?php if($this->isLiveCounting): ?>
+                <span data-counter><?=$this->count?></span>
+                <span><?=$this->labelNumberOfItems?></span>
+            <?php endif; ?>
+        </div>
+    </section>
+<?php endif; ?>
 
-<section class="list">
-    <?php if($this->showList): ?>
+<?php if($this->showList): ?>
+    <section class="list">
         <div class="description">
             <h2><?=$this->listHeadline?></h2>
             <?=$this->listDescription?>
@@ -33,23 +35,26 @@
         <?php else: ?>
             <?=$this->labelEmptyList?>
         <?php endif; ?>
-    <?php endif; ?>
-</section>
+    </section>
+<?php endif; ?>
 
-<section class="contact">
-    <div class="description">
-        <h2><?=$this->contactHeadline?></h2>
-        <?=$this->contactDescription?>
-    </div>
-    <div class="contact-form">
-        <?=$this->formContact?>
-    </div>
-</section>
+<?php if($this->showContactForm): ?>
+    <section class="contact">
+        <div class="description">
+            <h2><?=$this->contactHeadline?></h2>
+            <?=$this->contactDescription?>
+        </div>
+        <div class="contact-form">
+            <?=$this->formContact?>
+        </div>
+    </section>
+<?php endif; ?>
 
+<?php if($this->showFilterForm): ?>
 <script>
     document.addEventListener('DOMContentLoaded', function(){
         new LeadMatching({
-            configId: <?=$this->id?>,
+            configId: <?=$this->config->id?>,
             baseUrl: '<?=Contao\Environment::get('url')?>',
             proximitySearch: {
                 active: !!<?=$this->isProximitySearch?>,
@@ -66,5 +71,6 @@
         });
     });
 </script>
+<?php endif; ?>
 
 <?php $this->endblock(); ?>

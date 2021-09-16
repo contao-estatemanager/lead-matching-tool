@@ -35,7 +35,7 @@ use Contao\Model;
  * @property string $estateFormMetaFields
  * @property string $countResults
  * @property bool   $addContactForm
- * @property bool   $addEstateForm
+ * @property bool   $addFilterForm
  * @property int    $contactForm
  * @property int    $estateForm
  * @property string $forceList

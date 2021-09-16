@@ -101,6 +101,14 @@
         <source>Longitude</source>
         <target>Längengrad</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.region_lat">
+        <source>Latitude</source>
+        <target>Breitengrad</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.region_lng">
+        <source>Longitude</source>
+        <target>Längengrad</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.postalcode">
         <source>Postal code</source>
         <target>PLZ</target>
