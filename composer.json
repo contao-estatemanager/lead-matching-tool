@@ -24,7 +24,7 @@
     "friendsofphp/php-cs-fixer": "^2.16"
   },
   "suggest": {
-    "contao-estatemanager/lead-matching-tool-onoffice": "Enables data synchronization via onOffice API"
+    "contao-estatemanager/onoffice-api-import": "Enables data synchronization via onOffice API"
   },
   "conflict": {
     "contao/core": "*",
