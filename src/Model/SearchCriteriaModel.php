@@ -23,6 +23,7 @@ use ContaoEstateManager\RegionEntity\RegionConnectionModel;
 
 /**
  * @property int    $id
+ * @property string $vid
  * @property int    $tstamp
  * @property string $title
  * @property string $marketing
