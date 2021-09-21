@@ -98,6 +98,9 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'sorting' => true,
             'sql' => 'int(10) unsigned NOT NULL auto_increment',
         ],
+        'vid' => [
+            'sql' => "varchar(255) NOT NULL default ''",
+        ],
         'tstamp' => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
             'sorting' => true,
