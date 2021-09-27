@@ -26,7 +26,20 @@ use ContaoEstateManager\RegionEntity\RegionConnectionModel;
  * @property string $vid
  * @property int    $tstamp
  * @property string $title
- * @property string $marketing
+ * @property string $objectType
+ * @property string $marketingType
+ * @property string $room_from
+ * @property string $room_to
+ * @property string $area_from
+ * @property string $area_to
+ * @property string $price_from
+ * @property string $price_to
+ * @property string $latitude
+ * @property string $longitude
+ * @property string $postalcode
+ * @property string $city
+ * @property string $country
+ * @property string $range
  * @property bool   $published
  */
 class SearchCriteriaModel extends Model
@@ -165,7 +178,7 @@ class SearchCriteriaModel extends Model
                                             $formData['region_lat'],
                                             $formData['region_lng'],
                                             $formData['region_lat'],
-                                            $formData['range'] ?? 100,
+                                            $formData['range'] ?: 100,
                                         ],
                                     ];
                                 }

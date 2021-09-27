@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @author    Daniele Sciannimanica (https://github.com/doishub)
  */
 
-namespace ContaoEstateManager\LeadMatchingTool\EventListener;
+namespace ContaoEstateManager\LeadMatchingTool\EventListener\Form;
 
 use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\Form;
@@ -25,7 +25,7 @@ use ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule\LeadMatchingC
 class PrepareFormDataListener
 {
     /**
-     * Pass filter data to form.
+     * Pass filter data to contact form.
      */
     public function __invoke(array &$submittedData, array &$labels, array $fields, Form $form): void
     {

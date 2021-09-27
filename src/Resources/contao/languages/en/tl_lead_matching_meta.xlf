@@ -88,6 +88,9 @@
       <trans-unit id="tl_lead_matching_meta.city">
         <source>City</source>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.country">
+        <source>Country</source>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.submitEstate">
         <source>Search</source>
       </trans-unit>

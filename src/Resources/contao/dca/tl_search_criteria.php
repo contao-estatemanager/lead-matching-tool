@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
 
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},title,marketingType;{config_legend},objectType,room_from,room_to,area_from,area_to,price_from,price_to;{region_legend},regions;{geo_legend},latitude,longitude,postalcode,city,range;{published_legend},published',
+        'default' => '{title_legend},title,marketingType;{config_legend},objectType,room_from,room_to,area_from,area_to,price_from,price_to;{region_legend},regions;{geo_legend},latitude,longitude,postalcode,city,country,range;{published_legend},published',
     ],
 
     // Fields
@@ -221,14 +221,17 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
             'sql' => "varchar(255) NOT NULL default ''",
         ],
         'postalcode' => [
-            'inputType' => 'text',
+            'inputType' => 'listWizard',
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
-            'sql' => "varchar(255) NOT NULL default ''",
+            'sql' => 'blob NULL',
             'leadMatching' => [
                 'group' => [
                     'name' => 'location',
                     'separator' => ' ',
                 ],
+                'format' => function ($varValue) {
+                    return implode(', ', \Contao\StringUtil::deserialize($varValue, true));
+                },
             ],
         ],
         'city' => [
@@ -241,6 +244,11 @@ $GLOBALS['TL_DCA']['tl_search_criteria'] = [
                     'separator' => ' ',
                 ],
             ],
+        ],
+        'country' => [
+            'inputType' => 'text',
+            'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
+            'sql' => "varchar(255) NOT NULL default ''",
         ],
         'range' => [
             'inputType' => 'text',

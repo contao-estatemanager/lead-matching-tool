@@ -21,7 +21,6 @@ use Contao\Database;
 use Contao\DataContainer;
 use Contao\Image;
 use Contao\StringUtil;
-use ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule\LeadMatchingController;
 use ContaoEstateManager\LeadMatchingTool\Model\LeadMatchingModel;
 use ContaoEstateManager\ObjectTypeEntity\ObjectTypeModel;
 use ContaoEstateManager\RegionEntity\RegionModel;
@@ -58,7 +57,7 @@ class TlLeadMatching
      */
     public function saveMarketingTypes($varValue, DataContainer $dc): ?string
     {
-        if (!$varValue || LeadMatchingController::TYPE !== $dc->activeRecord->type)
+        if (!$varValue)
         {
             return $varValue;
         }
@@ -98,7 +97,7 @@ class TlLeadMatching
                 // Remove marketingTypes from palette
                 PaletteManipulator::create()
                     ->removeField('marketingTypes', 'data_legend')
-                    ->applyToPalette('system', $dc->table)
+                    ->applyToPalette('default', $dc->table)
                 ;
             }
         }
@@ -117,7 +116,7 @@ class TlLeadMatching
             {
                 PaletteManipulator::create()
                     ->removeField('regions', 'data_legend')
-                    ->applyToPalette('system', $dc->table)
+                    ->applyToPalette('default', $dc->table)
                 ;
             }
         }
@@ -130,7 +129,7 @@ class TlLeadMatching
      */
     public function saveObjectTypes($varValue, DataContainer $dc): ?string
     {
-        if (!$varValue || LeadMatchingController::TYPE !== $dc->activeRecord->type)
+        if (!$varValue)
         {
             return $varValue;
         }
@@ -170,7 +169,7 @@ class TlLeadMatching
      */
     public function saveRegions($varValue, DataContainer $dc): ?string
     {
-        if (!$varValue || LeadMatchingController::TYPE !== $dc->activeRecord->type)
+        if (!$varValue)
         {
             return $varValue;
         }

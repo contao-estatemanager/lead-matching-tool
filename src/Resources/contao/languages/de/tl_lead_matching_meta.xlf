@@ -117,6 +117,10 @@
         <source>City</source>
         <target>Stadt</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching_meta.country">
+        <source>Country</source>
+        <target>Land</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching_meta.submitEstate">
         <source>Search</source>
         <target>Interessenten suchen</target>
