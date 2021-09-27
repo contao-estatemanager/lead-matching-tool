@@ -1,153 +1,157 @@
 <?xml version="1.0" ?><xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/tl_searchcriteria.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_search_criteria.php" source-language="en" target-language="de">
     <body>
-      <trans-unit id="tl_searchcriteria.title_legend">
+      <trans-unit id="tl_search_criteria.title_legend">
         <source>Title / Marketing type</source>
         <target>Titel / Vermarktung</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.config_legend">
+      <trans-unit id="tl_search_criteria.config_legend">
         <source>Config</source>
         <target>Konfiguration</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.published_legend">
+      <trans-unit id="tl_search_criteria.published_legend">
         <source>Publish</source>
         <target>Veröffentlichen</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.geo_legend">
-        <source>Geo-Information / Circumference search</source>
-        <target>Geo-Informationen / Umkreissuche</target>
-      </trans-unit>
-
-      <trans-unit id="tl_searchcriteria.title.0">
-        <source>Title / Headline</source>
-        <target>Titel / Überschrift</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.title.1">
-        <source>Here you can enter a title / headline.</source>
-        <target>Geben Sie hie einn Titel / eine Überschrift an.</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.tstamp.0">
-        <source>Date</source>
-        <target>Datum</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.marketing.0">
-        <source>Marketng type</source>
-        <target>Vermarktungsart</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.marketing.1">
-        <source>Indicate which marketing you are looking for.</source>
-        <target>Geben Sie an für welche Vermarktung gesucht wird.</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.objectType.0">
-        <source>Objecttype</source>
-        <target>Objektart</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.objectType.1">
-        <source>Choose the Object type.</source>
-        <target>Wählen Sie die Objektart.</target>
-      </trans-unit>
-      <trans-unit id="tl_searchcriteria.regions.0">
+      <trans-unit id="tl_search_criteria.region_legend">
         <source>Regions</source>
         <target>Regionen</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.regions.1">
-        <source>Define the regions.</source>
-        <target>Definieren Sie die Regionen.</target>
+      <trans-unit id="tl_search_criteria.geo_legend">
+        <source>Proximity search</source>
+        <target>Umkreissuche</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.room_from.0">
+
+      <trans-unit id="tl_search_criteria.title.0">
+        <source>Title / Headline</source>
+        <target>Titel / Überschrift</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.title.1">
+        <source>Here you can enter a title / headline.</source>
+        <target>Geben Sie hie einn Titel / eine Überschrift an.</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.tstamp.0">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.marketingType.0">
+        <source>Marketng type</source>
+        <target>Vermarktungsart</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.marketingType.1">
+        <source>Indicate which marketing you are looking for.</source>
+        <target>Geben Sie an für welche Vermarktung gesucht wird.</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.objectType.0">
+        <source>Objecttype</source>
+        <target>Objektart</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.objectType.1">
+        <source>Choose the Object type.</source>
+        <target>Wählen Sie die Objektart.</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.regions.0">
+        <source>Regions</source>
+        <target>Regionen</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.regions.1">
+        <source>Define the regions. This field is observed if manual selection is preferred.</source>
+        <target>Definieren Sie die Regionen. Dieses Feld wird beachtet, wenn eine manuelle Auswahl bevorzugt wird.</target>
+      </trans-unit>
+      <trans-unit id="tl_search_criteria.room_from.0">
         <source>Room from</source>
         <target>Zimmer ab</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.room_from.1">
+      <trans-unit id="tl_search_criteria.room_from.1">
         <source>Specify how many rooms you are looking for (from).</source>
         <target>Geben Sie an ab wie viel Zimmer gesucht wird.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.room_to.0">
+      <trans-unit id="tl_search_criteria.room_to.0">
         <source>Room to</source>
         <target>Zimmer bis</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.room_to.1">
+      <trans-unit id="tl_search_criteria.room_to.1">
         <source>Specify how many rooms you are looking for (to).</source>
         <target>Geben Sie an bis wie viel Zimmer gesucht wird.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.area_from.0">
+      <trans-unit id="tl_search_criteria.area_from.0">
         <source>Area from</source>
         <target>Fläche ab</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.area_from.1">
+      <trans-unit id="tl_search_criteria.area_from.1">
         <source>Define the area size (from).</source>
         <target>Geben Sie an ab welcher Größe gesucht wird.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.area_to.0">
+      <trans-unit id="tl_search_criteria.area_to.0">
         <source>Area to</source>
         <target>Fläche bis</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.area_to.1">
+      <trans-unit id="tl_search_criteria.area_to.1">
         <source>Define the area size (to).</source>
         <target>Geben Sie an bis zu welcher Größe gesucht wird.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.price_from.0">
+      <trans-unit id="tl_search_criteria.price_from.0">
         <source>Price from</source>
         <target>Preis ab</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.price_from.1">
+      <trans-unit id="tl_search_criteria.price_from.1">
         <source>Define the price (from).</source>
         <target>Geben Sie eine Preisvorstellung (ab) an.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.price_to.0">
+      <trans-unit id="tl_search_criteria.price_to.0">
         <source>Price to</source>
         <target>Preis bis</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.price_to.1">
+      <trans-unit id="tl_search_criteria.price_to.1">
         <source>Define the price size (to).</source>
         <target>Geben Sie eine Preisvorstellung (bis) an.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.latitude.0">
+      <trans-unit id="tl_search_criteria.latitude.0">
         <source>Latitude</source>
         <target>Breitengrad</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.latitude.1">
+      <trans-unit id="tl_search_criteria.latitude.1">
         <source>Enter the latitude of the region.</source>
         <target>Geben Sie hier den Breitengrad der Region an.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.longitude.0">
+      <trans-unit id="tl_search_criteria.longitude.0">
         <source>Longitude</source>
         <target>Längengrad</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.longitude.1">
+      <trans-unit id="tl_search_criteria.longitude.1">
         <source>Enter the longitude of the region.</source>
         <target>Geben Sie hier den Längengrad der Region an.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.postalcode.0">
+      <trans-unit id="tl_search_criteria.postalcode.0">
         <source>Postal code</source>
         <target>Postleitzahl</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.postalcode.1">
+      <trans-unit id="tl_search_criteria.postalcode.1">
         <source>Enter the postal code of the region.</source>
         <target>Geben Sie hier die Postleitzahl der Region an.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.city.0">
+      <trans-unit id="tl_search_criteria.city.0">
         <source>City</source>
         <target>Stadt</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.city.1">
+      <trans-unit id="tl_search_criteria.city.1">
         <source>Enter the city of the region.</source>
         <target>Geben Sie hier den Namen der Region an.</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.range.0">
+      <trans-unit id="tl_search_criteria.range.0">
         <source>Search within a radius of</source>
         <target>Such im Umkreis von</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.range.1">
+      <trans-unit id="tl_search_criteria.range.1">
         <source>Enter the maximum radius (km - without unit).</source>
         <target>Geben Sie hier den maximalen Radius an (km - ohne Einheit)</target>
       </trans-unit>
 
-      <trans-unit id="tl_searchcriteria.published.0">
+      <trans-unit id="tl_search_criteria.published.0">
         <source>Publish search inquiry</source>
         <target>Suchanfrage veröffentlichen</target>
       </trans-unit>
-      <trans-unit id="tl_searchcriteria.published.1">
+      <trans-unit id="tl_search_criteria.published.1">
         <source>Make the search query publicly visible on the website.</source>
         <target>Diese Suchanfrage auf der Webseite anzeigen.</target>
       </trans-unit>

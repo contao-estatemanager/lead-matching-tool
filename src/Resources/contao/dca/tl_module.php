@@ -1,62 +1,24 @@
 <?php
-/**
- * This file is part of Contao EstateManager.
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the Contao EstateManager extension "Lead Matching Tool".
  *
  * @link      https://www.contao-estatemanager.com/
  * @source    https://github.com/contao-estatemanager/lead-matching-tool
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
+ * @copyright Copyright (c) 2021 Oveleon (https://www.oveleon.de)
  * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
+ * @author    Daniele Sciannimanica (https://github.com/doishub)
  */
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['leadMatching'] = '{title_legend},name,headline,type;{config_legend},lmtConfig;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['lead_matching'] = '{title_legend},name,headline,type;{config_legend},lmtConfig;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 // Add fields
-$GLOBALS['TL_DCA']['tl_module']['fields']['lmtConfig'] = array
-(
-    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['lmtConfig'],
-    'exclude'                 => true,
-    'inputType'               => 'select',
-    'options_callback'        => array('tl_module_lead_matching', 'getLeadMatchingConfiguration'),
-    'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(255) NOT NULL default ''"
-);
-
-
-/**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Daniele Sciannimanica <https://github.com/doishub>
- */
-class tl_module_lead_matching extends Contao\Backend
-{
-    /**
-     * Import the back end user object
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->import('Contao\BackendUser', 'User');
-    }
-
-    /**
-     * Returns an array of lead matching configurations
-     *
-     * @return array
-     */
-    public function getLeadMatchingConfiguration(): array
-    {
-        $arrOptions = array();
-
-        $objConfigs = ContaoEstateManager\LeadMatchingTool\LeadMatchingModel::findAll();
-
-        if($objConfigs)
-        {
-            while($objConfigs->next())
-            {
-                $arrOptions[ $objConfigs->id ] = $objConfigs->title;
-            }
-        }
-
-        return $arrOptions;
-    }
-}
+$GLOBALS['TL_DCA']['tl_module']['fields']['lmtConfig'] = [
+    'exclude' => true,
+    'inputType' => 'select',
+    'options_callback' => ['ContaoEstateManager\LeadMatchingTool\Contao\Dca\TlModule', 'getLeadMatchingConfiguration'],
+    'eval' => ['chosen' => true, 'mandatory' => true, 'tl_class' => 'w50'],
+    'sql' => "varchar(255) NOT NULL default ''",
+];

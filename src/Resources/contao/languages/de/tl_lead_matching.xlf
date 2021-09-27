@@ -2,16 +2,12 @@
   <file datatype="php" original="src/Resources/contao/languages/en/tl_lead_matching.php" source-language="en" target-language="de">
     <body>
       <trans-unit id="tl_lead_matching.title_legend">
-        <source>Titel</source>
-        <target>Titel</target>
+        <source>Title / Configuration</source>
+        <target>Titel / Konfiguration</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.data_legend">
         <source>Data-Configuration</source>
         <target>Daten-Konfiguration</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.config_legend">
-        <source>Base-Configuration</source>
-        <target>Basis-Konfiguration</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.searchcriteria_legend">
         <source>Searchcriteria / List</source>
@@ -25,13 +21,29 @@
         <source>Contact form</source>
         <target>Kontaktformular</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.0">
-        <source>Add real estate form</source>
-        <target>Immobilien-Formular hinzufügen</target>
+      <trans-unit id="tl_lead_matching.addFilterForm.0">
+        <source>Add filter</source>
+        <target>Filter hinzufügen</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.1">
+      <trans-unit id="tl_lead_matching.addFilterForm.1">
         <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
         <target>Wird benötigt um die Liste anhand von Immobilien-Eckdaten zu filtern. Ohne Formular wird die komplette Liste gefundener Suchanfragen ausgegeben.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
+        <source>Estate form fields</source>
+        <target>Immobilien-Formularfelder</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
+        <source>Define the fields to display.</source>
+        <target>Definieren Sie die anzuzeigenden Felder.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactForm.0">
+        <source>Contact form</source>
+        <target>Kontakt-Formular</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactForm.1">
+        <source>Select the form here.</source>
+        <target>Wählen Sie hier das Formular aus, welches zuvor im Formular-Generator erstellt wurde.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.title.0">
         <source>Title</source>
@@ -89,21 +101,33 @@
         <source>Includes a blank option to the object types in the frontend.</source>
         <target>Fügt den Regionen eine Leerauswahl im Frontend hinzu.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.0">
-        <source>Use precise region search</source>
-        <target>Präzise Regionensuche verwenden</target>
+      <trans-unit id="tl_lead_matching.regionMode.0">
+        <source>Region enter mode</source>
+        <target>Regionen Eingabemodus</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.1">
-        <source>If the precise region search is active, a select box with selectable regions is provided instead of a radius search.</source>
-        <target>Sofern die präzise Regionensuche aktiv ist, wird, statt einer Umkreissuche eine Select-Box mit auswählbaren Regionen zur Verfügung gestellt.</target>
+      <trans-unit id="tl_lead_matching.regionMode.1">
+        <source>Defines how the regions are entered.</source>
+        <target>Definiert wie die Eingabe der Regionen erfolgt.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addBlankSalutation.0">
-        <source>Include blank option for salutation</source>
-        <target>Leerauswahl für die Anrede hinzufügen</target>
+      <trans-unit id="tl_lead_matching.selection">
+        <source>Own selection</source>
+        <target>Eigene Auswahl</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addBlankSalutation.1">
-        <source>Includes a blank option to the salutation field in the frontend.</source>
-        <target>Fügt der Anrede eine Leerauswahl im Frontend hinzu.</target>
+      <trans-unit id="tl_lead_matching.google">
+        <source>Google (proximity search)</source>
+        <target>Google (Umkreissuche)</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.0">
+        <source>Google API-Key</source>
+        <target>Google API-Schlüssel</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.1">
+        <source>Enter your API key here to enable the proximity search via Google. The library "places" must be available.</source>
+        <target>Geben Sie hier Ihren API-Schlüssel an um die Umkreissuche über Google zu ermöglichen. Die Bibliothek "places" muss zur Verfügung stehen.</target>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.system">
+        <source>System (proximity search)</source>
+        <target>System (Umkreissuche)</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.countResults.0">
         <source>Display quantity</source>
@@ -129,22 +153,6 @@
         <source>The number of items per page. Set to 0 to disable pagination.</source>
         <target>Die Anzahl an Elementen pro Seite. Geben Sie 0 ein, um den automatischen Seitenumbruch zu deaktivieren.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormTemplate.0">
-        <source>Estatedata Form Template</source>
-        <target>Immobiliendaten Formular-Template</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormTemplate.1">
-        <source>Please select a template.</source>
-        <target>Bitte wählen Sie ein Template.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormTemplate.0">
-        <source>Contact Form Template</source>
-        <target>Kontaktformular-Template</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormTemplate.1">
-        <source>Please select a template.</source>
-        <target>Bitte wählen Sie ein Formular-Template.</target>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.listItemTemplate.0">
         <source>List Item Template</source>
         <target>Listen Element Template</target>
@@ -169,6 +177,10 @@
         <source>Specify the marketing type. If the field is left empty, all marketing types are taken into account.</source>
         <target>Geben Sie die Vermarktungsart an. Sollte das Feld leer gelassen werden, werden alle Vermarktungsarten berücksichtigt.</target>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.marketingTypeBlank">
+        <source>Manual selection</source>
+        <target>Manuelle Auswahl</target>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.marketingTypes.0">
         <source>Marketing types</source>
         <target>Vermarktungsarten</target>
@@ -185,38 +197,6 @@
         <source>Define the fields to display.</source>
         <target>Definieren Sie die anzuzeigenden Felder.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
-        <source>Estate form fields</source>
-        <target>Immobilien-Formularfelder</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
-        <source>Define the fields to display.</source>
-        <target>Definieren Sie die anzuzeigenden Felder.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFields.0">
-        <source>Contact form fields</source>
-        <target>Kontakt-Formularfelder</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFields.1">
-        <source>Define the fields to display.</source>
-        <target>Definieren Sie die anzuzeigenden Felder.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.0">
-        <source>Estate form mandatory fields</source>
-        <target>Immobilien-Formular Pflichtfelder</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.1">
-        <source>Define the fields to display as mandatory.</source>
-        <target>Definieren Sie die Pflichtfelder.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.0">
-        <source>Contact form mandatory fields</source>
-        <target>Kontakt-Formular Pflichtfelder</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.1">
-        <source>Define the fields to display as mandatory.</source>
-        <target>Definieren Sie die Pflichtfelder.</target>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.objectTypes.0">
         <source>Objecttypes</source>
         <target>Objektarten</target>
@@ -230,16 +210,8 @@
         <target>Regionen</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.regions.1">
-        <source>Define the regions to display.</source>
-        <target>Definieren Sie die anzuzeigenden Regionen.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.salutationFields.0">
-        <source>Salutation fields</source>
-        <target>Anrede-Felder</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.salutationFields.1">
-        <source>Define here the possible salutation fields.</source>
-        <target>Definieren Sie hier die möglichen Anrede-Felder.</target>
+        <source>Define the selectable regions.</source>
+        <target>Definieren Sie die auswählbaren Regionen.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.contactFormCheckboxes.0">
         <source>Checkbox fields</source>
@@ -248,30 +220,6 @@
       <trans-unit id="tl_lead_matching.contactFormCheckboxes.1">
         <source>Define the possible checkbox fields here. Please save this configuration to select the checkbox fields to be displayed via contact form fields.</source>
         <target>Definieren Sie hier die möglichen Checkbox-Felder. Bitte speichern Sie diese Konfiguration um anschließend die anzuzeigenden Checkbox-Felder über Kontakt-Formularfelder auszuwählen.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailSubject.0">
-        <source>Mail subject</source>
-        <target>E-Mail Betreff</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailSubject.1">
-        <source>Define here the mail sibject.</source>
-        <target>Definieren Sie hier einen E-Mailbetreff.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailTo.0">
-        <source>Mail reciver</source>
-        <target>E-Mail Empfänger</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailTo.1">
-        <source>Define here the mail reciver.</source>
-        <target>Definieren Sie hier einen E-Mail Empfänger.</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.jumpTo.0">
-        <source>Redirect page</source>
-        <target>Weiterleitungsseite</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.jumpTo.1">
-        <source>Please choose the page to which visitors will be redirected when clicking a link or submitting a form.</source>
-        <target>Bitte wählen Sie die Seite aus, zu der Besucher beim Anklicken eines Links oder Abschicken eines Formulars weitergeleitet werden.</target>
       </trans-unit>
       <trans-unit id="tl_lead_matching.txtListHeadline.0">
         <source>Headline</source>
@@ -329,13 +277,10 @@
         <source>Groups related fields and outputs them as from to values.</source>
         <target>Gruppiert zusammenhängende Felder und gibt diese als von bis  Werte aus.</target>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.rangeOptions.0">
-        <source>Range options</source>
-        <target>Umkreis-Optionen</target>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.rangeOptions.1">
-        <source>Here you can specify a list of available perimeter options (in km)</source>
-        <target>Hier können Sie eine Liste der verfügbaren Umkreis-Optionen angeben (in km).</target>
+
+      <trans-unit id="tl_lead_matching.editalias">
+        <source>Edit the source element ID %s</source>
+        <target>Quellelement ID %s bearbeiten</target>
       </trans-unit>
     </body>
   </file>

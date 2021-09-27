@@ -1,52 +1,76 @@
 <?php
-    $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/estatemanagerleadmatchingtool/lead-matching-tool/lead-matching-tool.js|static';
-    $GLOBALS['TL_CSS'][]        = 'bundles/estatemanagerleadmatchingtool/lead-matching-tool/lead-matching-tool.css|static';
+    $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/estatemanagerleadmatchingtool/scripts/dist/main.js|static';
+    $GLOBALS['TL_CSS'][] = 'bundles/estatemanagerleadmatchingtool/styles/leadmatching.css';
 ?>
 
 <?php $this->extend('block_unsearchable'); ?>
 
 <?php $this->block('content'); ?>
 
-<div class="inside">
-    <?php if($this->addEstateForm): ?>
-        <section id="estate-form">
-            <?=$this->headlineEstateForm ? '<h2>'.$this->headlineEstateForm.'</h2>' : ''?>
-            <?=$this->labelEstateForm ? '<p>'.$this->labelEstateForm.'</p>' : ''?>
-            <?=$this->estateForm?>
-        </section>
-    <?php endif; ?>
-    <?php if($this->addCunter): ?>
-        <div id="counter">
-            <?=$this->cntTotal?>
+<?php if($this->showFilterForm): ?>
+    <section class="filter">
+        <div class="description">
+            <h2><?=$this->filterHeadline?></h2>
+            <?=$this->filterDescription?>
         </div>
-        <?=$this->labelCount ? '<span>'.$this->labelCount.'</span>' : ''?>
-    <?php endif; ?>
-    <?php if($this->addList): ?>
-        <section id="result-list">
-            <?=$this->headlineList ? '<h3>'.$this->headlineList.'</h3>' : ''?>
-            <?=$this->labelList ? '<h4>'.$this->labelList.'</h4>' : ''?>
-
-            <?php if($this->items): ?>
-                <?= implode('', $this->items) ?>
-                <?=$this->pagination?>
+        <div class="estate-form">
+            <?=$this->formFilter?>
+            <?php if($this->isLiveCounting): ?>
+                <span data-counter><?=$this->count?></span>
+                <span><?=$this->labelNumberOfItems?></span>
             <?php endif; ?>
-        </section>
-    <?php endif; ?>
-    <?php if($this->addContactForm): ?>
-        <section id="contact-form">
-            <?=$this->headlineContactForm ? '<h3>'.$this->headlineContactForm.'</h3>' : ''?>
-            <?=$this->labelContactForm ? '<p>'.$this->labelContactForm.'</p>' : ''?>
-            <?=$this->contactForm?>
-        </section>
-    <?php endif; ?>
-</div>
+        </div>
+    </section>
+<?php endif; ?>
 
-<script type="text/javascript">
-    var lmt = new LeadMatchingTool(<?=$this->configId?>, {
-        container: '#<?=$this->moduleId?>',
-        counter: '#counter',
-        form: '#estate-form form',
+<?php if($this->showList): ?>
+    <section class="list">
+        <div class="description">
+            <h2><?=$this->listHeadline?></h2>
+            <?=$this->listDescription?>
+        </div>
+        <?php if($this->list): ?>
+            <?=$this->list?>
+            <?=$this->pagination?>
+        <?php else: ?>
+            <?=$this->labelEmptyList?>
+        <?php endif; ?>
+    </section>
+<?php endif; ?>
+
+<?php if($this->showContactForm): ?>
+    <section class="contact">
+        <div class="description">
+            <h2><?=$this->contactHeadline?></h2>
+            <?=$this->contactDescription?>
+        </div>
+        <div class="contact-form">
+            <?=$this->formContact?>
+        </div>
+    </section>
+<?php endif; ?>
+
+<?php if($this->showFilterForm): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        new LeadMatching({
+            configId: <?=$this->config->id?>,
+            baseUrl: '<?=Contao\Environment::get('url')?>',
+            proximitySearch: {
+                active: !!<?=$this->isProximitySearch?>,
+                engine: '<?=$this->proximityEngine?>',
+                google: {
+                    loader: {
+                        apiKey: '<?=$this->googleApiKey?>'
+                    }
+                }
+            },
+            countLive: {
+                active: !!<?=$this->isLiveCounting?>
+            }
+        });
     });
 </script>
+<?php endif; ?>
 
 <?php $this->endblock(); ?>

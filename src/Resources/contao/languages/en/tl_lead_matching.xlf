@@ -19,10 +19,10 @@
       <trans-unit id="tl_lead_matching.contact_form_legend">
         <source>Contact form</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.0">
+      <trans-unit id="tl_lead_matching.addFilterForm.0">
         <source>Add real estate form</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.addEstateForm.1">
+      <trans-unit id="tl_lead_matching.addFilterForm.1">
         <source>Needed to filter the list by real estate data. Without form, the complete list of found search inquiries is displayed.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.title.0">
@@ -49,6 +49,18 @@
       <trans-unit id="tl_lead_matching.addContactForm.1">
         <source>Allows you to contact specific search inquiries.</source>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
+        <source>Estate form fields</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
+        <source>Define the fields to display.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactForm.0">
+        <source>Contact form</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.contactForm.1">
+        <source>Select the form here.</source>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankMarketingType.0">
         <source>Include blank option for marketing types</source>
       </trans-unit>
@@ -61,23 +73,32 @@
       <trans-unit id="tl_lead_matching.addBlankObjectType.1">
         <source>Includes a blank option to the object types in the frontend.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.0">
-        <source>Use precise region search</source>
+      <trans-unit id="tl_lead_matching.regionMode.0">
+        <source>Region mode</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.preciseRegionSearch.1">
-        <source>If the precise region search is active, a select box with selectable regions is provided instead of a radius search.</source>
+      <trans-unit id="tl_lead_matching.regionMode.1">
+        <source>Defines how the regions are entered.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.selection">
+        <source>Own selection</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.google">
+        <source>Google (proximity search)</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.0">
+        <source>Google API-Key</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.googleApiKey.1">
+        <source>Enter your API key here to enable the proximity search via Google. The library "places" must be available.</source>
+      </trans-unit>
+      <trans-unit id="tl_lead_matching.system">
+        <source>System (proximity search)</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankRegion.0">
         <source>Include blank option for regions</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.addBlankRegion.1">
         <source>Includes a blank option to the object types in the frontend.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.addBlankSalutation.0">
-        <source>Include blank option for salutation</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.addBlankSalutation.1">
-        <source>Includes a blank option to the salutation field in the frontend.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.countResults.0">
         <source>Display quantity</source>
@@ -97,18 +118,6 @@
       <trans-unit id="tl_lead_matching.perPage.1">
         <source>The number of items per page. Set to 0 to disable pagination.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormTemplate.0">
-        <source>Estatedata Form Template</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormTemplate.1">
-        <source>Please select a template.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormTemplate.0">
-        <source>Contact Form Template</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormTemplate.1">
-        <source>Please select a template.</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.listItemTemplate.0">
         <source>List Item Template</source>
       </trans-unit>
@@ -127,6 +136,9 @@
       <trans-unit id="tl_lead_matching.marketingType.1">
         <source>Specify the marketing type. If the field is left empty, all marketing types are taken into account.</source>
       </trans-unit>
+      <trans-unit id="tl_lead_matching.marketingTypeBlank">
+        <source>Manual selection</source>
+      </trans-unit>
       <trans-unit id="tl_lead_matching.marketingTypes.0">
         <source>Marketing types</source>
       </trans-unit>
@@ -139,30 +151,6 @@
       <trans-unit id="tl_lead_matching.listMetaFields.1">
         <source>Define the fields to display.</source>
       </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFields.0">
-        <source>Estate form fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFields.1">
-        <source>Define the fields to display.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFields.0">
-        <source>Contact form fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFields.1">
-        <source>Define the fields to display.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.0">
-        <source>Estate form mandatory fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.estateFormMetaFieldsMandatory.1">
-        <source>Define the fields to display as mandatory.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.0">
-        <source>Contact form mandatory fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.contactFormMetaFieldsMandatory.1">
-        <source>Define the fields to display as mandatory.</source>
-      </trans-unit>
       <trans-unit id="tl_lead_matching.objectTypes.0">
         <source>Objecttypes</source>
       </trans-unit>
@@ -173,31 +161,17 @@
         <source>Regions</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.regions.1">
-        <source>Define the regions to display.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.salutationFields.0">
-        <source>Salutation fields</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.salutationFields.1">
-        <source>Define here the possible salutation fields.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailSubject.0">
-        <source>Mail subject</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.mailSubject.1">
-        <source>Define here the mail sibject.</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.jumpTo.0">
-        <source>Redirect page</source>
-      </trans-unit>
-      <trans-unit id="tl_lead_matching.jumpTo.1">
-        <source>Please choose the page to which visitors will be redirected when clicking a link or submitting a form.</source>
+        <source>Define the selectable regions.</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.groupRelatedFields.0">
         <source>Group related fields</source>
       </trans-unit>
       <trans-unit id="tl_lead_matching.groupRelatedFields.1">
         <source>Groups related fields and outputs them as from to values.</source>
+      </trans-unit>
+
+      <trans-unit id="tl_lead_matching.editalias">
+        <source>Edit the source element ID %s</source>
       </trans-unit>
     </body>
   </file>

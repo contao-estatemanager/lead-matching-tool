@@ -2,7 +2,7 @@
     <?php foreach ($this->fields as $field):?>
         <div class="<?=$field['class']?>">
             <span class="label"><?=$field['label']?></span>
-            <span class="value"><?=$field['value']?></span>
+            <span class="value"><?=$field['value'] ?: $GLOBALS['TL_LANG']['tl_lead_matching_meta']['emptyField']?></span>
         </div>
     <?php endforeach; ?>
 </div>
