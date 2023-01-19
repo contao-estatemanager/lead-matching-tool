@@ -83,6 +83,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {
         Controller::loadLanguageFile('tl_lead_matching_meta');
+        Controller::loadDataContainer('tl_lead_matching');
         Controller::loadDataContainer('tl_search_criteria');
 
         $this->config = LeadMatchingModel::findByIdOrAlias($model->lmtConfig);
@@ -404,6 +405,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
             switch ($fieldName)
             {
                 case self::FIELD_MARKETING:
+                    $fieldOptions['inputType'] = 'select';
                     $fieldOptions['options'] = StringUtil::deserialize($this->config->marketingTypes);
                     $fieldOptions['reference'] = $GLOBALS['TL_LANG']['tl_lead_matching_meta'];
                     break;
@@ -425,6 +427,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
                         }
                     }
 
+                    $fieldOptions['inputType'] = 'select';
                     $fieldOptions['options'] = $arrOptions;
                     break;
 
