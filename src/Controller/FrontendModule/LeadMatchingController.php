@@ -83,6 +83,7 @@ class LeadMatchingController extends AbstractFrontendModuleController
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {
         Controller::loadLanguageFile('tl_lead_matching_meta');
+        Controller::loadDataContainer('tl_search_criteria');
 
         $this->config = LeadMatchingModel::findByIdOrAlias($model->lmtConfig);
 
