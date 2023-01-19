@@ -16,6 +16,7 @@ namespace ContaoEstateManager\LeadMatchingTool\Controller\FrontendModule;
 
 use Contao\Config;
 use Contao\ContentElement;
+use Contao\Controller;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\Exception\PageNotFoundException;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
@@ -81,6 +82,8 @@ class LeadMatchingController extends AbstractFrontendModuleController
      */
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {
+        Controller::loadLanguageFile('tl_lead_matching_meta');
+
         $this->config = LeadMatchingModel::findByIdOrAlias($model->lmtConfig);
 
         if (null === $this->config)
