@@ -20,7 +20,7 @@ use ContaoEstateManager\LeadMatchingTool\Model\SearchCriteriaModel;
 if (ContaoEstateManager\LeadMatchingTool\EstateManager\AddonManager::valid())
 {
     // Back end modules
-    array_insert($GLOBALS['BE_MOD']['real_estate'], count($GLOBALS['BE_MOD']['real_estate'] ?? []) ? : 3, [
+    array_insert($GLOBALS['BE_MOD']['estatemanager'], count($GLOBALS['BE_MOD']['estatemanager'] ?? []) ? : 3, [
         'searchcriteria' => [
             'tables' => ['tl_search_criteria'],
         ],
