@@ -32,7 +32,7 @@ class PrepareFormDataListener
         $objSessionBag = System::getContainer()->get('session')->getBag('contao_frontend');
         $forms = $objSessionBag->get(LeadMatchingController::SESSION_BAG_KEY);
 
-        if (\array_key_exists($form->id, $forms))
+        if ($forms && \array_key_exists($form->id, $forms))
         {
             foreach ($forms[$form->id] as $name => $data)
             {

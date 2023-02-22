@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace ContaoEstateManager\LeadMatchingTool\Model;
 
+use Contao\Controller;
 use Contao\Database;
 use Contao\Model;
 use Contao\Model\Collection;
@@ -85,6 +86,8 @@ class SearchCriteriaModel extends Model
     public static function createFilterQuery(string $strSelect, LeadMatchingModel $objConfig, ?array $formData = null): array
     {
         $strTable = static::$strTable;
+
+        Controller::loadDataContainer('tl_lead_matching');
 
         $arrFieldOptions = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['leadMatching'] ?? [];
         $validFields = $GLOBALS['TL_DCA']['tl_lead_matching']['fields']['estateFormMetaFields']['options'] ?? [];
